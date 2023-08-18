@@ -22,6 +22,6 @@ Tool Check done for:
      
 Below is the screenshot showing sucessful launch of icc2_shell:
 
-<img width="900" alt="icc2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ed1773daf8103d894afe0af1ad9d4594f5ba69be/icc2.png">
+<img width="900" alt="icc2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d3f654d104aeaca72a38bb2f0c068ce9d3f04c39/iic2.jpg">
 </details>
 
