@@ -17,11 +17,11 @@ Tool Check done for:
 </details>	
 	
 <details>
- <summary> Yosys </summary>
+ <summary> ICC2 Tool </summary>
 
      
 Below is the screenshot showing sucessful launch of icc2_shell:
 
-<img width="1085" alt="yosys" src="">
+<img width="1085" alt="yosys" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ed1773daf8103d894afe0af1ad9d4594f5ba69be/icc2.png">
 </details>
 
