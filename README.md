@@ -17,7 +17,61 @@ Tool Check done for:
 </details>	
 	
 <details>
- <summary> ICC2 Tool </summary>
+ <summary> ICC2 Shell </summary>
+
+     
+Below is the screenshot showing sucessful launch of icc2_shell:
+
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+</details>
+
+<details>
+ <summary> DC Shell </summary>
+
+     
+Below is the screenshot showing sucessful launch of icc2_shell:
+
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+</details>
+
+<details>
+ <summary> PT Shell </summary>
+
+     
+Below is the screenshot showing sucessful launch of icc2_shell:
+
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+</details>
+
+<details>
+ <summary> LC Tool </summary>
+
+     
+Below is the screenshot showing sucessful launch of icc2_shell:
+
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+</details>
+
+ <details>
+ <summary> Yosys Tool </summary>
+
+     
+Below is the screenshot showing sucessful launch of icc2_shell:
+
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+</details>
+
+<details>
+ <summary> GTKWave Tool </summary>
+
+     
+Below is the screenshot showing sucessful launch of icc2_shell:
+
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+</details>
+
+<details>
+ <summary> Iverilog Tool </summary>
 
      
 Below is the screenshot showing sucessful launch of icc2_shell:
