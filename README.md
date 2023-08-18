@@ -1,26 +1,15 @@
 # Samsung-PD-Training
 This github repository summarizes the progress made in the samsung PD training. Quick links:
 
-- [Day-0-Tool-Check](#day-0-Tool-Check)
+- [Day-0-Tool-Setup-Check](#day-0-Tool-Setup-Check)
   
-## Day-0-Tool-Check
-<details>
- <summary> Summary </summary>
-Tool Check done for:
-  ,icc2_shell
-  ,pt_shell
-  ,dc_shell
-  ,lc_shell
-  ,Yosys
-  ,Gtkwave
-  ,Iverilog
-</details>	
-	
+## Day-0-Tool-Setup-Check
+
 <details>
  <summary> ICC2 Shell </summary>
 
      
-Below is the screenshot showing sucessful launch of icc2_shell:
+Below is the screenshot  icc2_shell:
 
 <img width="1080" alt="icc2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3571aaa4834b290c9e03a5c920b1300fe168c497/docs/assets/images/iic2.jpg">
 </details>
@@ -29,7 +18,7 @@ Below is the screenshot showing sucessful launch of icc2_shell:
  <summary> DC Shell </summary>
 
      
-Below is the screenshot showing sucessful launch of dc_shell:
+Below is the screenshot  dc_shell:
 
 <img width="1080" alt="pic2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c1e43e418511df18b66bc80e51f2f36c58caffc9/docs/assets/images/pic2.png">
 </details>
@@ -38,7 +27,7 @@ Below is the screenshot showing sucessful launch of dc_shell:
  <summary> PT Shell </summary>
 
      
-Below is the screenshot showing sucessful launch of pt_shell:
+Below is the screenshot pt_shell:
 
 <img width="1080" alt="pt.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c1e43e418511df18b66bc80e51f2f36c58caffc9/docs/assets/images/pt.png">
 </details>
@@ -47,7 +36,7 @@ Below is the screenshot showing sucessful launch of pt_shell:
  <summary> LC Tool </summary>
 
      
-Below is the screenshot showing sucessful launch of lc_shell:
+Below is the screenshot lc_shell:
 
 <img width="1080" alt="lc.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c1e43e418511df18b66bc80e51f2f36c58caffc9/docs/assets/images/lc.png">
 </details>
@@ -56,7 +45,7 @@ Below is the screenshot showing sucessful launch of lc_shell:
  <summary> Yosys Tool </summary>
 
      
-Below is the screenshot showing sucessful launch of yosys:
+Below is the screenshot yosys:
 
 <img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/694af0685ed92cb7f26b96ebab6e2bc40875e4c3/docs/assets/images/yosys.png">
 </details>
@@ -65,7 +54,7 @@ Below is the screenshot showing sucessful launch of yosys:
  <summary> GTKWave Tool </summary>
 
      
-Below is the screenshot showing sucessful launch of GTKWave:
+Below is the screenshot GTKWave:
 
 <img width="1080" alt="gtkwave.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/694af0685ed92cb7f26b96ebab6e2bc40875e4c3/docs/assets/images/gtkwave.png">
 </details>
@@ -74,8 +63,20 @@ Below is the screenshot showing sucessful launch of GTKWave:
  <summary> Iverilog Tool </summary>
 
      
-Below is the screenshot showing sucessful launch of Iverilog:
+Below is the screenshot Iverilog:
 
 <img width="1080" alt="iverilog.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/375334654ad23ffa264268291b7ce1a112cb8be3/docs/assets/images/iverilog.png">
 </details>
 
+<details>
+ <summary> Summary </summary>
+Tool Check done for : 
+  icc2_shell 
+  ,pt_shell 
+  ,dc_shell 
+  ,lc_shell 
+  ,Yosys 
+  ,Gtkwave 
+  ,Iverilog.
+</details>	
+	
