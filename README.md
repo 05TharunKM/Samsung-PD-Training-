@@ -7,13 +7,13 @@ This github repository summarizes the progress made in the samsung PD training. 
 <details>
  <summary> Summary </summary>
 Tool Check done for:
-  >icc2_shell
-  >pt_shell
-  >dc_shell
-  >lc_shell
-  >Yosys
-  >Gtkwave
-  >Iverilog
+  ,icc2_shell
+  ,pt_shell
+  ,dc_shell
+  ,lc_shell
+  ,Yosys
+  ,Gtkwave
+  ,Iverilog
 </details>	
 	
 <details>
