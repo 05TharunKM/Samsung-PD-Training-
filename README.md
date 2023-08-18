@@ -22,6 +22,6 @@ Tool Check done for:
      
 Below is the screenshot showing sucessful launch of icc2_shell:
 
-<img width="900" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
+<img width="1080" alt="yosys.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/b3d5ff03de18f59014c429833e49d704690d5c01/docs/assets/images/yosys.png">
 </details>
 
