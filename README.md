@@ -2,7 +2,9 @@
 This github repository summarizes the progress made in the samsung PD training. Quick links:
 
 - [Day-0-Tool-Setup-Check](#day-0-Tool-Setup-Check)
-  
+- [Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis](#day-1-Introduction-to-Verilog-RTL-design-and-Synthesis)
+
+ 
 ## Day-0-Tool-Setup-Check
 
 <details>
@@ -79,4 +81,7 @@ Tool Check done for :
   ,Gtkwave 
   ,Iverilog.
 </details>	
-	
+
+## Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis
+
+
