@@ -139,7 +139,7 @@ gtkwave tb_good_mux.vcd    //Pushing vcd to gtkwave
      
 Below is the waveform generated for good_mux.v :
 
-<img width="1080" alt="simulation.png" src=" https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/simulation.png">
+<img width="1080" alt="simulation.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/simulation.png">
 </details>
 
 <details>
