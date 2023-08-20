@@ -117,5 +117,59 @@ Tool Check done for :
 
 ## Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis
 
+<details>
+ <summary> RTL Simulation using Iverilog and GTKWave </summary>
 
+RTL Design  is a behaviorol description of required specification. RTL Simulation is done using Iverilog which generate output executable and .vcd file. Using .vcd file  waveform is analysed in GTKWave. Below is the verilog code and test bench used as an example.
 
+<img width="1080" alt="tb_verilog.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/tb_verilog.png">
+
+To generate the executable following command is used:
+
+```
+iverilog -o output good_mux.v tb_good_mux.v
+```
+
+To view the waveform, first run the executable and it will generate value change dump file(vcd) and this is pushed to GTKWave and all the inputs, wire and outputs are added to waveform window for further analysis. Following commands are used in this process:
+
+```
+./output                   //Executing to generate vcd file 
+gtkwave tb_good_mux.vcd    //Pushing vcd to gtkwave
+```
+     
+Below is the waveform generated for good_mux.v :
+
+<img width="1080" alt="simulation.png" src=" https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/simulation.png">
+</details>
+
+<details>
+ <summary> RTL Synthesis using Yosys </summary>
+
+ RTL synthesis is the process of converting an abstract and functional representation of a digital circuit into a gate-level representation(netlist). Yosys tool is used to perform the synthesis.
+  First step is to open the Yosys shell and load the liberty file(.lib). Liberty file is a collection of logical modules which includes basic gates and modules of different flavours. 
+   Second step is to load the RTL design in our case good_mux.v and define the top module of the RTL design i.e good_mux. 
+   Now run the synthesis by providing the liberty file information so that synthesizer can select a optimum module among different flavours of standard cell modules and it will generate the netlist. Following are the commands to complete this process of synthesis in yosys:
+ 
+```
+yosys                                                                      // Open the yosys shell
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib          // Reading the liberty file
+read_verilog good_mux.v                                                    // Loading the RTL Design 
+synth -top good_mux                                                        // Defining top module
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib               // Firing the sythesis
+show                                                                       // Schematic of netlist
+```
+
+Below is the schematic of netlist generated after the synthesis :
+<img width="1080" alt="netlist_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/netlist_sch.png">
+
+To write and view the netlist use following following commands in yosys shell: 
+
+```
+write_verilog -noattr good_mux_netlist.v
+!vim good_mux_netlist.v
+```
+            
+Below is the good_mux_netlist.v generated after sythnesis :
+
+<img width="1080" alt="netlist.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/netlist.png">
+</details>
