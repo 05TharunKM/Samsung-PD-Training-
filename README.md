@@ -2,9 +2,9 @@
 # Samsung-PD-Training
 This github repository summarizes the progress made in the samsung PD training. Quick links:
 
-- [Day-0-Tool-Setup-Check](#day-0-Tool-Setup-Check)
-- [Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis](#day-1-Introduction-to-Verilog-RTL-design-and-Synthesis)
-
+- [Day-0-Tool-Setup-Check](#Day-0-Tool-Setup-Check)
+- [Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis](#Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis)
+- [Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles](#Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
  
 ## Day-0-Tool-Setup-Check
 
@@ -149,6 +149,41 @@ Below is the waveform generated for good_mux.v :
   First step is to open the Yosys shell and load the liberty file(.lib). Liberty file is a collection of logical modules which includes basic gates and modules of different flavours. 
    Second step is to load the RTL design in our case good_mux.v and define the top module of the RTL design i.e good_mux. 
    Now run the synthesis by providing the liberty file information so that synthesizer can select a optimum module among different flavours of standard cell modules and it will generate the netlist. Following are the commands to complete this process of synthesis in yosys:
+ 
+```
+yosys                                                                      // Open the yosys shell
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib          // Reading the liberty file
+read_verilog good_mux.v                                                    // Loading the RTL Design 
+synth -top good_mux                                                        // Defining top module
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib               // Firing the sythesis
+show                                                                       // Schematic of netlist
+```
+
+Below is the schematic of netlist generated after the synthesis :
+<img width="1080" alt="netlist_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/netlist_sch.png">
+
+To write and view the netlist use following following commands in yosys shell: 
+
+```
+write_verilog -noattr good_mux_netlist.v
+!vim good_mux_netlist.v
+```
+            
+Below is the good_mux_netlist.v generated after sythnesis :
+
+<img width="1080" alt="netlist.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/netlist.png">
+</details>
+
+## Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles
+
+<details>
+ <summary> Timing Library </summary>
+
+Timing libraries provide a  set of timing information for standard cells. This information includes delay, setup time, hold time, area, power  and other parameters that are critical for accurately estimating the performance of the circuit.
+
+  During the synthesis stage, the design is translated from a HDL code into a gate-level netlist. Timing libraries enable the synthesis tool to make informed decisions about cell selection and placement, optimizing the design for factors like speed, power consumption, or area and also meet timimng requirement. Modern IC fabrication processes introduce variability due to various factors. Timing libraries incorporate these variations, offering libraries for different process corners, voltages, and temperatures(PVT). 
+
+  
  
 ```
 yosys                                                                      // Open the yosys shell
