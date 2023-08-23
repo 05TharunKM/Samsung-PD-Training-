@@ -183,28 +183,37 @@ Timing libraries provide a  set of timing information for standard cells. This i
 
   During the synthesis stage, the design is translated from a HDL code into a gate-level netlist. Timing libraries enable the synthesis tool to make informed decisions about cell selection and placement, optimizing the design for factors like speed, power consumption, or area and also meet timimng requirement. Modern IC fabrication processes introduce variability due to various factors. Timing libraries incorporate these variations, offering libraries for different process corners, voltages, and temperatures(PVT). 
 
-  
- 
-```
-yosys                                                                      // Open the yosys shell
-read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib          // Reading the liberty file
-read_verilog good_mux.v                                                    // Loading the RTL Design 
-synth -top good_mux                                                        // Defining top module
-abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib               // Firing the sythesis
-show                                                                       // Schematic of netlist
-```
+  Below is the screenshot of different types of nand gate: 
 
-Below is the schematic of netlist generated after the synthesis :
-<img width="1080" alt="netlist_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/netlist_sch.png">
+<img width="1080" alt="" src="h">
 
-To write and view the netlist use following following commands in yosys shell: 
+  As we can see in above image, there's a nand gate of three different flavours are selected for discussion. Since nand is "!A&B" four different combinations of input is given along with specific leakage power. As the area is increase the delay of the cells is decrease but the power will increase. Therefore while selecting cell, synthesis tool will look for optimal cell so that it will satisfy both power and timing requirement.  
 
-```
-write_verilog -noattr good_mux_netlist.v
-!vim good_mux_netlist.v
-```
-            
-Below is the good_mux_netlist.v generated after sythnesis :
-
-<img width="1080" alt="netlist.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d95275e930767c8e97a14d9b4929ee069c445512/docs/assets/images/netlist.png">
 </details>
+
+ <details>
+  <summary>Hierarchical vs flat synthesis</summary>
+ multiple_module verilog file: 
+  
+<img width="1080" alt="" src="">
+  
+Hierarchical Synthesis: Hierarchical synthesis divides the design into smaller modules or blocks. These blocks can be synthesized independently and reused across multiple projects. It allows us to handle the complexity by breaking it down into manageable pieces and focusing on optimizing individual blocks. Below is the sample of hierarchical synthesis:
+
+<img width="1080" alt="" src="">
+
+In above verilog file we can see multiple sub module as part of design, hence when synthesized (hierarchical)  we can see tool has synthesized all the individual module. Even in the schematic attached below we can see two sub module inside the main multiple module file.  
+
+<img width="1080" alt="" src="">
+
+Flat Synthesis: In a flat synthesis approach, the entire design is treated as a single entity, with all modules and components being synthesized together. This approach is simpler to set up and manage for small designs. command used to perform flat synthesis is "flatten". Below is the figure of flat synthesis netlist:
+
+<img width="1080" alt="" src="">
+
+ As we can see in the above netlist all the sub module is combined i.e all the modules are synthesized together so that debugging can be easier since  all the design components are synthesized together, making it straightforward to trace signals across the design. Below is the schematic of flat synthesized netlist: 
+
+ <img width="1080" alt="" src="">
+ 
+ </details>
+
+
+
