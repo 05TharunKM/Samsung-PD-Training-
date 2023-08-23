@@ -181,7 +181,7 @@ Below is the good_mux_netlist.v generated after sythnesis :
 
 Timing libraries provide a  set of timing information for standard cells. This information includes delay, setup time, hold time, area, power  and other parameters that are critical for accurately estimating the performance of the circuit.
 
-  During the synthesis stage, the design is translated from a HDL code into a gate-level netlist. Timing libraries enable the synthesis tool to make informed decisions about cell selection and placement, optimizing the design for factors like speed, power consumption, or area and also meet timimng requirement. Modern IC fabrication processes introduce variability due to various factors. Timing libraries incorporate these variations, offering libraries for different process corners, voltages, and temperatures(PVT). 
+    During the synthesis stage, the design is translated from a HDL code into a gate-level netlist. Timing libraries enable the synthesis tool to make informed decisions about cell selection and placement, optimizing the design for factors like speed, power consumption, or area and also meet timimng requirement. Fabrication processes also introduce variability due to various factors. Timing libraries incorporate these variations, offering libraries for different process corners, voltages, and temperatures(PVT). 
 
   Below is the screenshot of different types of nand gate: 
 
@@ -214,7 +214,7 @@ In above verilog file we can see multiple sub module as part of netlist , hence 
 
  <img width="1080" alt="flat_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/flat_sch.png">
 
-Sometimes instead synthesizing the whole design, it is useful to synthesize individual module. This is the case useful when there are same modules used multiple times so synthesizing one of those module and reusing the same again will save resources as well as time. To do this, while performing synthesis define top module as that one module you want to synthesize. Beolow is the synthesized netlist of the same: 
+Sometimes instead synthesizing the whole design, it is useful to synthesize individual module. This is the case useful when there are same modules used multiple times so synthesizing one of those module and reusing the same again will save resources as well as time. To do this, while performing synthesis define top module as that one module you want to synthesize. Below is the synthesized netlist of the same: 
 <img width="1080" alt="ss_synth.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/ss_synth.png">
  
 </details>
@@ -222,7 +222,7 @@ Sometimes instead synthesizing the whole design, it is useful to synthesize indi
 <details>
 <summary>Efficient flop coding styles</summary>
 
- D Flip-flops are  memory storage elements that are used in storage and  data processing. D flip-flop can be built using NAND gate or with NOR gate. There are different ways to build these flip flop and there are discussed below:
+ D Flip-flops are  memory storage elements used for data processing. D flip-flop can be built using NAND gate or with NOR gate. There are different methods to build these flip flop and they are discussed below:
 
  1. D flip flop with asynchronous reset:
  
@@ -268,15 +268,15 @@ Sometimes instead synthesizing the whole design, it is useful to synthesize indi
  <img width="1080" alt="mul2mul8.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul2mul8.png">
 Below is truth table for mult2 module in which 3 bit input is multiplied with 2 and 4 bit output is generated.
 ```
-a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
-  0 - 0  - 0          0 - 0  - 0 - 0
-  0 - 0  - 1          0 - 0  - 1 - 0
-  0 - 1  - 0          0 - 1  - 0 - 0
-  0 - 1  - 1          0 - 1  - 1 - 0
-  1 - 0  - 0          1 - 0  - 0 - 0
-  1 - 0  - 1          1 - 0  - 1 - 0
-  1 - 1  - 0          1 - 1  - 0 - 0
-  1 - 1  - 1          1 - 1  - 1 - 0
+$a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
+$  0 - 0  - 0          0 - 0  - 0 - 0
+$  0 - 0  - 1          0 - 0  - 1 - 0
+$  0 - 1  - 0          0 - 1  - 0 - 0
+$  0 - 1  - 1          0 - 1  - 1 - 0
+$  1 - 0  - 0          1 - 0  - 0 - 0
+$  1 - 0  - 1          1 - 0  - 1 - 0
+$  1 - 1  - 0          1 - 1  - 0 - 0
+$  1 - 1  - 1          1 - 1  - 1 - 0
 ```
 As we can see from above table,  design doesn't neccesarily need any logic cell/modules to operate, output is just input left shifted by one bit. therefore when synthesized, it will show that no logic cells are there to synthesize. Below is the schematic and netlist generated after synthesis : 
 
