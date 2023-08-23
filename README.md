@@ -212,12 +212,52 @@ Flat Synthesis: In a flat synthesis approach, the entire design is treated as a 
  As we can see in the above netlist all the sub module is combined i.e all the modules are synthesized together so that debugging can be easier since  all the design components are synthesized together, making it straightforward to trace signals across the design. Below is the schematic of flat synthesized netlist: 
 
  <img width="1080" alt="" src="">
-</detail>
+ 
+</details>
 
-<detail>
+<details>
 <summary>Efficient flop coding styles</summary>
 
- D Flip-flops are  memory storage elements that are used in storage and  data processing. D flip-flop can be built using NAND gate or with NOR gate. There are different ways ro build these flip flop and there are discussed below: 
-  
-</detail>
+ D Flip-flops are  memory storage elements that are used in storage and  data processing. D flip-flop can be built using NAND gate or with NOR gate. There are different ways to build these flip flop and there are discussed below:
 
+ 1. D flip flop with asynchronous reset:
+ 
+ <img width="1080" alt="" src="">
+
+ In this type of flip flop, flip flop can be reset at any time irrespective of clock edge but latching data (D - Q pin) will still be dependent on sensitive clock edge. Below is the waveform and schematic of the flip flop:  
+  
+  <img width="1080" alt="" src="">
+  As per the description above , when the reset is going from '1' to '0' data from d is latched into flip flop at next clock edge and when the reset pin is going from '0' to '1' it is reset to '0' immediately without waiting for next clock cycle. Schematic of the same is attached below : 
+
+  <img width="1080" alt="" src="">
+
+  Since the available D flip flop in library has active low reset and one we designed is active high reset, a inverter cell is added by synthesis tool. 
+
+  2. D flip flop with asynchronous set:
+ 
+ <img width="1080" alt="" src="">
+
+ In this type of flip flop, flip flop can be set at any time irrespective of clock edge but latching data (D - Q pin) will still be dependent on sensitive clock edge. Below is the waveform and schematic of the flip flop:  
+  
+  <img width="1080" alt="" src="">
+  As per the description above , when the set is going from '1' to '0' data from d is latched into flip flop at next clock edge and when the set pin is going from '0' to '1' it is set to '0' immediately without waiting for next clock cycle. Schematic of the same is attached below : 
+
+  <img width="1080" alt="" src="">
+
+  3. D flip flop with synchronous set:
+ 
+ <img width="1080" alt="" src="">
+
+ In this type of flip flop, setting and resetting is  dependent on  clock edge. Beolow is the waveform and schematic of the flip flop:  
+  
+  <img width="1080" alt="" src="">
+  As per the description above , when the reset is going from '1' to '0' data from d is latched into flip flop at next clock edge and when the reset pin is going from '0' to '1' it is reset to '0' in next clock cycle. Schematic of the same is attached below : 
+
+  <img width="1080" alt="" src="">
+  
+</details>
+
+<details>
+<summary>Optimization</summary>
+ 
+</details>
