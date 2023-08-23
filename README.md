@@ -278,6 +278,11 @@ As we can see from above table,  design doesn't neccesarily need any logic cell/
 
  <img width="1080" alt="" src="">
  <img width="1080" alt="" src="">
+In this schematic, we can observe that input pins a[2],a[1],a[0] are directly connected to  y[3],y[2],y[1] and logic '0' is connected to y[0] and no standard cells are used.
 
+Similarly, Mult8 is synthesized and it is is obvious that output is just input left shifted by 3 bits. Therefore there are no modules or cells synthesizable in design. Below is the schematic and netlist of the mult8 module: 
+ 
+ <img width="1080" alt="" src="">
+ <img width="1080" alt="" src="">
  
 </details>
