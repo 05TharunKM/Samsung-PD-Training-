@@ -267,6 +267,7 @@ Sometimes instead synthesizing the whole design, it is useful to synthesize indi
  
  <img width="1080" alt="mul2mul8.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul2mul8.png">
 Below is truth table for mult2 module in which 3 bit input is multiplied with 2 and 4 bit output is generated.
+
 ```
 $a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
 $  0 - 0  - 0          0 - 0  - 0 - 0
@@ -278,6 +279,7 @@ $  1 - 0  - 1          1 - 0  - 1 - 0
 $  1 - 1  - 0          1 - 1  - 0 - 0
 $  1 - 1  - 1          1 - 1  - 1 - 0
 ```
+
 As we can see from above table,  design doesn't neccesarily need any logic cell/modules to operate, output is just input left shifted by one bit. therefore when synthesized, it will show that no logic cells are there to synthesize. Below is the schematic and netlist generated after synthesis : 
 
  <img width="1080" alt="mul2synth.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul2synth.png">
