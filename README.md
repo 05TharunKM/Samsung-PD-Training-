@@ -212,8 +212,12 @@ Flat Synthesis: In a flat synthesis approach, the entire design is treated as a 
  As we can see in the above netlist all the sub module is combined i.e all the modules are synthesized together so that debugging can be easier since  all the design components are synthesized together, making it straightforward to trace signals across the design. Below is the schematic of flat synthesized netlist: 
 
  <img width="1080" alt="" src="">
- 
- </details>
+</detail>
 
+<detail>
+<summary>Efficient flop coding styles</summary>
 
+ D Flip-flops are  memory storage elements that are used in storage and  data processing. D flip-flop can be built using NAND gate or with NOR gate. There are different ways ro build these flip flop and there are discussed below: 
+  
+</detail>
 
