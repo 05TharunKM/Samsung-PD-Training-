@@ -244,7 +244,7 @@ Flat Synthesis: In a flat synthesis approach, the entire design is treated as a 
 
   <img width="1080" alt="" src="">
 
-  3. D flip flop with synchronous set:
+  3. D flip flop with synchronous reset:
  
  <img width="1080" alt="" src="">
 
@@ -259,5 +259,25 @@ Flat Synthesis: In a flat synthesis approach, the entire design is treated as a 
 
 <details>
 <summary>Optimization</summary>
+ In this section, Optimization techniques used by synthesis tool  are discussed. Two designs - mult2 and mult8. RTL code for the same is attched below : 
+ 
+ <img width="1080" alt="" src="">
+Below is truth table for mult2 module in which 3 bit input is multiplied with 2 and 4 bit output is generated.
+```
+a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
+  0 - 0  - 0          0 - 0  - 0 - 0
+  0 - 0  - 1          0 - 0  - 1 - 0
+  0 - 1  - 0          0 - 1  - 0 - 0
+  0 - 1  - 1          0 - 1  - 1 - 0
+  1 - 0  - 0          1 - 0  - 0 - 0
+  1 - 0  - 1          1 - 0  - 1 - 0
+  1 - 1  - 0          1 - 1  - 0 - 0
+  1 - 1  - 1          1 - 1  - 1 - 0
+```
+As we can see from above table,  design doesn't neccesarily need any logic cell/modules to operate, output is just input left shifted by one bit. therefore when synthesized, it will show that no logic cells are there to synthesize. Below is the schematic and netlist generated after synthesis : 
+
+ <img width="1080" alt="" src="">
+ <img width="1080" alt="" src="">
+
  
 </details>
