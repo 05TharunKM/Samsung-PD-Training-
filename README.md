@@ -306,10 +306,12 @@ a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
  Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
     
  ```
-if A=0 => Y=((0.B)+C)' = (0+C) = C'
+// if A=0
+// Y = ((0.B)+C)'
+// Y = (0+C) = C'
  ```
 
-   Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily build using a PMOS and NMOS.
+   Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily  built using a PMOS and an NMOS.
    
    2) Boolean logic optimization:  Applying Boolean algebra rules to simplify logic expressions and reduce the number of gates needed. Following commands are used in yosys shell to perform the combinational optimization :
 
@@ -329,6 +331,7 @@ opt_check.v RTL File :
 module opt_check (input a , input b , output y);
 	assign y = a?b:0;                             
 endmodule
+// Simplification
 // y = (a').0 + a.b
 // y  = 0 + a.b
 // y = a.b         => AND gate is sufficient
@@ -336,7 +339,7 @@ endmodule
 
 Below is Schematic after optimization : 
 <img width="1080" alt="oc1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc1.png">
-As per the code above, circuit is simplified to simple AND gate.
+As per the code above, circuit is optimized to simple AND gate.
  
 Example 2:-
 opt_check2.v RTL File :
@@ -345,6 +348,7 @@ opt_check2.v RTL File :
 module opt_check2 (input a , input b , output y);
 	assign y = a?1:b;
 endmodule
+// Simplification
 // y =  (a').b + a.1
 // y = a'.b + a
 // y = a + b        => OR gate is sufficient
@@ -361,6 +365,7 @@ opt_check3.v RTL File :
 module opt_check3 (input a , input b, input c , output y);
 	assign y = a?(c?b:0):0;
 endmodule
+// Simplification
 // y = a'.0 + a.(c'.0 + c.b)
 // y = 0 + a.b.c
 // y = a.b.c                => 3 input AND gate is sufficient
@@ -406,12 +411,13 @@ module multiple_modules (input a, input b, input c , output y);
 	sub_module2 u2(.a(net1),.b(c),.y(y));  
 endmodule
 // y = net1 + c
-// y = a.b + c  => one AND and OR gate is required.
+// y = a.b + c  => one AND and an OR gate is required.
 ```
 Below is Schematic after optimization : 
 <img width="1080" alt="mmo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/mmo.png">
 As per the code above, circuit is simplified to simple OR and AND gate.
 </details>
+
 <details>
  <summary>Sequential Logic Optimization</summary>
 Sequential logic optimizations include: 
@@ -434,6 +440,7 @@ Sequential logic optimizations include:
  abc -liberty ../sky130_fd_sc_hd__tt_025C_1v80.lib
  show
 ```
+
 Example 1:- 
 dff_const1.v RTL File :
 
@@ -479,6 +486,7 @@ As we see in above waveform, output is always one irrespective of  reset or cloc
 Schematic: 
 <img width="1080" alt="dc2syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc2syn.png">
 As per the waveform buffer cell with input pulled to logic '1' is enough to represent the design.
+
 Example 3:- 
 dff_const3.v RTL File :
 
@@ -576,5 +584,44 @@ Since the q1 and q value is changing with respect to reset and clock, tool has o
 </details>
 <details>
  <summary>Unused output Optimization</summary>
+Counter_opt RTL File:- (with 2 bits out of 3 are unused)
+
+```
+module counter_opt (input clk , input reset , output q);
+ reg [2:0] count;
+ assign q = count[0];
+ always @(posedge clk ,posedge reset)
+  begin
+   if(reset)
+    count <= 3'b000;
+   else
+    count <= count + 1;
+  end
+endmodule
+```
+Schematic is attached below:-
+<img width="1080" alt="co1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9c061cbf68cdfdad90989378360f2fa7d37ae55a/docs/assets/images3/co1.png">
+We can see that tool has optimized the design to only one flip flop since 2 bits are unused.
+
+Counter_opt RTL File:- (with all the 3 bits are used)
+
+```
+module counter_opt (input clk , input reset , output q);
+ reg [2:0] count;
+ assign q = (count[2:0] == 3'b001) ;
+ always @(posedge clk ,posedge reset)
+ begin
+   if(reset)
+     count <= 3'b000;
+   else
+     count <= count + 1;
+  end
+endmodule
+```
+
+Schematic is attached below:-
+<img width="1080" alt="co2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9c061cbf68cdfdad90989378360f2fa7d37ae55a/docs/assets/images3/co2.png">
+Here all the 3 bits are used therefore three flip flops and adder circuit for counting logic is given.
+
 </details>
 
