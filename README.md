@@ -387,13 +387,13 @@ endmodule
 // y = a'.c' + a.b.c + a.b'c
 // y = a'.c' + a.c(b + b')
 // y = a'.c' + a.c
-// y = a 0 c                  => NOR Gate
+// y = a 0 c                  => XNOR Gate
  
 ```
 
 Below is Schematic after optimization : 
 <img width="1080" alt="oc4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc4.png">
-As per the code above, circuit is simplified to simple NOR gate.
+As per the code above, circuit is simplified to simple XNOR gate.
 
 Example 5:-
 multiple_module_opt2.v RTL File :
