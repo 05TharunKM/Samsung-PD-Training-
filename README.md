@@ -321,11 +321,93 @@ if A=0 => Y=((0.B)+C)' = (0+C) = C'
  abc -liberty ../sky130_fd_sc_hd__tt_025C_1v80.lib
  show
 ```
+
 Example 1:-
+opt_check.v RTL File :
 
+```
+module opt_check (input a , input b , output y);
+	assign y = a?b:0;                             
+endmodule
+// y = (a').0 + a.b
+// y  = 0 + a.b
+// y = a.b         => AND gate is sufficient
+```
 
+Below is Schematic after optimization : 
+<img width="1080" alt="" src="">
+As per the code above, circuit is simplified to simple AND gate.
  
+Example 2:-
+opt_check2.v RTL File :
 
+```
+module opt_check2 (input a , input b , output y);
+	assign y = a?1:b;
+endmodule
+// y =  (a').b + a.1
+// y = a'.b + a
+// y = a + b        => OR gate is sufficient
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="" src="">
+As per the code above, circuit is optimized to simple OR gate.( Since the OR gate standard cells are not available it is build usinh NAND gates)
+
+Example 3:-
+opt_check3.v RTL File :
+
+```
+module opt_check3 (input a , input b, input c , output y);
+	assign y = a?(c?b:0):0;
+endmodule
+// y = a'.0 + a.(c'.0 + c.b)
+// y = 0 + a.b.c
+// y = a.b.c                => 3 input AND gate is sufficient
+
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="" src="">
+As per the code above, circuit is simplified to simple and gate.
+
+Example 4:-
+opt_check4.v RTL File :
+
+```
+module opt_check4 (input a , input b , input c , output y);
+	assign y = a?(b?(a & c ):c):(!c);
+endmodule
+// y = a'.c' + a.(b'.c + b.a.c)
+// y = a'.c' + a.b.c + a.b'c
+// y = a'.c' + a.c(b + b')
+// y = a'.c' + a.c
+// y = a 0 c 
+ 
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="" src="">
+As per the code above, circuit is simplified to simple NOr gate.
+
+Example 5:-
+multiple_module_opt2.v RTL File :
+
+```
+module sub_module(input a , input b , output y);
+	assign y = a & b;
+endmodule
+
+module multiple_module_opt2(input a , input b , input c , input d , output y);
+	wire n1,n2,n3;
+	sub_module U1 (.a(a) , .b(1'b0) , .y(n1));
+	sub_module U2 (.a(b), .b(c) , .y(n2));
+	sub_module U3 (.a(n2), .b(d) , .y(n3));
+	sub_module U4 (.a(n3), .b(n1) , .y(y));
+endmodule
+```
+Below is Schematic after optimization : 
+<img width="1080" alt="" src="">
 
 </details>
 <details>
