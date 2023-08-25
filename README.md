@@ -414,6 +414,150 @@ As per the code above, circuit is simplified to simple OR and AND gate.
 </details>
 <details>
  <summary>Sequential Logic Optimization</summary>
+Sequential logic optimizations include: 
+	
+- Sequential constant propagation :-   Constant is propagated with clock involved.
+  
+- State optimization :-  Unused states are optimized.
+   
+- Retiming :- Logic is split to decrease timing of the different logic portions and increase frequency.
+
+- Sequential logic cloning :- Physical aware synthesis is done to optimize the floop plan.
+
+ Commands used are : 
+ 
+ ```
+ read_liberty -lib ../sky130_fd_sc_hd__tt_025C_1v80.lib
+ read_verilog dff_const1.v
+ synth -top dff_const1
+ dfflibmap -liberty ../sky130_fd_sc_hd__tt_025C_1v80.lib
+ abc -liberty ../sky130_fd_sc_hd__tt_025C_1v80.lib
+ show
+```
+Example 1:- 
+dff_const1.v RTL File :
+
+```
+module dff_const1(input clk, input reset, output reg q);
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+			q <= 1'b0;
+		else
+			q <= 1'b1;
+	end
+endmodule
+```
+
+Waveform : 
+<img width="1080" alt="dc1wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc1wv.png">
+Schematic: 
+<img width="1080" alt="dc1syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc1syn.png">
+
+Example 2:- 
+dff_const2.v RTL File :
+
+```
+module dff_const2(input clk, input reset, output reg q);
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+			q <= 1'b1;
+		else
+			q <= 1'b1;
+	end
+endmodule
+```
+
+Waveform : 
+<img width="1080" alt="dc2wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc2wv.png">
+Schematic: 
+<img width="1080" alt="dc2syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc2syn.png">
+
+Example 3:- 
+dff_const3.v RTL File :
+
+```
+	module dff_const3(input clk, input reset, output reg q);
+	reg q1;
+
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b0;
+		end
+		else
+		begin
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+	endmodule
+```
+
+Waveform : 
+<img width="1080" alt="dc3wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc3wv.png">
+Schematic: 
+<img width="1080" alt="dc3syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc3syn.png">
+
+Example 4:- 
+dff_const4.v RTL File :
+
+```
+	module dff_const4(input clk, input reset, output reg q);
+	reg q1;
+
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b1;
+		end
+	else
+		begin
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+	endmodule
+```
+
+Waveform : 
+<img width="1080" alt="dc4wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc4wv.png">
+Schematic: 
+<img width="1080" alt="dc4syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc4syn.png">
+
+Example 5:- 
+dff_const5.v RTL File :
+
+```
+	module dff_const5(input clk, input reset, output reg q);
+	reg q1;
+	always @(posedge clk, posedge reset)
+		begin
+			if(reset)
+			begin
+				q <= 1'b0;
+				q1 <= 1'b0;
+			end
+		else
+			begin
+				q1 <= 1'b1;
+				q <= q1;
+			end
+		end
+	endmodule
+```
+
+Waveform : 
+<img width="1080" alt="" src="">
+Schematic: 
+<img width="1080" alt="dc5syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc5syn.png">
+
+
 </details>
 <details>
  <summary>Unused output Optimization</summary>
