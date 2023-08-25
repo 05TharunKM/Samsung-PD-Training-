@@ -352,7 +352,7 @@ endmodule
 
 Below is Schematic after optimization : 
 <img width="1080" alt="oc2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc2.png">
-As per the code above, circuit is optimized to simple OR gate.( Since the OR gate standard cells are not available it is build usinh NAND gates)
+As per the code above, circuit is optimized to simple OR gate.
 
 Example 3:-
 opt_check3.v RTL File :
@@ -369,7 +369,7 @@ endmodule
 
 Below is Schematic after optimization : 
 <img width="1080" alt="oc3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc3.png">
-As per the code above, circuit is simplified to simple and gate.
+As per the code above, circuit is simplified to simple 3 input AND gate.
 
 Example 4:-
 opt_check4.v RTL File :
@@ -382,7 +382,7 @@ endmodule
 // y = a'.c' + a.b.c + a.b'c
 // y = a'.c' + a.c(b + b')
 // y = a'.c' + a.c
-// y = a 0 c 
+// y = a 0 c                  => NOR Gate
  
 ```
 
@@ -405,6 +405,9 @@ module multiple_module_opt2(input a , input b , input c , input d , output y);
 	sub_module U3 (.a(n2), .b(d) , .y(n3));
 	sub_module U4 (.a(n3), .b(n1) , .y(y));
 endmodule
+// y = n3 . n1
+// y = (n2.d) . (a.0)
+// y = (a.b.d). (0)
 ```
 Below is Schematic after optimization : 
 <img width="1080" alt="mmo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/mmo.png">
