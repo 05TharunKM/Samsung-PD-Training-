@@ -335,7 +335,7 @@ endmodule
 ```
 
 Below is Schematic after optimization : 
-<img width="1080" alt="" src="">
+<img width="1080" alt="oc1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc1.png">
 As per the code above, circuit is simplified to simple AND gate.
  
 Example 2:-
@@ -351,7 +351,7 @@ endmodule
 ```
 
 Below is Schematic after optimization : 
-<img width="1080" alt="" src="">
+<img width="1080" alt="oc2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc2.png">
 As per the code above, circuit is optimized to simple OR gate.( Since the OR gate standard cells are not available it is build usinh NAND gates)
 
 Example 3:-
@@ -368,7 +368,7 @@ endmodule
 ```
 
 Below is Schematic after optimization : 
-<img width="1080" alt="" src="">
+<img width="1080" alt="oc3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc3.png">
 As per the code above, circuit is simplified to simple and gate.
 
 Example 4:-
@@ -387,8 +387,8 @@ endmodule
 ```
 
 Below is Schematic after optimization : 
-<img width="1080" alt="" src="">
-As per the code above, circuit is simplified to simple NOr gate.
+<img width="1080" alt="oc4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/oc4.png">
+As per the code above, circuit is simplified to simple NOR gate.
 
 Example 5:-
 multiple_module_opt2.v RTL File :
@@ -407,7 +407,7 @@ module multiple_module_opt2(input a , input b , input c , input d , output y);
 endmodule
 ```
 Below is Schematic after optimization : 
-<img width="1080" alt="" src="">
+<img width="1080" alt="mmo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/mmo.png">
 
 </details>
 <details>
