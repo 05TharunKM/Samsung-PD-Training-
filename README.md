@@ -458,7 +458,7 @@ endmodule
 
 Waveform : 
 <img width="1080" alt="dc1wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc1wv.png">
-As we see in above image , when is reset is going from logic '1' to '0' output q is changed to '0' to '1' in next edge clock cycle and stays the same until reset is '1' again.
+As we see in above image , when is reset is going from logic '1' to '0' output q is changed to '0' to '1' in next edge of clock cycle and stays the same until reset is '1' again.
 
 Schematic: 
 <img width="1080" alt="dc1syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc1syn.png">
@@ -481,11 +481,11 @@ endmodule
 
 Waveform : 
 <img width="1080" alt="dc2wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc2wv.png">
-As we see in above waveform, output is always one irrespective of  reset or clock.
+As we see in above waveform, output is always '1' irrespective of  reset or clock.
 
 Schematic: 
 <img width="1080" alt="dc2syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc2syn.png">
-As per the waveform buffer cell with input pulled to logic '1' is enough to represent the design.
+As per the waveform, buffer cell with input pulled to logic '1' is enough to represent the design.
 
 Example 3:- 
 dff_const3.v RTL File :
@@ -574,11 +574,11 @@ dff_const5.v RTL File :
 
 Waveform : 
 <img width="1080" alt="dc5wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e9d96208f4be23fab7082be957a8ee72fb3a60a2/docs/assets/images3/dc5wv.png">
-When the reset is going from '1' to '0' q1 is pulled to logic '1' in next edge of clock cycle and q is pulled to logic 1 in subsequent edge of clock cycle untill and unless the reset pin goes high again.
+When the reset is going from '1' to '0' q1 is pulled to logic '1' in next edge of clock cycle and q is pulled to logic 1 in subsequent edge of clock cycle  unless the reset pin goes high again.
 
 Schematic: 
 <img width="1080" alt="dc5syn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc5syn.png">
-Since the q1 and q value is changing with respect to reset and clock, tool has optimzed the design to two D  flip-flops with first flip flop D pin connected to logic '1' and its outpuut connected to input of the next flipflop.
+Since the q1 and q value is changing with respect to reset and clock, tool has optimzed the design to two D  flip-flops with first flip flop's 'D' pin connected to logic '1' and its outpuut connected to input of the next flipflop.
 
 
 </details>
