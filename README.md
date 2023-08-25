@@ -394,24 +394,23 @@ Example 5:-
 multiple_module_opt2.v RTL File :
 
 ```
-module sub_module(input a , input b , output y);
-	assign y = a & b;
+module sub_module2 (input a, input b, output y);
+	assign y = a | b;
 endmodule
-
-module multiple_module_opt2(input a , input b , input c , input d , output y);
-	wire n1,n2,n3;
-	sub_module U1 (.a(a) , .b(1'b0) , .y(n1));
-	sub_module U2 (.a(b), .b(c) , .y(n2));
-	sub_module U3 (.a(n2), .b(d) , .y(n3));
-	sub_module U4 (.a(n3), .b(n1) , .y(y));
+module sub_module1 (input a, input b, output y);
+	assign y = a&b;
 endmodule
-// y = n3 . n1
-// y = (n2.d) . (a.0)
-// y = (a.b.d). (0)
+module multiple_modules (input a, input b, input c , output y);
+	wire net1;
+	sub_module1 u1(.a(a),.b(b),.y(net1)); 
+	sub_module2 u2(.a(net1),.b(c),.y(y));  
+endmodule
+// y = net1 + c
+// y = a.b + c  => one AND and OR gate is required.
 ```
 Below is Schematic after optimization : 
 <img width="1080" alt="mmo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/68d2e1f12f100714c99a8e8a60fe7608bcefb4bf/docs/assets/images3/mmo.png">
-
+As per the code above, circuit is simplified to simple OR and AND gate.
 </details>
 <details>
  <summary>Sequential Logic Optimization</summary>
