@@ -282,7 +282,7 @@ a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
   1 - 1  - 1          1 - 1  - 1 - 0
 ```
 
-- As we can see from above table,  design doesn't neccesarily need any logic cell/modules to operate, output is just input left shifted by one bit. therefore when synthesized, it will show that no logic cells are there to synthesize. Below is the schematic and netlist generated after synthesis : 
+- As we can see from above table,  design doesn't neccesarily need any logic cell/modules to operate, output is just input left shifted by one bit. therefore when synthesized, it will show that no logic cells are there to synthesize. Below is the schematic and netlist generated after synthesis :
 
  <img width="1080" alt="mul2synth.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul2synth.png">
  <img width="1080" alt="mul2sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul2sch.png">
@@ -297,6 +297,20 @@ a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
 ## Day-3-Combinational-and-sequential-optimizations
 <details>
  <summary>Combinational Logic Optimization</summary>
+ Combinational logic optimization is a technique used to improve the efficiency and performance of digital circuits that consist of interconnected logic gates. The goal is to minimize the circuit's delay, power consumption, and area while maintaining the desired functionality. This optimization is achieved through various methods, including:
+   1) Constant Propagtion: Constant propagation is a technique used in combinational logic optimization to replace variables or signals with their constant values in order to simplify the logic circuit. This helps reduce the complexity of the circuit and can lead to improved performance and reduced power consumption.
+    Example  : 
+    Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
+    
+ ```
+if A=0 => Y=((0.B)+C)' = (0+C) = C'
+ ```
+
+   Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily build using a PMOS and NMOS.
+   2)
+ 
+
+
 </details>
 <details>
  <summary>Sequential Logic Optimization</summary>
