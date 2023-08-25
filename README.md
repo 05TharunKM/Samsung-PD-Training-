@@ -292,5 +292,16 @@ a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
  
  <img width="1080" alt="mul8_synth.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul8_synth.png">
  <img width="1080" alt="mul8_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/373c74c4e290f8fe355dc012d2724a13d1a4f64e/docs/assets/images2/mul8_sch.png">
- 
 </details>
+
+## Day-3-Combinational-and-sequential-optimizations
+<details>
+ <summary>Combinational Logic Optimization</summary>
+</details>
+<details>
+ <summary>Sequential Logic Optimization</summary>
+</details>
+<details>
+ <summary>Unused output Optimization</summary>
+</details>
+
