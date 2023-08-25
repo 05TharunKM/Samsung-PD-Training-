@@ -6,6 +6,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis](#Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis)
 - [Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles](#Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
 - [Day-3-Combinational-and-sequential-optimizations](#Day-3-Combinational-and-sequential-optimizations)
+
 ## Day-0-Tool-Setup-Check
 
 <details>
@@ -298,16 +299,31 @@ a[2]-a[1]-a[0] * 2  y[3]-y[2]-y[1]-y[0]
 <details>
  <summary>Combinational Logic Optimization</summary>
  Combinational logic optimization is a technique used to improve the efficiency and performance of digital circuits that consist of interconnected logic gates. The goal is to minimize the circuit's delay, power consumption, and area while maintaining the desired functionality. This optimization is achieved through various methods, including:
+ 
    1) Constant Propagtion: Constant propagation is a technique used in combinational logic optimization to replace variables or signals with their constant values in order to simplify the logic circuit. This helps reduce the complexity of the circuit and can lead to improved performance and reduced power consumption.
-    Example  : 
-    Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
+   
+ Example:-    
+ Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
     
  ```
 if A=0 => Y=((0.B)+C)' = (0+C) = C'
  ```
 
    Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily build using a PMOS and NMOS.
-   2)
+   
+   2) Boolean logic optimization:  Applying Boolean algebra rules to simplify logic expressions and reduce the number of gates needed. Following commands are used in yosys shell to perform the combinational optimization :
+
+```
+ read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+ read_verilog opt_check.v
+ synth -top opt_check
+ opt_clean -purge
+ abc -liberty ../sky130_fd_sc_hd__tt_025C_1v80.lib
+ show
+```
+Example 1:-
+
+
  
 
 
