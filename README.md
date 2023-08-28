@@ -669,7 +669,7 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
   
 **2. Non-Blocking statements:**
 - Non-blocking assignments are represented using the <= operator in Verilog.
-- Evaluate the RHS and update the LHS of the blocking assignment without interruption from any other verilog statement
+- Evaluate the RHS of nonblocking statements at the beginning of the time step and update the LHS of nonblocking statements at the end of the time step.
 - Non-blocking assignments model concurrent behavior, where multiple events can occur simultaneously and their updates are scheduled concurrently.
 - Example:
 
@@ -715,15 +715,15 @@ endmodule
 ```
 
 Waveform before the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="to_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_wv.png">
 
 Waveform after the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="to_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_ssm.png">
 
 Schematic: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="to_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_wv.png">
 
-**Example2:** There is a simulation-synthesis mismatch in this example.
+**Example2:** There is a simulation-synthesis mismatch in this example:
 
 ```
 module bad_mux (input i0 , input i1 , input sel , output reg y);
@@ -738,15 +738,15 @@ endmodule
 ```
 
 Waveform before the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="bm_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bm_wv.png">
 
 Waveform after the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="bm_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bm_ssm.png">
 
 Schematic: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="bm_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bm_sch.png">
 
-**Example2:** There is no simulation-synthesis mismatch in this example.
+**Example3:** To avoid simulation-synthesis mismatch following can be implemented .
 
 ```
 module good_mux (input i0 , input i1 , input sel , output reg y);
@@ -761,13 +761,13 @@ endmodule
 ```
 
 Waveform before the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="gm_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/gm_wv.png">
 
 Waveform after the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="gm_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/gm_ssm.png">
 
 Schematic: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="gm_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/gm_sch.png">
 
 	
 </details>
@@ -789,13 +789,13 @@ endmodule
 ```
 
 Waveform before the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="bs_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_wv.png">
 
 Waveform after the synthesis: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="bs_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_ssm.png">
 
 Schematic: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="bs_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_sch.png">
 
 	
 </details>
