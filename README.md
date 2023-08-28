@@ -630,6 +630,23 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
 
 <details>
 <Summary>Introduction</Summary>
+
+** GLS- Gate Level Simulation**:<br />
+- Gate-level simulation is a type of  simulation where the netlist is simulated with orginal test bench. Since the netlist is logically same as RTL code same test bench can be used
+- GLS performed to verify logic correctness  of design and ensuring the timing of design is met.
+- For checking timing of design with GLS it needs to be run with delay annotations.
+- Following is the steps to perform GLS :
+
+```
+      Design-Netlist  ⬂ 
+  GLS Verilog Models  ⇨ Iverilog ⇨ VCD File ⇨  GTKWave
+           TestBench  ⬀ 
+```
+
+
+  
+**Why GLS?**:<br />
+We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
 </details>
 <details>
 <Summary>Lab on GLS and Simulation-Synthesis Mismatch</Summary>
