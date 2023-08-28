@@ -691,6 +691,9 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
 # iverilog -o output DUT.v TestBench.v
 # ./output
 # gtkwave Testbench.vcd
+```
+
+```
 // Synthesis
 # Yosys
 >> read_liberty -lib  ../Path to .lib file
@@ -698,6 +701,9 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
 >> synth -top modulename
 >> abc -liberty ../Path to .lib file
 >> write_verilog netlist.v
+```
+
+```
 // Simulation after synthesis
 # iverilog -o output ../Path to Primitives.v ../sky130_fd_sc_hd.v netlist.v TestBench.v
 # ./output
@@ -717,11 +723,13 @@ endmodule
 Waveform before the synthesis: 
 <img width="1080" alt="to_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_wv.png">
 
+- As we can see in the above image, 
+
 Waveform after the synthesis: 
 <img width="1080" alt="to_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_ssm.png">
 
 Schematic: 
-<img width="1080" alt="to_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_wv.png">
+<img width="1080" alt="to_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9e140f98907b57510a7dbb8d6445796e9b8eee60/docs/assets/imagesday4/to_sch.png">
 
 **Example2:** There is a simulation-synthesis mismatch in this example:
 
