@@ -642,12 +642,43 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
   GLS Verilog Models  ⇨ Iverilog ⇨ VCD File ⇨  GTKWave
            TestBench  ⬀ 
 ```
+- As per the above diagram, After synthesis is done netlist is used in the place of design under test code and ran with the same test-bench along with other required verilog models like sky130_fd_sc_hd.v and primitives.v.
+       
+**Synthesis-Simulation Mismatch**:<br />
+- A synthesis simulation mismatch refers to a situation where the behavior of a  design as simulated before synthesis does not match the behavior of the same design after it has been synthesized and simulated at a gate level.
+- This can happen due to multiple design:
+     1. Missing sensitivity list.
+     2. Blocking and Non-blocking Assignment.
+     3. Non-Standard verilog coding.
+- Missing sensitivity list:  The sensitivity list is a crucial consideration in  design, particularly when dealing with RTL and gate level design descriptions. A missing or incorrect sensitivity list can lead to significant discrepancies between the simulation results before and after synthesis.
 
+**Blocking and Non-blocking statements:**
+- Blocking and non-blocking statements are fundamental concepts in Verilog HDL. They are used to model signal assignments and updates in designs.
+   1. Blocking Statements:
+- Blocking assignments are represented using the = operator in Verilog.
+- When a blocking assignment is executed, it immediately updates the target signal's value before moving on to the next statement.
+- Blocking assignments model a sequential behavior, similar to how instructions are executed in software.
+- Example:
 
-  
-**Why GLS?**:<br />
-We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
+  ```
+  a = b;      // Blocking assignment.
+  c = a + b;  // Will use the updated value of 'a'.
+  // Execute in the order they are written.
+  ```
+   2. Non-Blocking statements:
+- Non-blocking assignments are represented using the <= operator in Verilog.
+- Evaluate the RHS and update the LHS of the blocking assignment without interruption from any other verilog statement
+- Non-blocking assignments model concurrent behavior, where multiple events can occur simultaneously and their updates are scheduled concurrently.
+- Example:
+
+  ```
+  a <= b;      // Non-blocking assignment
+  c <= a + b;  // Uses old value of a.
+  // Execute all the statements in parallel.
+  ```
+ 
 </details>
+
 <details>
 <Summary>Lab on GLS and Simulation-Synthesis Mismatch</Summary>
 </details>
