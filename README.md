@@ -6,6 +6,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis](#Day-1-Introduction-to-Verilog-RTL-design-and-Synthesis)
 - [Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles](#Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
 - [Day-3-Combinational-and-sequential-optimizations](#Day-3-Combinational-and-sequential-optimizations)
+- [Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch](#Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch)
 
 ## Day-0-Tool-Setup-Check
 
@@ -625,3 +626,15 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
 
 </details>
 
+## Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch
+
+<details>
+<Summary>Introduction</Summary>
+</details>
+<details>
+<Summary>Lab on GLS and Simulation-Synthesis Mismatch</Summary>
+</details>
+<details>
+<Summary>Lab on Simulation-Synthesis Mismatch for Blocking Statements</Summary>
+	
+</details>
