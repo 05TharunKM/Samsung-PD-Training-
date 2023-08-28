@@ -654,6 +654,7 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
 
 **Blocking and Non-blocking statements:**
 - Blocking and non-blocking statements are fundamental concepts in Verilog HDL. They are used to model signal assignments and updates in designs.
+  
 **1. Blocking Statements:**
 - Blocking assignments are represented using the = operator in Verilog.
 - When a blocking assignment is executed, it immediately updates the target signal's value before moving on to the next statement.
