@@ -723,10 +723,12 @@ endmodule
 Waveform before the synthesis: 
 <img width="1080" alt="to_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_wv.png">
 
-- As we can see in the above image, 
+- As we can see in the above image, when sel is '0' output y is following i0 and when sel is '1' output y is following i1 which is a desired behaviour.
 
 Waveform after the synthesis: 
 <img width="1080" alt="to_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/to_ssm.png">
+
+- Comparing to the waveform above we can say that there's no synthesis-simulation mismatch. Below is the schematic of netlist : 
 
 Schematic: 
 <img width="1080" alt="to_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9e140f98907b57510a7dbb8d6445796e9b8eee60/docs/assets/imagesday4/to_sch.png">
@@ -735,12 +737,12 @@ Schematic:
 
 ```
 module bad_mux (input i0 , input i1 , input sel , output reg y);
-	always @ (sel)
+	always @ (sel)                                             // whenever there's a change in 'sel' value => execute
 	begin
 		if(sel)
-			y <= i1;
+			y <= i1;   // Non blocking assignment
 		else 
-			y <= i0;
+			y <= i0;   // Non blocking assignment
 	end
 endmodule
 ```
@@ -748,17 +750,23 @@ endmodule
 Waveform before the synthesis: 
 <img width="1080" alt="bm_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bm_wv.png">
 
+- In above image, output y is updating only when ther is change in  sel i.e when the sel is going from '0' to '1' output y is updated with value of i1 at that instant and it will stay the same until next change but as a muultiplexer output y should follow whatever the value coming from input. Thus above design is not considering  changes in input value but only changing when there's change in sel signal.
+- This design acting like dual edge flip-flop.   
+
 Waveform after the synthesis: 
 <img width="1080" alt="bm_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bm_ssm.png">
+
+- Synthesis tool will create netlist based on functionality of RTL code and it's simulation as seen above is following a proper multiplexer. Thus synthesis-simulation mismatch can be rectified by gate-lvel simulation done above. Below is the schematic of the netlist: 
 
 Schematic: 
 <img width="1080" alt="bm_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bm_sch.png">
 
-**Example3:** To avoid simulation-synthesis mismatch following can be implemented .
+
+**Example3:** There's no simultaion-synthesis mismatch in below example.
 
 ```
 module good_mux (input i0 , input i1 , input sel , output reg y);
-	always @ (*)
+	always @ (*)                                              // whenever there's a change in any value => execute  
 	begin
 		if(sel)
 			y <= i1;
@@ -774,6 +782,9 @@ Waveform before the synthesis:
 Waveform after the synthesis: 
 <img width="1080" alt="gm_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/gm_ssm.png">
 
+- By comparing these two waveform above we can say there's no synthesis-simulation mismatch
+- Previous problem was rectified by adding a '*' in always block so that whenever there's a change in select line and inputs, always block is exceuted. 
+
 Schematic: 
 <img width="1080" alt="gm_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/gm_sch.png">
 
@@ -783,15 +794,15 @@ Schematic:
 <details>
 <Summary>Lab on Simulation-Synthesis Mismatch for Blocking Statements</Summary>
 
-**Example2:** There is no simulation-synthesis mismatch in this example.
+**Example:** Using blocking statements inside an always block.
 
 ```
 module blocking_caveat (input a , input b , input  c, output reg d); 
 reg x;
 always @ (*)
 	begin
-	d = x & c;
-	x = a | b;
+	d = x & c; // blocking statement
+	x = a | b; // blocking statement
 end
 endmodule
 ```
@@ -802,6 +813,9 @@ Waveform before the synthesis:
 Waveform after the synthesis: 
 <img width="1080" alt="bs_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_ssm.png">
 
+- There's no synthesis simulation mismatch but due to blocking statements in wrong order has caused output to accumulate previous values or junk values.
+- Since the blocking statements execute in consecutive order, when d is calculated value of 'x' considered is a previous one which in turn caused a delay.
+  
 Schematic: 
 <img width="1080" alt="bs_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_sch.png">
 
