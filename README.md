@@ -683,8 +683,119 @@ Here all the 3 bits are used therefore three flip flops and adder circuit for co
 
 <details>
 <Summary>Lab on GLS and Simulation-Synthesis Mismatch</Summary>
+	
+**Steps to perform GLS and check for Simulation-Synthesis Mismatch:** 
+
+```
+// Simulation before synthesis
+# iverilog -o output DUT.v TestBench.v
+# ./output
+# gtkwave Testbench.vcd
+// Synthesis
+# Yosys
+>> read_liberty -lib  ../Path to .lib file
+>> read_verilog DUT.v
+>> synth -top modulename
+>> abc -liberty ../Path to .lib file
+>> write_verilog netlist.v
+// Simulation after synthesis
+# iverilog -o output ../Path to Primitives.v ../sky130_fd_sc_hd.v netlist.v TestBench.v
+# ./output
+# gtkwave TestBench.vcd
+// Now compare the both results
+```
+
+**Example1:** There is no simulation-synthesis mismatch in this example.
+
+```
+module ternary_operator_mux (input i0 , input i1 , input sel , output y);
+   assign y = sel?i1:i0;
+endmodule
+// y = i0.sel' + i1.sel 
+```
+
+Waveform before the synthesis: 
+<img width="1080" alt="" src="">
+
+Waveform after the synthesis: 
+<img width="1080" alt="" src="">
+
+Schematic: 
+<img width="1080" alt="" src="">
+
+**Example2:** There is a simulation-synthesis mismatch in this example.
+
+```
+module bad_mux (input i0 , input i1 , input sel , output reg y);
+	always @ (sel)
+	begin
+		if(sel)
+			y <= i1;
+		else 
+			y <= i0;
+	end
+endmodule
+```
+
+Waveform before the synthesis: 
+<img width="1080" alt="" src="">
+
+Waveform after the synthesis: 
+<img width="1080" alt="" src="">
+
+Schematic: 
+<img width="1080" alt="" src="">
+
+**Example2:** There is no simulation-synthesis mismatch in this example.
+
+```
+module good_mux (input i0 , input i1 , input sel , output reg y);
+	always @ (*)
+	begin
+		if(sel)
+			y <= i1;
+		else 
+			y <= i0;
+	end
+endmodule
+```
+
+Waveform before the synthesis: 
+<img width="1080" alt="" src="">
+
+Waveform after the synthesis: 
+<img width="1080" alt="" src="">
+
+Schematic: 
+<img width="1080" alt="" src="">
+
+	
 </details>
+
 <details>
 <Summary>Lab on Simulation-Synthesis Mismatch for Blocking Statements</Summary>
+
+**Example2:** There is no simulation-synthesis mismatch in this example.
+
+```
+module blocking_caveat (input a , input b , input  c, output reg d); 
+reg x;
+always @ (*)
+	begin
+	d = x & c;
+	x = a | b;
+end
+endmodule
+```
+
+Waveform before the synthesis: 
+<img width="1080" alt="" src="">
+
+Waveform after the synthesis: 
+<img width="1080" alt="" src="">
+
+Schematic: 
+<img width="1080" alt="" src="">
+
 	
 </details>
