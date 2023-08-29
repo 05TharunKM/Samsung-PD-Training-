@@ -807,14 +807,22 @@ end
 endmodule
 ```
 
-Waveform before the synthesis: 
-<img width="1080" alt="bs_wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_wv.png">
-
-Waveform after the synthesis: 
-<img width="1080" alt="bs_ssm.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_ssm.png">
-
 - There's no synthesis simulation mismatch but due to blocking statements in wrong order has caused output to accumulate previous values or junk values.
 - Since the blocking statements execute in consecutive order, when d is calculated value of 'x' considered is a previous one which in turn caused a delay.
+- 
+Waveform before and after the synthesis: 
+<img width="1080" alt="tw.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/15a44a36628f7636687c21de2d5f12d96f6d564b/docs/assets/imagesday4/tw.png">
+
+- In above window, top tab represents simulation before synthesis and bottom one is after synthesis simulation.
+- As per the  logic following observation can be made:
+
+```
+d =  (a + b) . c
+//At 1500ns marker is placed and following calculation can be made
+d = (0 + 0) . 1
+d = 0 
+```
+- So the correct output at 1500ns should be '0' but in top waveform where simulation is done before synthesis output is shown as '1' i.e it's taking a value of previous cycle. This problem is rectivied by doing GLS(bottom tab) where the correct output is correct.
   
 Schematic: 
 <img width="1080" alt="bs_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_sch.png">
