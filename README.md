@@ -7,6 +7,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles](#Day-2-Timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
 - [Day-3-Combinational-and-sequential-optimizations](#Day-3-Combinational-and-sequential-optimizations)
 - [Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch](#Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch)
+- [Day-5-DFT](#Day-5-DFT)
 
 ## Day-0-Tool-Setup-Check
 
@@ -826,6 +827,73 @@ d = 0
   
 Schematic: 
 <img width="1080" alt="bs_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/002d0c0159831b8688ba12169779dae8adf0433d/docs/assets/imagesday4/bs_sch.png">
-
 	
+</details>
+
+## Day-5-DFT 
+
+<details>
+<summary>DFT</summary>
+
+**What is DFT?**
+- Design for Testability (DFT) is a set of techniques and methodologies used to enhance the ease and efficiency of testing the chips after they are  manufactured. The  goal of DFT is to ensure that the manufactured  can be thoroughly tested to detect any defects or faults that might have occurred during the fabrication process. DFT plays a crucial role in reducing the time and cost associated with testing and debugging fabricated chips.
+- There are 3  levels of testing after chips are manufactured:
+    - Chip level
+    - Board level
+    - System level
+
+**Advantages of DFT:**
+
+- Improved rest coverage: DFT techniques ensure that a high percentage of potential defects can be detected during testing.
+- Reduced test time: By using scan chains and optimized test patterns, the time required to test a chip is  reduced compared to other methods.
+- Faster debugging: DFT allows for easier identification  of faults, speeding up the debugging process after testing.
+- Higher yield: With thorough testing made possible by DFT, faulty ICs can be identified and corrected before they are shipped, leading to a higher manufacturing yield.
+
+**Challenges:**
+
+- Area Overhead: The additional circuitry required for DFT techniques can increase the overall chip area,  impacting the design's performance and cost.
+- Complexity: Implementing DFT techniques requires specialized knowledge and tools, adding complexity to the design process.
+- Power Consumption: Some DFT techniques, like scan chains, can lead to increased power consumption during testing.
+- Trade-offs: Designers often need to make trade-offs between the level of test coverage, test time, area overhead, and other design metrics.
+
+**Basic Terminology:**
+
+- Observability: Observability refers to the ability to r capture the values of internal nodes or signals within a  circuit during the testing process.
+- Controllability:  Controlability refers to the ability to set or control specific values on internal nodes or signals within a  circuit during the application of test patterns. 
+- Fault:  Faults refer to defects or errors in a  circuit that can lead to incorrect or unexpected behavior.
+- Error: Error is caused when there is a fault, it refers to any deviation from the expected or correct behavior of the circuit.
+- Failure: It refers to a situation where a circuit does not perform its intended function correctly.
+- Fault Coverage :The percentage of  defects or faults that can be detected by a set of test vectors..
+             Fault coverage  = # Faults detected/# Total faults
+
+**DFT Techniques**
+- Ad-Hoc Testing:
+   - Ad hoc testing refers to a non-systematic approach to testing a  circuit. It involves using individual test cases to identify potential faults or errors in the design.
+   - Ad hoc testing is often performed early in the testing process to quickly uncover obvious issues before more formal testing methods are applied.
+   - Steps:
+      - Avoid Combinational feedback
+      - All flops must be intializable
+      - Partioning a large circuit into small blocks
+      - Provide test control for signals which are not controllable
+      - Consider the ATE requirements
+- Structured Technique:
+   - A structured technique involves following a systematic approach to ensure that a  circuit is designed in a way that makes it easy to test and detect faults.
+   - One of the most common structured techniques in DFT is the use of scan chains. Following are the steps to consider:
+      - Scan Chain Insertion: Identify flip-flops within the design and group them into scan chains. Insert additional circuitry to create scan-in and scan-out  pins for each scan chain.
+      - Test Vector Generation: Utilize ATPG tools to automatically generate test vectors that will be loaded into the scan chains.
+      - Scan Chain Operation: Load the generated test vectors into the scan chains through the SI pins. Clock the circuit, allowing the test vectors to propagate through the circuit. Observe the outputs from the SO pins and compare them to expected results.
+
+**ATE functionality:**
+
+- Scan in phase
+- Parallel Measure
+- Parallel Capture
+- First scan out phase
+- Scan out phase
+
+**DFT Compiler:**
+
+**Exercise Question:**
+
+
 </details>
