@@ -891,9 +891,7 @@ Schematic:
 - First scan out phase
 - Scan out phase
 
-**DFT Compiler:**
 
-**Exercise Question:**
 
 
 </details>
