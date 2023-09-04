@@ -901,12 +901,18 @@ Schematic:
 <summary>Synthesis using Design Compiler</summary>
 	
 **Synthesis:**
-- Synthesis is the process of converting an abstract and functional representation of a digital circuit into a gate-level representation(netlist).
+- Synthesis is the process of converting an abstract and functional representation of a digital circuit into a gate-level representation.
 - Design is converted into gates and connection are made between the gates.
 - This is given out as file called netlist.
 
-**Liberty file:**
-- Collection of logical modules which include basic logic gates of different flavour.
+**Libraries:**
+- **.lib** file: Collection of logical modules which include basic logic gates of different flavour.
+- **.db** file: .db is the compiled version of liberty file(.lib).
+
+**SDC:**
+- SDC is a short form of “Synopsys Design Constraint”. SDC is a common format for constraining the design which is supported by almost all tools.
+- Timing, power and area constraints of design are provided through the SDC file and this file has extension .sdc.
+- SDC is based on TCL language. 
 
 **Introduction to DC:**
 - Design compiler is a synthesis tool developed by synopsys.
@@ -914,16 +920,28 @@ Schematic:
 - DC Synthesis flow:
 
 ```
-
+		Read STD Cell/tech.lib
+			⇩
+		Read Design (Verilog and Design.lib)
+			⇩
+		Read SDC
+			⇩
+		Link the Design
+			⇩
+		Synthesize
+			⇩
+		Generate Report and analyse QoR
+			⇩
+		Write out the Netlist
 ```
   
 - Steps to perform synthesis in DC shell is given below:
 
 ```
 > csh
-> dc_shell           //invoking DC Shell
->> read_db ../../../path to db file
->> read_verilog lab1.v
+> dc_shell                                        // invoking DC Shell
+>> read_db ../../../path to db file               // .db is the compiled version of .lib file.
+>> read_verilog lab1.v                            // reading the design
 >> set target_library ../../../path to db
 >> set link_library ../../../path to db
 >> link
@@ -932,7 +950,8 @@ Schematic:
 >> write -f verilog -out lab1.ddc       
 ```
 
--To  avoid linking library all the time create the following file and keep it the user home directory.
+- To  avoid linking library all the time, create the following file and keep it in the user home directory.
+
 **.synopsys_dc.setup**
 
 ```
@@ -944,8 +963,8 @@ set link_library {* /home/tharun.m/Desktop/dc_synth/DC_WORKSHOP/lib/sky130_fd_sc
 
 ```
 >> csh
->> design_vision  // or usethis in dc_shell // >> gui_start
->> read_ddc lab1.ddc load the ddc from previos session
+>> design_vision      // or usethis in dc_shell //         >> gui_start
+>> read_ddc lab1.ddc  // load the ddc from previos session
 
 ```
 **Labs on DC:**
@@ -954,19 +973,23 @@ set link_library {* /home/tharun.m/Desktop/dc_synth/DC_WORKSHOP/lib/sky130_fd_sc
 <img width="1080" alt="lab1ff_code.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_code.png">
 
 - Without linking the library synthesis is performed: 
-- Netlist Generated:
-<img width="1080" alt="lab1ff_nolib_net.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_nolib_net.png">
 
-- Schematic:
+Netlist Generated:
+<img width="1080" alt="lab1ff_nolib_net.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_nolib_net.png">
+- Since no library was linked befor running synthesis dc_shell will use the default library provied in it's memory.
+- Tool has used a module SEQGEN for a flip flop with enable and reset.
+Schematic:
 <img width="1080" alt="lab1_nolib.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1_nolib.png">
 
 - Now link the sky130_fd_sc_hd__tt_025C_1v80.db library as per the above steps and perform synthesis.
-- Netlist Generated
-<img width="1080" alt="lab1_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1_sch.png">
+Netlist Generated:
+<img width="1080" alt="lab1ff_net.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_net.png">
 
-- Schematic:
-<img width="1080" alt="lab1ff_net.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_net.png">  
+Schematic:
+<img width="1080" alt="lab1_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1_sch.png">  
 
+- Now that sky130_fd_sc_hd__tt_025C_1v80.db is linked, tool will use the modules from that library.
+- Since the code represent active high reset but available FF module has active low reset it has used a inverter module and a mux module for enable signals.
 </details>
 <details>
 <summary>Labs on TCL</summary>
@@ -974,8 +997,7 @@ set link_library {* /home/tharun.m/Desktop/dc_synth/DC_WORKSHOP/lib/sky130_fd_sc
 - TCL: Tool Command Language is the popular scripting language used in VLSI.
 - Following are the common commands and syntax of TCL : 
   - set: Creating and storing information.
-
-EX: 
+ 
 	
 ```
 set a 5 
