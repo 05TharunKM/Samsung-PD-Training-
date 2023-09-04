@@ -8,6 +8,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-3-Combinational-and-sequential-optimizations](#Day-3-Combinational-and-sequential-optimizations)
 - [Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch](#Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch)
 - [Day-5-DFT](#Day-5-DFT)
+- [Day-6-Introduction-to-logic-synthesis](#Day-6-Introduction-to-logic-synthesis)
 
 ## Day-0-Tool-Setup-Check
 
@@ -891,7 +892,148 @@ Schematic:
 - First scan out phase
 - Scan out phase
 
+</details>
 
 
+## Day-6-Introduction-to-logic-synthesis
+
+<details>
+<summary>Synthesis using Design Compiler</summary>
+	
+**Synthesis:**
+- Synthesis is the process of converting an abstract and functional representation of a digital circuit into a gate-level representation(netlist).
+- Design is converted into gates and connection are made between the gates.
+- This is given out as file called netlist.
+
+**Liberty file:**
+- Collection of logical modules which include basic logic gates of different flavour.
+
+**Introduction to DC:**
+- Design compiler is a synthesis tool developed by synopsys.
+- Design compiler should be provided with .db as it can't understand .lib file.
+- DC Synthesis flow:
+
+```
+
+```
+  
+- Steps to perform synthesis in DC shell is given below:
+
+```
+> csh
+> dc_shell           //invoking DC Shell
+>> read_db ../../../path to db file
+>> read_verilog lab1.v
+>> set target_library ../../../path to db
+>> set link_library ../../../path to db
+>> link
+>> compile
+>> write -f verilog -out netlist.v
+>> write -f verilog -out lab1.ddc       
+```
+
+-To  avoid linking library all the time create the following file and keep it the user home directory.
+**.synopsys_dc.setup**
+
+```
+set target_library /home/tharun.m/Desktop/dc_synth/DC_WORKSHOP/lib/sky130_fd_sc_hd__tt_025C_1v80.db
+set link_library {* /home/tharun.m/Desktop/dc_synth/DC_WORKSHOP/lib/sky130_fd_sc_hd__tt_025C_1v80.db}
+```
+
+- To invoke gui of DC use following commands.
+
+```
+>> csh
+>> design_vision  // or usethis in dc_shell // >> gui_start
+>> read_ddc lab1.ddc load the ddc from previos session
+
+```
+**Labs on DC:**
+
+- RTL Code: 
+<img width="1080" alt="" src="">
+- Without linking the library synthesis is performed: 
+- Netlist Generated:
+<img width="1080" alt="" src="">
+- Schematic:
+<img width="1080" alt="" src="">
+
+- Now link the sky130_fd_sc_hd__tt_025C_1v80.db library as per the above steps and perform synthesis.
+- Netlist Generated
+<img width="1080" alt="" src="">
+- Schematic:
+<img width="1080" alt="" src="">  
+</details>
+<details>
+<summary>Labs on TCL</summary>
+	
+- TCL: Tool Command Language is the popular scripting language used in VLSI.
+- Following are the common commands and syntax of TCL : 
+  - set: Creating and storing information.
+
+EX: 
+	
+```
+set a 5 
+set a [expr $a+$b]
+```
+
+  - If statement 
+
+```
+if {condition} {
+statements
+} else {
+statements
+}
+```
+  - While statement
+
+```
+while {condition} {
+statement
+incr/decr
+}
+```
+  -For statement 
+
+```
+for {looping var}  {condition} {modification} {
+statement
+}
+```
+
+-Foreach statement 
+
+```
+foreach var list{
+statement
+}
+```
+
+-Foreach_in_collection statement ( DC tool specific)
+
+```
+foreach_in_collection var collection {
+statement
+}
+```
+
+**Labs on TCL:**
+
+- Example1: For loop
+<img width="1080" alt="" src="">  
+
+- Example2: While statement
+<img width="1080" alt="" src="">  
+
+- Example3: Foreach loop
+<img width="1080" alt="" src="">  
+
+- Example4: Foreach_in_collection statement
+<img width="1080" alt="" src="">  
+
+- Example5: Executing tcl script from dc_shell
+<img width="1080" alt="" src="">  
 
 </details>
