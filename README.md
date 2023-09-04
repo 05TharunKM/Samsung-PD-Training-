@@ -1059,7 +1059,12 @@ statement
 - Example4: Foreach_in_collection statement
 <img width="1080" alt="tcl_foreachdc.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_foreachdc.png">  
 
-- Example5: Executing tcl script from dc_shell
+- Example5: Executing tcl script from dc_shell and following are the commands:
+
+```
+>> sh gvim sample.tcl
+>> source sample.tcl
+```
 
 File:
 <img width="1080" alt="tcl_file.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_file.png">
