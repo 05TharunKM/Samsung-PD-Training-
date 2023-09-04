@@ -951,18 +951,22 @@ set link_library {* /home/tharun.m/Desktop/dc_synth/DC_WORKSHOP/lib/sky130_fd_sc
 **Labs on DC:**
 
 - RTL Code: 
-<img width="1080" alt="" src="">
+<img width="1080" alt="lab1ff_code.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_code.png">
+
 - Without linking the library synthesis is performed: 
 - Netlist Generated:
-<img width="1080" alt="" src="">
+<img width="1080" alt="lab1ff_nolib_net.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_nolib_net.png">
+
 - Schematic:
-<img width="1080" alt="" src="">
+<img width="1080" alt="lab1_nolib.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1_nolib.png">
 
 - Now link the sky130_fd_sc_hd__tt_025C_1v80.db library as per the above steps and perform synthesis.
 - Netlist Generated
-<img width="1080" alt="" src="">
+<img width="1080" alt="lab1_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1_sch.png">
+
 - Schematic:
-<img width="1080" alt="" src="">  
+<img width="1080" alt="lab1ff_net.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/lab1ff_net.png">  
+
 </details>
 <details>
 <summary>Labs on TCL</summary>
@@ -995,7 +999,7 @@ statement
 incr/decr
 }
 ```
-  -For statement 
+  - For statement 
 
 ```
 for {looping var}  {condition} {modification} {
@@ -1003,7 +1007,7 @@ statement
 }
 ```
 
--Foreach statement 
+  - Foreach statement 
 
 ```
 foreach var list{
@@ -1011,7 +1015,7 @@ statement
 }
 ```
 
--Foreach_in_collection statement ( DC tool specific)
+  - Foreach_in_collection statement ( DC tool specific)
 
 ```
 foreach_in_collection var collection {
@@ -1022,18 +1026,23 @@ statement
 **Labs on TCL:**
 
 - Example1: For loop
-<img width="1080" alt="" src="">  
+<img width="1080" alt="tcl_for.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_for.png">  
 
 - Example2: While statement
-<img width="1080" alt="" src="">  
+<img width="1080" alt="tcl_while.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_while.png">  
 
 - Example3: Foreach loop
-<img width="1080" alt="" src="">  
+<img width="1080" alt="tcl_foreach.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_foreach.png">  
 
 - Example4: Foreach_in_collection statement
-<img width="1080" alt="" src="">  
+<img width="1080" alt="tcl_foreachdc.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_foreachdc.png">  
 
 - Example5: Executing tcl script from dc_shell
-<img width="1080" alt="" src="">  
+
+File:
+<img width="1080" alt="tcl_file.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_file.png">
+
+Output:
+<img width="1080" alt="tcl_fileop.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_fileop.png">
 
 </details>
