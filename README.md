@@ -9,6 +9,9 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch](#Day-4-GLS-Blocking-vs-Non-blocking-and-Synthesis-Simulation-mismatch)
 - [Day-5-DFT](#Day-5-DFT)
 - [Day-6-Introduction-to-logic-synthesis](#Day-6-Introduction-to-logic-synthesis)
+- [Day-7-Basic-SDC-constraints](#Day-7-Basic-SDC-constraints)
+
+
 
 ## Day-0-Tool-Setup-Check
 
@@ -1073,3 +1076,37 @@ Output:
 <img width="1080" alt="tcl_fileop.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/55bce0aa4702736b10b68c28a48c8c01b38fc46f/docs/assets/Image5/tcl_fileop.png">
 
 </details>
+
+
+## Day-7-Basic-SDC-constraints
+
+<details>
+<summary>Intro to STA and Constraints</summary>
+
+**Max(setup) and Max(hold) Constraints:**
+
+<img width="1080" alt="" src="">
+
+- Set-up time refers to the minimum amount of time a data must be stable and valid before the clock edge  arrives for that data to be reliably latched  by a flip-flop or a latch.
+- Hold time refers to the minimum amount of time a data  must remain stable and valid after the clock edge has arrived for that data to be reliably  captured by a flip-flop or latch.
+
+<img width="1080" alt="" src="">
+
+- As we can see in above schematic, at edge of launch clock edge data is latched into launch flop(FF1) and it assumed that it will take around one clock cycle to reach capture flop(FF2) because to Clock-Q delay and combinational delay.
+- Setup check is checked in next cycle and hold check is done in present cycle.
+- From the waveform we can observe the setup and hold time marked in red and blue region of the waveform repsectively.
+- Two equations that are used to calculate min and max delay :
+	- Max Delay   :  T<sub>clk</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>
+	- Min Delay   :  T<sub>hold</sub>< T<sub>c-q</sub> + T<sub>comb</sub>
+
+**Delay:**
+
+**Timing Arcs:**
+
+**Timing Path:**
+
+**Max Transition:**
+
+
+</details>
+
