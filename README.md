@@ -1103,8 +1103,7 @@ Output:
 - Delay of the cell is a function of input transition and output load.  
 
 **Timing Arcs:**
-- Timing arcs, also known as timing constraints or timing relationships, are essential components in the design and analysis of digital integrated circuits.
-- They define the timing characteristics of signals as they propagate through the circuit, providing information about the required delays, transition times, and clock relationships to ensure proper operation.
+- Timing arcs define the timing characteristics of signals as they propagate through the circuit, providing information about the required delays, transition times, and clock relationships to ensure proper operation.
 - Combinational cell: Delay information from every input pin and every output pin is contained.
 - Sequential Cell: Set-up time, hold time, C-Q delay and D-Q delay for latch is contained. 
 
@@ -1115,7 +1114,7 @@ Output:
 - Propagation Delay: Each timing path has an associated propagation delay, which is the time it takes for a signal to travel from the source to the destination along that path. 
 - Startpoint and Endpoint: In a timing path, the startpoint is the source of the signal, and the endpoint is the destination where the signal must meet specific timing requirements. 
 - Setup Time and Hold Time: Timing paths are used to analyze whether a signal meets setup and hold time requirements at the destination flip-flop. 
-- False Paths:  False paths are paths in the design that are intentionally ignored during timing analysis because they do not impact the functionality or performance of the circuit.
+- False Paths: False paths are paths in the design that are intentionally ignored during timing analysis because they do not impact the functionality or performance of the circuit.
 - Following numerical will help understanding the timing path concept better:
 
 <img width="1080" alt="timingpath_num.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/timingpath_num.jpg">
@@ -1155,7 +1154,7 @@ Output:
 
 <img width="1080" alt="libfile.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/libfile.png">
 
--  A .lib file, short for library file, contains essential information about standard cell libraries used in digital IC design. Standard cell libraries consist of a collection of pre-designed and characterized logic gates and flip-flops. These libraries are fundamental to the design and optimization of digital circuits.
+-  A .lib file, short for library file, contains essential information about standard cell libraries. Standard cell libraries consist of a collection of pre-designed and characterized logic gates and flip-flops. These libraries are fundamental to the design and optimization of digital circuits.
 - Contents of a .lib File:
 	- Cell Definitions: Each logic gate or flip-flop in the library is defined with its logical functionality, pin descriptions, and timing information.
 	- Timing Information: This section provides data on the timing behavior of the library cells. It includes details like setup time, hold time, propagation delay, transition times, and more. Timing information is crucial for performing timing analysis and optimization during the physical design process.
@@ -1171,7 +1170,7 @@ Output:
   
 <img width="1080" alt="drive.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/images7/drive.jpg">
 
-- In above circuit, 2 input OR gate is driving 4 other gates and we know that drive strength is a function of capacitive load of the that particular cell. So total capacitance can be calsulated to observe whether driving gate can handle the load.
+- In above circuit, 2 input OR gate is driving 4 other gates and we know that drive strength is a function of capacitive load of the that particular cell. So total capacitance can be calculated to observe whether driving gate can handle the load.
 - Lets say the driving cell(OR Gate) here won't be able to drive the four gates then we can specify the tool to use the cell with higher driving strength which will be provided in .lib file or the below solution can be implemented :  
 
 <img width="1080" alt="drive_sol.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/images7/drive_sol.jpg">
@@ -1184,7 +1183,8 @@ Output:
 - We can observe that as the drive strength of cell is increases it's area and leakage power also increases. 
  
 <img width="1080" alt="and_delay.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/and_delay.png">
-- .lib file uses a method called look-up table for delay calculation of cell. It will provide delay for different transition time and capacitance of the cell.
+
+- lib file uses a method called look-up table for delay calculation of cell. It will provide delay for different transition time and capacitance of the cell.
 - In above figure we can observe the there are two table fall transition and rise transition. Index 1 represents capacitance and index 2 represents max transition.
 - Delay for all the combination of capacitance and drive strength is provided and if it is not availble tool will di interpolation between two value and will find the delay of cell. 
 
@@ -1222,7 +1222,7 @@ Output:
 <img width="1080" alt="dc_nand_io.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_nand_io.png">
 
 
-- Instead of executing the individual commands, a TCL script can be written to obtain the desired output. Following code will get the list of input and output pin and also display the functionality of the output pin for fifferent standard cell. 
+- Instead of executing the individual commands, a TCL script can be written to obtain the desired output. Following code will get the list of input and output pin and also display the functionality of the output pin for different standard cell. 
 
 <img width="1080" alt="dc_script.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_script.png">
 
