@@ -1085,29 +1085,72 @@ Output:
 
 **Max(setup) and Max(hold) Constraints:**
 
-<img width="1080" alt="" src="">
+<img width="1080" alt="ff_diagram.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/ff_diagram.png">
 
 - Set-up time refers to the minimum amount of time a data must be stable and valid before the clock edge  arrives for that data to be reliably latched  by a flip-flop or a latch.
 - Hold time refers to the minimum amount of time a data  must remain stable and valid after the clock edge has arrived for that data to be reliably  captured by a flip-flop or latch.
 
-<img width="1080" alt="" src="">
+<img width="1080" alt="setuphold.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/setuphold.png">
 
 - As we can see in above schematic, at edge of launch clock edge data is latched into launch flop(FF1) and it assumed that it will take around one clock cycle to reach capture flop(FF2) because to Clock-Q delay and combinational delay.
 - Setup check is checked in next cycle and hold check is done in present cycle.
 - From the waveform we can observe the setup and hold time marked in red and blue region of the waveform repsectively.
 - Two equations that are used to calculate min and max delay :
-	- Max Delay   :  T<sub>clk</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>
-	- Min Delay   :  T<sub>hold</sub>< T<sub>c-q</sub> + T<sub>comb</sub>
+	- Max Delay   :  T<sub>clk</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>        ...(1)
+	- Min Delay   :  T<sub>hold</sub>< T<sub>c-q</sub> + T<sub>comb</sub>				 ...(2)
 
 **Delay:**
 - Delay of the cell is a function of input transition and output load.  
 
 **Timing Arcs:**
+- Timing arcs, also known as timing constraints or timing relationships, are essential components in the design and analysis of digital integrated circuits.
+- They define the timing characteristics of signals as they propagate through the circuit, providing information about the required delays, transition times, and clock relationships to ensure proper operation.
+- Combinational cell: Delay information from every input pin and every output pin is contained.
+- Sequential Cell: Set-up time, hold time, C-Q delay and D-Q delay for latch is contained. 
 
 **Timing Path:**
+- Timing paths are critical components in the analysis and optimization of digital integrated circuits.
+- They represent specific routes or sequences of logic elements through which signals propagate.
+- Critical Paths: Timing paths are often categorized as either critical or non-critical. Critical paths are those paths that determine the worst-case delay through a circuit.
+- Propagation Delay: Each timing path has an associated propagation delay, which is the time it takes for a signal to travel from the source to the destination along that path. 
+- Startpoint and Endpoint: In a timing path, the startpoint is the source of the signal, and the endpoint is the destination where the signal must meet specific timing requirements. 
+- Setup Time and Hold Time: Timing paths are used to analyze whether a signal meets setup and hold time requirements at the destination flip-flop. 
+- False Paths:  False paths are paths in the design that are intentionally ignored during timing analysis because they do not impact the functionality or performance of the circuit.
+- Following numerical will help understanding the timing path concept better:
 
-**Max Transition:**
+<img width="1080" alt="" src="">
 
+- This circuit has two timing path and assume setup time of 0.5ns(T<sub>setup</sub>) and  T<sub>c-q</sub> of 0.5ns.
+- As per the two equations mentioned above (1 and 2) following calculation can be made:
+   - Path 1 is Clk-Q-Inverter-And-D and Path 2 is Clk-Q-And-D:
+	- =>T<sub>clk</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>
+ 	- =>T<sub>clk</sub> > 0.5 + 1.2 + 0.5 = 2.2ns .....Path1
+	- =>T<sub>clk</sub> > 0.5 + 0.7 + 0.5 = 1.7ns .....Path2
+   - Now the from path with max delay minimum operating frequency can be found out.
+     	- => f = 1/T<sub>clkMax</sub> = 454.5MHz
+  
+<img width="1080" alt="timingpath_num.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/timingpath_num.jpg">
 
+-  From above diagtam we can understand different types of path in the design and how they are constrained.
+   - Reg2Reg Path [Clk - D - Comb-D]   : Constrained by clock.
+   - Reg2Out Path [Clk - D - Output_Comb_logic - Output_Port] : Constrained by output external delay and clock period.
+   - In2Reg  Path [Input_port - Input_Comb_logic - D] : Constrained by input external delay and clock period.
+   - Reg2out and In2Reg are collectively called as IO Paths.
+     
+
+**IO Constraints:**
+
+<img width="1080" alt="ioconstr.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/ioconstr.jpg">
+
+- In above image we can observe the effect of input external delay(T<sub>ip_ext</sub>) and input combinational logic delay on set-up time. Both of these delay combined should be less than [ T<sub>clk</sub> - T<sub>setup</sub> ]
+- Therefore input and output logic delay should be properly adjusted as per the constraints provided.
+- Generally 70% External delay and 30% Internal delay thumb rule is used. 
+
+</details>
+
+<details>
+<summary>Labs on Timing .LIB</summary>
+
+ 
 </details>
 
