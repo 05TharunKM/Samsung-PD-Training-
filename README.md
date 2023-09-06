@@ -1166,58 +1166,68 @@ Output:
 - The detailed explanation of the .lib file is provided below:
 
  1) Drive Strenght:
-	- Drive strength is a measure of how much load a standard cell can drive.
-	- Lets have an example to understand drive strength.
+- Drive strength is a measure of how much load a standard cell can drive.
+- Lets have an example to understand drive strength.
+  
 <img width="1080" alt="drive.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/images7/drive.jpg">
 
-	- In above circuit, 2 input OR gate is driving 4 other gates and we know that drive strength is a function of capacitive load of the that particular cell. So total capacitance can be calsulated to observe whether driving gate can handle the load.
-	- Lets say the driving cell(OR Gate) here won't be able to drive the four gates then we can specify the tool to use the cell with higher driving strength which will be provided in .lib file or the below solution can be implemented :  
+- In above circuit, 2 input OR gate is driving 4 other gates and we know that drive strength is a function of capacitive load of the that particular cell. So total capacitance can be calsulated to observe whether driving gate can handle the load.
+- Lets say the driving cell(OR Gate) here won't be able to drive the four gates then we can specify the tool to use the cell with higher driving strength which will be provided in .lib file or the below solution can be implemented :  
 
 <img width="1080" alt="drive_sol.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/images7/drive_sol.jpg">
 
  2) Area, Delay and Unateness:
 
 <img width="1080" alt="and3comp.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/and3comp.png">
-	- From above image of .lib file of AND gate of three different flavours we can obsereve the area, cell leakage power, pin capacitance and many other specifications 
- 	- We can observe that as the drive strength of cell is increases it's area and leakage power also increases. 
+
+- From above image of .lib file of AND gate of three different flavours we can obsereve the area, cell leakage power, pin capacitance and many other specifications 
+- We can observe that as the drive strength of cell is increases it's area and leakage power also increases. 
  
 <img width="1080" alt="and_delay.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/and_delay.png">
-	- .lib file uses a method called look-up table for delay calculation of cell. It will provide delay for different transition time and capacitance of the cell.
- 	- In above figure we can observe the there are two table fall transition and rise transition. Index 1 represents capacitance and index 2 represents max transition.
-  	- Delay for all the combination of capacitance and drive strength is provided and if it is not availble tool will di interpolation between two value and will find the delay of cell. 
+- .lib file uses a method called look-up table for delay calculation of cell. It will provide delay for different transition time and capacitance of the cell.
+- In above figure we can observe the there are two table fall transition and rise transition. Index 1 represents capacitance and index 2 represents max transition.
+- Delay for all the combination of capacitance and drive strength is provided and if it is not availble tool will di interpolation between two value and will find the delay of cell. 
 
 <img width="1080" alt="andnot_unate.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/andnot_unate.png">
-	- Unateness refers to the concept of whether a particular input to a logic gate or flip-flop has an effect on the output only when it changes from a specific logic level to the opposite logic level (either from 0 to 1 or from 1 to 0). In other words, a unate input is sensitive to transitions in one direction.
- 	- Positive Unate Function: A function is considered positive unate with respect to a variable if, for that variable, changing its value from 0 to 1 can only increase the value of the function.
-	- Example: The function F = A + B is positive unate with respect to both A and B because increasing the value of either A or B from 0 to 1 can only increase the value of F.
-	- Negative Unate Function: A function is considered negative unate with respect to a variable if, for that variable, changing its value from 0 to 1 can only decrease the value of the function.
-	- Example: The function F = A.B is negative unate with respect to both A and B because increasing the value of either A or B from 0 to 1 can only decrease the value of F.
-	- Non-Unate Function: A function is considered non-unate with respect to a variable if changing the value of that variable from 0 to 1 can have either increasing or decreasing effects on the function's value, depending on the context.
-	- Example: The function F = A ^ B is non-unate with respect to both A and B because changing the value of either A or B from 0 to 1 can either increase or decrease the value of F, depending on the current values of the variables.
- 	- In above image we can observe the unateness information provided in .lib file for two different cell , an OR gate and an inverter cell.
+	
+- Unateness refers to the concept of whether a particular input to a logic gate or flip-flop has an effect on the output only when it changes from a specific logic level to the opposite logic level (either from 0 to 1 or from 1 to 0). In other words, a unate input is sensitive to transitions in one direction.
+- Positive Unate Function: A function is considered positive unate with respect to a variable if, for that variable, changing its value from 0 to 1 can only increase the value of the function.
+- Example: The function F = A + B is positive unate with respect to both A and B because increasing the value of either A or B from 0 to 1 can only increase the value of F.
+- Negative Unate Function: A function is considered negative unate with respect to a variable if, for that variable, changing its value from 0 to 1 can only decrease the value of the function.
+- Example: The function F = A.B is negative unate with respect to both A and B because increasing the value of either A or B from 0 to 1 can only decrease the value of F.
+- Non-Unate Function: A function is considered non-unate with respect to a variable if changing the value of that variable from 0 to 1 can have either increasing or decreasing effects on the function's value, depending on the context.
+- Example: The function F = A ^ B is non-unate with respect to both A and B because changing the value of either A or B from 0 to 1 can either increase or decrease the value of F, depending on the current values of the variables.
+- In above image we can observe the unateness information provided in .lib file for two different cell , an OR gate and an inverter cell.
 
  <img width="1080" alt="ff_unate.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/ff_unate.png">
-	- In above image we can observe the unateness information provided in .lib file for flip flop.
+	
+ - In above image we can observe the unateness information provided in .lib file for flip flop.
 
 **DC Commands for analysing .lib file:**
 
 - Below command is used to generate the collection of standard cell with filtered name. It will provide refence name another command get_object_name is used to get the exact name of cell.
+
 <img width="1080" alt="dc_foreach.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_foreach.png">
 
 - Area of three different NAND gate with different drive strength is shown in below command. Command "get_lib_attribute" with area as function can be used. 
+
 <img width="1080" alt="dc_nand_area.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_nand_area.png">
 
 - Functionality of the pin(output) is  obtained below. Command used is  "get_lib_attribute on library object 'pin name'". 
+
 <img width="1080" alt="dc_nand_funct.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_nand_funct.png">
 
 - Input and output pins of the standard cell is obtained using below command.
+
 <img width="1080" alt="dc_nand_io.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_nand_io.png">
 
 
 - Instead of executing the individual commands, a TCL script can be written to obtain the desired output. Following code will get the list of input and output pin and also display the functionality of the output pin for fifferent standard cell. 
+
 <img width="1080" alt="dc_script.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_script.png">
 
 - Output:
+
 <img width="1080" alt="dc_script_op.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/e0b1abc4892d6bf127dface1561af53bfab4e645/docs/assets/day7lab/dc_script_op.png">
 
 
