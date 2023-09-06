@@ -1118,7 +1118,7 @@ Output:
 - False Paths:  False paths are paths in the design that are intentionally ignored during timing analysis because they do not impact the functionality or performance of the circuit.
 - Following numerical will help understanding the timing path concept better:
 
-<img width="1080" alt="" src="">
+<img width="1080" alt="timingpath_num.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/timingpath_num.jpg">
 
 - This circuit has two timing path and assume setup time of 0.5ns(T<sub>setup</sub>) and  T<sub>c-q</sub> of 0.5ns.
 - As per the two equations mentioned above (1 and 2) following calculation can be made:
@@ -1129,7 +1129,7 @@ Output:
    - Now the from path with max delay minimum operating frequency can be found out.
      	- => f = 1/T<sub>clkMax</sub> = 454.5MHz
   
-<img width="1080" alt="timingpath_num.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/timingpath_num.jpg">
+<img width="1080" alt="regpath.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5180c482fd50b5d6d65a5fdf36c3b221d0fc36cd/docs/assets/images7/regpath.jpg">
 
 -  From above diagtam we can understand different types of path in the design and how they are constrained.
    - Reg2Reg Path [Clk - D - Comb-D]   : Constrained by clock.
