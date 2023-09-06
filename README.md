@@ -1100,6 +1100,7 @@ Output:
 	- Min Delay   :  T<sub>hold</sub>< T<sub>c-q</sub> + T<sub>comb</sub>
 
 **Delay:**
+- Delay of the cell is a function of input transition and output load.  
 
 **Timing Arcs:**
 
