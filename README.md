@@ -1316,7 +1316,7 @@ foreach_in_collection my_cells [get_cells * -hier] {
 }
 ```
 
--Output:
+- Output:
 <p align="center">
  <img width="540" alt="l1_get_cells1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c8c4b245901a4fd29de0f23ff3ccbf5dfe2aeaf0/docs/assets/day8_dsk123/l1_get_cells1.png"> 
  </p>
@@ -1338,6 +1338,7 @@ foreach_in_collection my_port [get_ports *] {
 <p align="center">
    <img width="540" alt="l1_getports2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c8c4b245901a4fd29de0f23ff3ccbf5dfe2aeaf0/docs/assets/day8_dsk123/l1_getports2.png"> 
 </p>
+
 **Pins:**
 
 - `get_pins` is the command used to list all the input and output pins of standard cells present in the design.
@@ -1355,6 +1356,7 @@ foreach_in_collection my_pin [get_pins *] {
 <p align="center">
   <img width="540" alt="l2_getpins1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/afa4587a852f04b04111031daeb19b1bd2a8f000/docs/assets/day8_dsk123/l2_getpins1.png">
 </p>
+
 - Another example using `get_pins` is given below where the snippet will check whether the input pin is connected to clock and print those which are clock pins.
 
 ```
@@ -1367,7 +1369,7 @@ foreach_in_collection my_pin [get_pins *] {
 } } }
 ``` 
 
--Output: 
+- Output: 
 <p align="center">
   <img width="540" alt="l2_getpins2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/afa4587a852f04b04111031daeb19b1bd2a8f000/docs/assets/day8_dsk123/l2_getpins2.png"> 
 </p>
