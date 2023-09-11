@@ -1237,7 +1237,7 @@ Output:
 ## Day-8-Advanced-Constraints
 <details>
 
-<summary>Clock Tree Modelling</summary>
+<summary>Clock Modelling</summary>
 
 **Clock Generation:**
 
@@ -1246,7 +1246,9 @@ Output:
 - And other external clock source are used to generate the clockbut all of these source have inherent variations in clock period due to stochastic effects.
 - These non idealities will introduce  jitter. Follwing example shows effect of jitter and skew to clock:
 
+<p align="center">
  <img width="480" alt="jitter_skew.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a7734602619d308663950ccedead55ef03643aec/docs/assets/day8_dsk123/jitter_skew.png">
+ </p>
 
 **Clock Jitter and skew:**
 - Clock skew is a phenomenon in digital integrated circuit  design that refers to the difference in arrival times of a clock signal at different points within a digital circuit.
@@ -1256,9 +1258,11 @@ Output:
 
 - Skew: Clock skew is the variation in the time it takes for a clock signal to reach different flip-flops, registers, or other sequential elements within a digital design. In other words, it is the difference in the arrival times of the clock signal at various points in the circuit.
 
+<p align="center">
  <img width="480" alt="ff_diagram.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a7734602619d308663950ccedead55ef03643aec/docs/assets/images7/ff_diagram.png">
+ </p>
   
-- As we can see in the picture even though both the launch flop and capture flop are connected to same clock source there will be difference in clock arrival due to wire length and other PVT varitaion. This difference in arrival time between launch clock and arrival clock is called skew.
+- As we can see in the picture, even though both the launch flop and capture flop are connected to same clock source there will be difference in clock arrival due to wire length and other PVT varitaion. This difference in arrival time between launch clock and arrival clock is called skew.
 - This skew and jitter can be incorporated into design using following equation:
      - Max Delay   :  T<sub>clk</sub>  + T<sub>skew</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>        
      - Min Delay   :  T<sub>hold</sub> + T<sub>skew</sub> < T<sub>c-q</sub> + T<sub>comb</sub>				
@@ -1271,4 +1275,102 @@ Output:
 - Network Latency:  Network latency, also known as communication latency or transmission latency, refers to the delay or time it takes for data to travel through a network or communication channel from the source to its destination.
 - Clock Uncertainty: Clock uncertainty, also known as clock jitter or clock skew, represents the variation or uncertainty in the arrival time of a clock signal at different sequential elements (e.g., flip-flops) within a digital circuit.
 - While doing synthesis both jitter and skew is present while post CTS jitter is present.
+- 
+</details>
+
+<details>
+
+<summary>Contraining using Design compiler</summary>
+
+**Exploring Cells, Pins and Ports:**
+
+- First synthesis is done in dc_shell using following commands:
+
+```
+> csh
+> dc_shell                                        // invoking DC Shell
+>> read_verilog lab8_circuit.v                            // reading the design
+>> link
+>> compile_ultra
+>> write -f verilog -out netlist.v
+>> write -f verilog -out lab1.ddc       
+```
+
+- Below is the schematic of the synthesized design:
+<p align="center">
+ <img width="1080" alt="l1_schem.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c8c4b245901a4fd29de0f23ff3ccbf5dfe2aeaf0/docs/assets/day8_dsk123/l1_schem.png">
+</p>
+  
+- Now different cells, pins and ports of design and how to get their attributes are given below:
+
+**Cells:**
+
+- `get_cells` is the command used to list all the standard cells present in the design.
+- Following snippet will list all the cells and their corresponding library name.
+
+```
+foreach_in_collection my_cells [get_cells * -hier] {
+	set my_cell_name [get_object_name $my_cells];
+	set rname [get_attribute [get_cells $my_cell_name] ref_name];
+	echo $my_cell_name $rname;
+}
+```
+
+-Output:
+<p align="center">
+ <img width="540" alt="l1_get_cells1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c8c4b245901a4fd29de0f23ff3ccbf5dfe2aeaf0/docs/assets/day8_dsk123/l1_get_cells1.png"> 
+ </p>
+
+**Ports:**
+
+- `get_ports` is the command used to list all the input and output ports present in the design.
+- Following snippet will list all the ports and also print if they are input and output pin.
+
+```
+foreach_in_collection my_port [get_ports *] {                      
+       set my_port_name [get_object_name $my_port];                
+       set dir [get_attribute [get_ports $my_port_name] direction];
+       echo $my_port_name $dir;                                    
+}
+```
+
+- Output:
+<p align="center">
+   <img width="540" alt="l1_getports2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/c8c4b245901a4fd29de0f23ff3ccbf5dfe2aeaf0/docs/assets/day8_dsk123/l1_getports2.png"> 
+</p>
+**Pins:**
+
+- `get_pins` is the command used to list all the input and output pins of standard cells present in the design.
+- Following snippet will list all the pins and also print if they are input and output pin.
+
+```
+foreach_in_collection my_pin [get_pins *] {  
+	set pin_name [get_object_name $my_pin]; 
+	set dir [get_attribute $pin_name direction];
+	echo $pin_name $dir;
+}
+```
+
+- Output:
+<p align="center">
+  <img width="540" alt="l2_getpins1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/afa4587a852f04b04111031daeb19b1bd2a8f000/docs/assets/day8_dsk123/l2_getpins1.png">
+</p>
+- Another example using `get_pins` is given below where the snippet will check whether the input pin is connected to clock and print those which are clock pins.
+
+```
+foreach_in_collection my_pin [get_pins *] { 
+	set pin_name [get_object_name $my_pin];               
+	set dir [get_attribute $pin_name direction];          
+	if { [regexp $dir in ] } {                            
+		if { [get_attribute [get_pins $pin_name] clock] } {   
+			echo $pin_name;                                       
+} } }
+``` 
+
+-Output: 
+<p align="center">
+  <img width="540" alt="l2_getpins2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/afa4587a852f04b04111031daeb19b1bd2a8f000/docs/assets/day8_dsk123/l2_getpins2.png"> 
+</p>
+
+
 </details>
