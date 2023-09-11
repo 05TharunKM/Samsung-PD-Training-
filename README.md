@@ -10,7 +10,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-5-DFT](#Day-5-DFT)
 - [Day-6-Introduction-to-logic-synthesis](#Day-6-Introduction-to-logic-synthesis)
 - [Day-7-Basic-SDC-constraints](#Day-7-Basic-SDC-constraints)
-
+- [Day-8-Advanced_Constraints](#Day-8-Advanced_Constraints)
 
 
 ## Day-0-Tool-Setup-Check
@@ -1233,3 +1233,42 @@ Output:
 
 </details>
 
+
+## Day-8-Advanced_Constraints
+<details>
+
+<summary>Clock Tree Modelling</summary>
+
+**Clock Generation:**
+
+- Crystal Oscillator: Crystal oscillators are commonly used for generating high-precision clock signals. They rely on the mechanical resonance of a quartz crystal to produce a stable and accurate clock frequency. Crystal oscillators are often used when precision is crucial, such as in microcontrollers and communication systems.
+- Phase-Locked Loop (PLL): PLLs are widely used for generating clock signals with precise frequency and phase relationships. A PLL takes an input reference clock and produces an output clock that is a multiple or fraction of the reference clock. PLLs are commonly used for clock multiplication, clock division, and clock phase adjustment. 
+- And other external clock source are used to generate the clockbut all of these source have inherent variations in clock period due to stochastic effects.
+- These non idealities will introduce  jitter. Follwing example shows effect of jitter and skew to clock:
+
+ <img width="480" alt="jitter_skew.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a7734602619d308663950ccedead55ef03643aec/docs/assets/day8_dsk123/jitter_skew.png">
+
+**Clock Jitter and skew:**
+- Clock skew is a phenomenon in digital integrated circuit  design that refers to the difference in arrival times of a clock signal at different points within a digital circuit.
+- Types of jitter :
+   - Duty Cycle Jitter: Duty cycle jitter, also known as pulse width jitter, occurs when there are variations in the width of the clock signal's high (logic 1) or low (logic 0) states. This can lead to variations in the time a signal spends in each logic state.
+   - Period Jitter: Period jitter, also called cycle-to-cycle jitter, refers to variations in the time it takes for successive clock cycles to occur. It is typically measured as the difference between the periods of consecutive clock cycles.
+
+- Skew: Clock skew is the variation in the time it takes for a clock signal to reach different flip-flops, registers, or other sequential elements within a digital design. In other words, it is the difference in the arrival times of the clock signal at various points in the circuit.
+
+ <img width="480" alt="ff_diagram.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a7734602619d308663950ccedead55ef03643aec/docs/assets/images7/ff_diagram.png">
+  
+- As we can see in the picture even though both the launch flop and capture flop are connected to same clock source there will be difference in clock arrival due to wire length and other PVT varitaion. This difference in arrival time between launch clock and arrival clock is called skew.
+- This skew and jitter can be incorporated into design using following equation:
+     - Max Delay   :  T<sub>clk</sub>  + T<sub>skew</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>        
+     - Min Delay   :  T<sub>hold</sub> + T<sub>skew</sub> < T<sub>c-q</sub> + T<sub>comb</sub>				
+- Based on positive and negative skew is added or subtracted.
+- While doing synthesis both jitter and skew is present while post CTS jitter is present.
+
+ **Clock Latency and Uncertainity:** 
+- Clock Latency: Clock latency refers to the delay or time it takes for a clock signal to propagate from its source (e.g., a clock generator) to its destination (e.g., a flip-flop or register) within a digital circuit.
+- Source Latency: Source latency, also known as data source latency or producer latency, refers to the delay or time it takes for data to be generated or produced at the source before it is transmitted to the network or system.
+- Network Latency:  Network latency, also known as communication latency or transmission latency, refers to the delay or time it takes for data to travel through a network or communication channel from the source to its destination.
+- Clock Uncertainty: Clock uncertainty, also known as clock jitter or clock skew, represents the variation or uncertainty in the arrival time of a clock signal at different sequential elements (e.g., flip-flops) within a digital circuit.
+- While doing synthesis both jitter and skew is present while post CTS jitter is present.
+</details>
