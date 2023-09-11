@@ -1280,7 +1280,7 @@ Output:
 
 <details>
 
-<summary>Contraining using Design compiler</summary>
+<summary>Constraining using Design compiler</summary>
 
 **Exploring Cells, Pins and Ports:**
 
@@ -1374,5 +1374,61 @@ foreach_in_collection my_pin [get_pins *] {
   <img width="540" alt="l2_getpins2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/afa4587a852f04b04111031daeb19b1bd2a8f000/docs/assets/day8_dsk123/l2_getpins2.png"> 
 </p>
 
+**Creating Clock:** 
 
+- `create_clock` is the command used to create a clock.
+- Following command will create a clock with different attributes.
+
+```
+// 50% duty cylce starting with rising edge 
+create_clock -name MYClk -per 10 [get_ports clk] -wave {0,5}
+// 50% duty cycle starting with falling edge
+create_clock -name MYClk -per 10 [get_ports clk] -wave {5,10}
+// 25% duty cycle
+create_clock -name MYClk -per 10 [get_ports clk] -wave {0,2.5}
+```
+
+- Following snippet will print all th clock pins and clock source they are connected to:
+
+```
+foreach_in_collection my_pin [get_pins *] {  
+  set pin_name [get_object_name $my_pin];                
+  set dir [get_attribute $pin_name direction];           
+  if { [regexp $dir in ] } {                             
+    if { [get_attribute [get_pins $pin_name] clock] } {  
+      set clk [get_attribute [get_pins $pin_name] clocks];
+      set clk_name [get_object_name $clk];  
+      echo $pin_name $dir $clk_name;                                        
+  }                                                      
+ }                                                      
+}    
+```
+
+- Output: 
+<p align="center">
+  <img width="300" alt="l3_getclk3_tcllo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65490cac7b610d01f0319ff60e18c45e1897d772/docs/assets/day8_dsk123/l3_getclk3_tcllo.png"> 
+</p>
+
+**Reporting Timing:** 
+
+- Syntax:
+
+```
+report_timing -from startpoint -to endpoint -delay_type maxormin -cap -nets -trans
+```
+
+- Above command will generate the timing report from specified startpoint to endpoint. And we can see set-up and hold specific reports using -delay_type attribute and other constraints like capacitance, transition and fanout information will also be provided.
+
+**Setting latency and uncertainity:**
+
+- Before setting up the latency and uncertainity, below timing report is generated to ease the comparison.
+- For example REGB to REGC path is considered:
+<p align="center">
+  <img alt="l4_timingrep_before1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65490cac7b610d01f0319ff60e18c45e1897d772/docs/assets/day8_dsk123/l4_timingrep_before1.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="l4_timingrep_before2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65490cac7b610d01f0319ff60e18c45e1897d772/docs/assets/day8_dsk123/l4_timingrep_before2.png" width="45%">
+</p>
+
+- 
+  
 </details>
