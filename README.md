@@ -10,7 +10,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-5-DFT](#Day-5-DFT)
 - [Day-6-Introduction-to-logic-synthesis](#Day-6-Introduction-to-logic-synthesis)
 - [Day-7-Basic-SDC-constraints](#Day-7-Basic-SDC-constraints)
-- [Day-8-Advanced_Constraints](#Day-8-Advanced_Constraints)
+- [Day-8-Advanced-Constraints](#Day-8-Advanced-Constraints)
 
 
 ## Day-0-Tool-Setup-Check
@@ -1234,7 +1234,7 @@ Output:
 </details>
 
 
-## Day-8-Advanced_Constraints
+## Day-8-Advanced-Constraints
 <details>
 
 <summary>Clock Tree Modelling</summary>
