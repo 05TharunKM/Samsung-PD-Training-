@@ -1421,7 +1421,7 @@ report_timing -from startpoint -to endpoint -delay_type maxormin -cap -nets -tra
 
 **Setting latency and uncertainity:**
 
-- Before setting up the latency and uncertainity, below timing report is generated to ease the comparison.
+- Before setting up the latency and uncertainity, below timing report for set-up(max) and hold(min) is generated to ease the comparison.
 - For example REGB to REGC path is considered:
 <p align="center">
   <img alt="l4_timingrep_before1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65490cac7b610d01f0319ff60e18c45e1897d772/docs/assets/day8_dsk123/l4_timingrep_before1.png" width="45%" >
@@ -1429,6 +1429,101 @@ report_timing -from startpoint -to endpoint -delay_type maxormin -cap -nets -tra
   <img alt="l4_timingrep_before2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65490cac7b610d01f0319ff60e18c45e1897d772/docs/assets/day8_dsk123/l4_timingrep_before2.png" width="45%">
 </p>
 
-- 
-  
+- As expected clock network delay is given 0ns. Now add latency and uncertainity to the design using following commands:
+
+```
+set_clock_latency -source 2 [get_clocks MYClk]
+set_clock_latency 1 [get_clocks MYClk]
+set_clock_uncertainty -hold 0.1 [get_clocks MYClk]
+set_clock_uncertainty -setup 0.5 [get_clocks MYClk]
+```
+
+- Now generate the timing report again using `report_timing -from REGB_reg/CLK -to REGC_reg/D -delay_type max` and `report_timing -from REGB_reg/CLK -to REGC_reg/D -delay_type min` .
+ <p align="center">
+  <img alt="l4_timrep1_max.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l4_timrep1_max.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="l4_timrep2_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l4_timrep2_min.png" width="45%">
+</p> 
+
+- From above report we can observe the following:
+   - Set-up: Slack decreased from 9.55 to 9.05.
+   - Hold  : Slack decreased from 0.38 to 0.29.
+
+**Constraining the IO:**
+
+- **Setting Up Input Delay:**
+- Below commands are used to set input delay:
+
+```
+set_input_delay -max 5 -clock [get_clock MYCLK] [get_ports IN_A]
+set_input_delay -max 5 -clock [get_clock MYCLK] [get_ports IN_B]
+set_input_delay -min 1 -clock [get_clock MYClk] [get_ports IN_A]
+set_input_delay -min 1 -clock [get_clock MYClk] [get_ports IN_B]
+```
+
+- Since there are two inputs constrain both of these input 'IN_A' and 'IN_B' separately for max and min.
+- Now generate the timing report using `report_timing -from IN_A -transition_time -capacitance -nets -delay_type max`  and `report_timing -from IN_A -transition_time -capacitance -nets -delay_type min`. 
+ <p align="center">
+  <img alt="l5_timrep2_max.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep2_max.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="l5_timrep2_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep2_min.png" width="45%">
+</p> 
+
+- If we were to generate the timing report without constraining the input delay tool will tell us that the path is 'un-constrained' but now we can see the timing report and we can see the effect of that constraint is added under `input external delay` 
+
+- **Setting Up Input Transition:**
+- Below are the commands used to set up input transition:
+
+```
+set_input_transition -max 0.3 [get_ports IN_A]
+set_input_transition -max 0.3 [get_ports IN_B]
+set_input_transition -min 0.1 [get_ports IN_B]
+set_input_transition -min 0.1 [get_ports IN_A]
+```
+
+- Now generate the timing report using same commands previously used i.e `report_timing -from IN_A -transition_time -capacitance -nets -delay_type max`  and `report_timing -from IN_A -transition_time -capacitance -nets -delay_type min`.
+ <p align="center">
+  <img alt="l5_timrep3_max.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep3_max.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="l5_timrep3_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep3_min.png" width="45%">
+</p> 
+
+- From above timing report we can see the effect of this under `IN_A (in)` and  we can observe the following:
+   - Set-up: Slack decreased from 4.19 to 4.08.
+   - Hold  : Slack improved  from 0.99 to 1.02.
+
+- **Setting Up Output Delay:**
+- Below are the commands used to set up output delay:
+
+```
+set_output_delay -max 5 -clock [get_clock MYClk] [get_ports OUT_Y]
+set_output_delay -min 1 -clock [get_clock MYClk] [get_ports OUT_Y]
+
+```
+
+- Now generate the timing report using  commands  `report_timing -to OUT_Y -transition_time -capacitance -nets -delay_type max`  and `report_timing -to OUT_Y -transition_time -capacitance -nets -delay_type min`.
+<p align="center">
+  <img alt="l5_timrep4_max.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep4_max.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="l5_timrep4_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep4_min.png" width="45%">
+</p> 
+
+-  If we were to generate the timing report without constraining the output delay tool will tell us that the path is 'un-constrained' but now we can see the timing report and we can see the effect of that constraint(`output external delay`) is subtracted from required time.
+
+-**Setting Up Output Load:**
+
+```
+set_load -max 0.4 [get_ports OUT_Y]
+set_load -min 0.1 [get_ports OUT_Y]
+```
+
+- We can now generate timing report and observe the effect of output load on the design.
+<p align="center">
+  <img alt="l5_timrep5_max.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep5_max.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="l5_timrep5_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ab1ed54624d3360a5b540a2a7174a45613cf84fd/docs/assets/day8_dsk123/l5_timrep5_min.png" width="45%">
+</p> 
+
+- We can see the cahnges in `OUT_Y (net)` and there's a increase in slack for hold and decrease in slack for set-up.
+
 </details>
