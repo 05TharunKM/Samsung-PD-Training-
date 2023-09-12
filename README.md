@@ -1623,6 +1623,36 @@ set_load -min 0.1 [get_ports OUT_Y];
 - This design is completely constrained.
 
 *Virtual Clock:*
-*Max Latency:*
+<p></p>
+<p align="center">
+  <img width="300" alt="" src=""  >
+</p>
+
+- For above design we can model the constraint using follwoing methods :
+    - Using command `set_max_latency 1.0 -from [get_ports IN_C] -to [get_ports OUT_Z]` we can model the max delay of the combinational circuit.
+    - Another way is to create a virtual clock setting input and output delay w.r.t virtual clock. Following are the commands used
+
+```
+// for virtual clock there's no clock defination and latency
+create_clock -name MY_VClk -period -5
+set_output_delay -max 2.5 -clock MY_VClk [get_ports OUT_Z]
+set_input_delay -max 1.5 -clock MY_VClk [get_ports IN_C]
+set_input_delay -max 1.5 -clock MY_VClk [get_ports IN_B]
+```
+<p align="center">
+  <img width="300" alt="" src=""  >
+</p>
+
+- Lets consider case where there are two flops on input/output of top level and one of the flop has active low clock i.e it's sensitive clock edge is falling edge.
+- To constrain this design we have specify the tool that delay is w.r.t to falling edge of the clock and it can be done using following command:
+
+```
+set_input_delay -max 3 -clock clk -clock_fall -add [get_ports IN_A]
+// -clock will specify the falling edge
+// -add will make sure previously set input delay is not overwritten
+```
+  
+
+
 
 </details>
