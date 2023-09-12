@@ -1622,15 +1622,31 @@ set_load -min 0.1 [get_ports OUT_Y];
 </p>
 - This design is completely constrained.
 
-*Virtual Clock:*
+*Virtual Clock and set_driving_cell:*
 <p></p>
 <p align="center">
   <img width="300" alt="" src=""  >
 </p>
 
 - For above design we can model the constraint using follwoing methods :
-    - Using command `set_max_latency 1.0 -from [get_ports IN_C] -to [get_ports OUT_Z]` we can model the max delay of the combinational circuit.
-    - Another way is to create a virtual clock setting input and output delay w.r.t virtual clock. Following are the commands used
+    1) Using command `set_max_latency 1.0 -from [get_ports IN_C] -to [get_ports OUT_Z]` we can model the max delay of the combinational circuit.
+    2) Another way is to create a virtual clock setting input and output delay w.r.t virtual clock. Following are the commands used
+
+**1) set_driving_cell:**
+- `set_max_latency 1.0 -from [get_ports IN_C] -to [get_ports OUT_Z]` is the command used to contsrain the input and output ports.
+- Before setting the latency timing report will give path is unconstrained So the after running the above command we will get following output:
+<p align="center">
+  <img width="300" alt="" src=""  >
+</p>
+
+- Since design is not compiled after setting the constraints it is not optimized and it shows negative slack which means presence of violations. Now compile the design using command `compile_ultra` and below timing report is generated using command `report_timing -to OUT_Z`.
+<p align="center">
+  <img width="300" alt="" src=""  >
+</p>
+  
+**2) Virtual clock:**
+- Vitual clock is a clock created without a clock defination point.
+- To contrain the IO using this method following commands are used:
 
 ```
 // for virtual clock there's no clock defination and latency
@@ -1639,6 +1655,11 @@ set_output_delay -max 2.5 -clock MY_VClk [get_ports OUT_Z]
 set_input_delay -max 1.5 -clock MY_VClk [get_ports IN_C]
 set_input_delay -max 1.5 -clock MY_VClk [get_ports IN_B]
 ```
+- Now generate the timing report 
+
+
+
+
 <p align="center">
   <img width="300" alt="" src=""  >
 </p>
@@ -1648,10 +1669,17 @@ set_input_delay -max 1.5 -clock MY_VClk [get_ports IN_B]
 
 ```
 set_input_delay -max 3 -clock clk -clock_fall -add [get_ports IN_A]
+set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 // -clock will specify the falling edge
 // -add will make sure previously set input delay is not overwritten
 ```
-  
+
+*set_driving_cell:*
+
+- While set_input_transition is used for top level primary design when the interface specifications are provided(IO ports of the chip)
+- But when we are working inside the design if we know the cell driving the input pin then `set_driving_cell` will make more sense and provide better accuracy.
+- Following is the syntax to use the command:
+- `set_driving_cell -lib_cell nameoflibcell [all_inputs]` 
 
 
 
