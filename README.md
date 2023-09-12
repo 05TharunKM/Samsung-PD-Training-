@@ -1251,10 +1251,6 @@ Output:
  </p>
 
 **Clock Jitter and skew:**
-- Clock skew is a phenomenon in digital integrated circuit  design that refers to the difference in arrival times of a clock signal at different points within a digital circuit.
-- Types of jitter :
-   - Duty Cycle Jitter: Duty cycle jitter, also known as pulse width jitter, occurs when there are variations in the width of the clock signal's high (logic 1) or low (logic 0) states. This can lead to variations in the time a signal spends in each logic state.
-   - Period Jitter: Period jitter, also called cycle-to-cycle jitter, refers to variations in the time it takes for successive clock cycles to occur. It is typically measured as the difference between the periods of consecutive clock cycles.
 
 - Skew: Clock skew is the variation in the time it takes for a clock signal to reach different flip-flops, registers, or other sequential elements within a digital design. In other words, it is the difference in the arrival times of the clock signal at various points in the circuit.
 
@@ -1268,14 +1264,18 @@ Output:
      - Min Delay   :  T<sub>hold</sub> + T<sub>skew</sub> < T<sub>c-q</sub> + T<sub>comb</sub>				
 - Based on positive and negative skew is added or subtracted.
 - While doing synthesis both jitter and skew is present while post CTS jitter is present.
-
+- Types of jitter :
+   - Duty Cycle Jitter: Duty cycle jitter, also known as pulse width jitter, occurs when there are variations in the width of the clock signal's high (logic 1) or low (logic 0) states. This can lead to variations in the time a signal spends in each logic state.
+   - Period Jitter: Period jitter, also called cycle-to-cycle jitter, refers to variations in the time it takes for successive clock cycles to occur. It is typically measured as the difference between the periods of consecutive clock cycles.
+     
  **Clock Latency and Uncertainity:** 
 - Clock Latency: Clock latency refers to the delay or time it takes for a clock signal to propagate from its source (e.g., a clock generator) to its destination (e.g., a flip-flop or register) within a digital circuit.
 - Source Latency: Source latency, also known as data source latency or producer latency, refers to the delay or time it takes for data to be generated or produced at the source before it is transmitted to the network or system.
 - Network Latency:  Network latency, also known as communication latency or transmission latency, refers to the delay or time it takes for data to travel through a network or communication channel from the source to its destination.
 - Clock Uncertainty: Clock uncertainty, also known as clock jitter or clock skew, represents the variation or uncertainty in the arrival time of a clock signal at different sequential elements (e.g., flip-flops) within a digital circuit.
 - While doing synthesis both jitter and skew is present while post CTS jitter is present.
-- 
+
+  
 </details>
 
 <details>
@@ -1544,7 +1544,7 @@ get_attribute [get_clocks MYGEN_Clk] is_generated
   <img width="300" alt="l2_gen_repclk.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/cb491fcb05afebd5526797381b2934252fe28901/docs/assets/day8_dsk123/l2_gen_repclk.png"  >
 </p>
 
-- But inform the tool to use this generated clock as the reference clock for out_clk use following commands to specify
+- But to inform the tool to use this generated clock as the reference clock for out_clk and constraining w.r.t generated clock use following commands to specify
 
 ```
 set_clock_latency -max 1 [get_clocks MYGEN_Clk]
@@ -1620,7 +1620,10 @@ set_load -min 0.1 [get_ports OUT_Y];
 <p align="center">
   <img width="300" alt="l2_gen_getports.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/df76f33eaf01cb397523a9348470a2569224d206/docs/assets/day8_dsk123/l2_gen_getports.png"  >
 </p>
+
 - This design is completely constrained.
+
+
 
 *Virtual Clock and set_driving_cell:*
 <p></p>
@@ -1632,7 +1635,8 @@ set_load -min 0.1 [get_ports OUT_Y];
     1) Using command `set_max_latency 1.0 -from [get_ports IN_C] -to [get_ports OUT_Z]` we can model the max delay of the combinational circuit.
     2) Another way is to create a virtual clock setting input and output delay w.r.t virtual clock. Following are the commands used
 
-**1) set_driving_cell:**
+1) set_driving_cell:
+   
 - `set_max_latency 1.0 -from [get_ports IN_C] -to [get_ports OUT_Z]` is the command used to contsrain the input and output ports.
 - Before setting the latency timing report will give path is unconstrained So the after running the above command we will get following output:
 - Outputs:
@@ -1645,7 +1649,8 @@ set_load -min 0.1 [get_ports OUT_Y];
 - Since design is not compiled after setting the constraints it is not optimized and it shows negative slack which means presence of violations. Now compile the design using command `compile_ultra` and below timing report(right) is generated using command `report_timing -to OUT_Z`.
 
   
-**2) Virtual clock:**
+2) Virtual clock:
+   
 - Vitual clock is a clock created without a clock defination point.
 - To contrain the IO using this method following commands are used:
 
