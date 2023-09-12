@@ -1626,9 +1626,8 @@ set_load -min 0.1 [get_ports OUT_Y];
 
 
 *Virtual Clock and set_driving_cell:*
-<p></p>
 <p align="center">
-  <img width="300" alt="" src=""  >
+  <img width="300" alt="circuit.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/19d098efca08ce3ee02aacfe29d831e1ded90bd6/docs/assets/da8_dsk4/circuit.jpg"  >
 </p>
 
 - For above design we can model the constraint using follwoing methods :
@@ -1675,10 +1674,6 @@ set_input_delay -max 1.5 -clock MY_VClk [get_ports IN_B]
 
 
 *Special case:*
-
-<p align="center">
-  <img width="300" alt="" src=""  >
-</p>
 
 - Lets consider case where there are two flops on input/output of top level and one of the flop has active low clock i.e it's sensitive clock edge is falling edge.
 - To constrain this design we have specify the tool that delay is w.r.t to falling edge of the clock and it can be done using following command:
