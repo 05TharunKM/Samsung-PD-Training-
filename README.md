@@ -1709,13 +1709,12 @@ set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 	+ Over optimization of one goal will harm other goals 
 	+ Goals for synthesis: ensure to meet timing, area, and power (Those are 3 metrics of netlist which will be contradictory)
 	
-**Combinational Logic Optimisation:**
+**Combinational Logic Optimization:**
 
 * Combinational logic optimization is a technique used to improve the efficiency and performance of digital circuits that consist of interconnected logic gates. The goal is to minimize the circuit's delay, power consumption, and area while maintaining the desired functionality.
 * To squeeze the logic to get the most optimised design in terms of Area and Power saving
 
-
-  1) Constant Propagtion:
+*1) Constant Propagtion:*
      + Constant propagation is a technique used in combinational logic optimization to replace variables or signals with their constant values in order to simplify the logic circuit. This helps reduce the complexity of the circuit and can lead to improved performance and reduced power consumption.
    
      + Example:-   Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
@@ -1728,29 +1727,28 @@ set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 
  Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily  built using a PMOS and an NMOS.
    
-   2) Boolean logic optimization:
-      + Applying Boolean algebra rules to simplify logic expressions and reduce the number of gates needed. Following commands are used in yosys shell to perform the combinational optimization :
+*2) Boolean logic optimization:*
 
-
-Example 1:-
-opt_check.v RTL File :
++ Applying Boolean algebra rules to simplify logic expressions and reduce the number of gates needed. Following commands are used in yosys shell to perform the combinational optimization :
++ Example 1:- opt_check.v 
 
 ```
-module opt_check (input a , input b , output y);
-	assign y = a?b:0;                             
+module opt_check (input a , input b , input c , output y1, output y2);
+wire a1;
+assign y1 = a?b:0;
+assign y2 = ~((a1 & b) | c);
+assign a1 = 1'b0;
 endmodule
-// Simplification
-// y = (a').0 + a.b
-// y  = 0 + a.b
-// y = a.b         => AND gate is sufficient
+// y1 = a'.0 + a.b     = a.b                        => AND Gate
+// y2 = ((a1 & b) | c)'= ((0 & b) | c)' = c'        => NOT Gate
 ```
++ Below is Schematic after optimization : 
 
-Below is Schematic after optimization : 
 <img width="1080" alt="d2_sch1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch1.png">
+
 As per the code above, circuit is optimized to simple AND gate.
  
-Example 2:-
-opt_check2.v RTL File :
++ Example 2:- opt_check2.v 
 
 ```
 module opt_check2 (input a , input b , output y);
@@ -1762,12 +1760,13 @@ endmodule
 // y = a + b        => OR gate is sufficient
 ```
 
-Below is Schematic after optimization : 
++ Below is Schematic after optimization : 
+
 <img width="1080" alt="d2_sch2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch2.png">
+
 As per the code above, circuit is optimized to simple OR gate.
 
-Example 3:-
-opt_check3.v RTL File :
++ Example 3:- opt_check3.v 
 
 ```
 module opt_check3 (input a , input b, input c , output y);
@@ -1780,12 +1779,13 @@ endmodule
 
 ```
 
-Below is Schematic after optimization : 
++ Below is Schematic after optimization : 
+
 <img width="1080" alt="d2_sch3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch3.png">
+
 As per the code above, circuit is simplified to simple 3 input AND gate.
 
-Example 4:-
-opt_check4.v RTL File :
++ Example 4:- opt_check4.v 
 
 ```
 module opt_check4 (input a , input b , input c , output y);
@@ -1799,11 +1799,75 @@ endmodule
  
 ```
 
-Below is Schematic after optimization : 
++ Below is Schematic after optimization : 
+
 <img width="1080" alt="d2_sch4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch4.png">
-As per the code above, circuit is simplified to simple XNOR gate.- 
+
+As per the code above, circuit is simplified to simple XNOR gate.
 
 
+*3) Resource Sharing:*
+
++ In physical design, resource sharing is the process of effectively  logic gates, memory components, or functional units, in order to minimize the overall size, power consumption, and complexity. 
++ Example: y=(sel?a:c) * (sel?b:d). 
+
+<img width="1080" alt="day9_1.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/day9_1.jpg">
+
++ As we can see instead of using two multiplier block which take up large area and power, tool can optimize it into design with two mux and one multiplier.
+
+**Labs:**
+
++ Run1: Design is synthesized and optimized using command `compile_ultra` and following are the results:
++ Schematic: As we can see in the below schematic select line is seen in the beggining i.e from previous example we can conclude it has optimized the logic.
+   
+<img width="1080" alt="d2_r1sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_r1sch.png">
+
++ Timing and Area report:
+
+<p align="center">
+  <img alt="d2_reptime1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reptime1.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d2_reparea.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea.png" width="45%">
+</p> 
+
++ Run2: Design is synthesized by giving different constraints following are the results:
++ Schematic: 
+   
+<img width="1080" alt="d2_r2sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_r2sch.png">
+
+
++  Add Constraint `set_max_delay -from [all_inputs] -to [all_outputs] 2.5` .
++ Timing and Area report:
+
+<p align="center">
+  <img alt="d2_reptime3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reptime3.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d2_reparea3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea3.png" width="45%">
+</p> 
+
++ Revert back to unoptmized state by  tightly constraining the set path using command `set_max_delay -from sel -to [all_outputs] 0.1`.
++ Timing and Area Report:
+
+<p align="center">
+  <img alt="d2_reptime4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reptime4.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d2_reparea4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea4.png" width="45%">
+</p> 
+  
++ Run3: Design is synthesized by constraining the area. command used is `set_max_area 800`.
++ Schematic:
+   
+<img width="1080" alt="d2_r3sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_r3sch.png">
+
++ Timing and Area report:
+
+<p align="center">
+  <img alt="d2_reptime5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reptime5.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d2_reparea5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea5.png" width="45%">
+</p> 
+
+   
 </details>
 
 <details>
