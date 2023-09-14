@@ -1707,7 +1707,7 @@ set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 * Cost function based optimizations
 	+ Optimization till the cost is met
 	+ Over optimization of one goal will harm other goals 
-	+ Goals for synthesis: ensure to meet timing, area, and power (Those are 3 metrics of netlist which will be contradictory)
+	+ Goals for synthesis: ensure to meet timing, area, and power.
 	
 **Combinational Logic Optimization:**
 
@@ -1715,9 +1715,10 @@ set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 * To squeeze the logic to get the most optimised design in terms of Area and Power saving
 
 *1) Constant Propagtion:*
-     + Constant propagation is a technique used in combinational logic optimization to replace variables or signals with their constant values in order to simplify the logic circuit. This helps reduce the complexity of the circuit and can lead to improved performance and reduced power consumption.
+
++ Constant propagation is a technique used in combinational logic optimization to replace variables or signals with their constant values in order to simplify the logic circuit. This helps reduce the complexity of the circuit and can lead to improved performance and reduced power consumption.
    
-     + Example:-   Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
++ Example:-   Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
     
  ```
 // if A=0
@@ -1725,7 +1726,7 @@ set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 // Y = (0+C) = C'
  ```
 
- Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily  built using a PMOS and an NMOS.
++ Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily  built using a PMOS and an NMOS.
    
 *2) Boolean logic optimization:*
 
@@ -1839,13 +1840,13 @@ endmodule
   <img alt="d2_reparea.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea.png" width="45%">
 </p> 
 
-+ Run2: Design is synthesized by giving different constraints following are the results:
++ Run2: Design is synthesized by giving different constraints and following are the results:
 + Schematic: 
    
 <img width="1080" alt="d2_r2sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_r2sch.png">
 
 
-+  Add Constraint `set_max_delay -from [all_inputs] -to [all_outputs] 2.5` .
++  Add Constraint `set_max_delay -from [all_inputs] -to [all_outputs] 2.5`  and compile again.
 + Timing and Area report:
 
 <p align="center">
@@ -1854,7 +1855,7 @@ endmodule
   <img alt="d2_reparea3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea3.png" width="45%">
 </p> 
 
-+ Revert back to unoptmized state by  tightly constraining the set path using command `set_max_delay -from sel -to [all_outputs] 0.1`.
++ Revert back to unoptimized state by  tightly constraining the sel path using command `set_max_delay -from sel -to [all_outputs] 0.1`.
 + Timing and Area Report:
 
 <p align="center">
@@ -1882,14 +1883,16 @@ endmodule
 + In Logic Sharing if the same logic has been implemented in near-by block, instead of having an extra logic output from that nearby logic block is used.
 + As we  can see in below example, tool will optimize it to design from '1x 3-i/p AND gate', '1x 2-i/p AND gate' and '1x 2-i/p OR gate'  to design with '1x 2-i/p AND gate' and '1x 2-i/p OR gate' saving area and power.  
 
- <img alt="day9_2.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/day9_2.jpg" width="45%" >
+ <img alt="day9_2.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/day9_2.jpg" width="1080" >
 
 
 *5) Balanced Implementation vs. Preferential Implementation:*
 
 + In balanced implementation, all the timing paths have same latency.
 + In preferential implementation, if any path has low latency requirement it will be kept at the end and one with relaxed latency requirement can be at startpoint where latency is maximum
-  
+
++ Following is the example where the path e->y is tight so logic is rearranged such that it has less number of cells to propagate.
+
  <img alt="day9_3.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/day9_3.jpg">
 
 </details>
@@ -1898,7 +1901,7 @@ endmodule
 
 <summary>Sequential Logic Optimisation</summary>
 
-**Sequential Logic Optimisation**
+**Sequential Logic Optimization**
 * Basic
 	+ Sequential constant propagation
 	+ Retiming
@@ -2094,21 +2097,21 @@ dc_shell> compile_ultra                               => Check 2
 + Intially compilation is done without setting boundry optimization true and as expected desigm will contain the u_im module which is a internal module to which boundry optimization is set to false.
 + Following is the schematic of the same:
 
- <img width="1080" alt="" src="">
+ <img width="1080" alt="d4_cb_nopt.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/8f7bb06fc0b0c91aa840c75f3884f3234f699770/docs/assets/day9/d4_cb_nopt.png">
 
 + We can also check the cells present in the design using `get_cells *` command and check of u_im module
 
- <img width="1080" alt="" src="">
+ <img width="1080" alt="d4_cb_nopt_cells.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/8f7bb06fc0b0c91aa840c75f3884f3234f699770/docs/assets/day9/d4_cb_nopt_cells.png">
 
 + Now set the boundry optimization to true for u_im module  using command ` set_boundry_optimization u_im true` and perform the compilation again ('compile_ultra`).
 + As expected u_im module now has been absorbed into the design and also optimzed further.
 + Following the schematic:
 
- <img width="1080" alt="" src="">
+ <img width="1080" alt="d4_cb_opt.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/8f7bb06fc0b0c91aa840c75f3884f3234f699770/docs/assets/day9/d4_cb_opt.png">
 
 + Now if we check with `get_cells *` no sub modules should be found and all the cells should be on same heirarchy.
 
- <img width="1080" alt="" src="">
+ <img width="1080" alt="d4_cb_opt_cells.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/8f7bb06fc0b0c91aa840c75f3884f3234f699770/docs/assets/day9/d4_cb_opt_cells.png">
      
       
 **Register Retiming:**
@@ -2169,7 +2172,7 @@ dc_shell> report_timing                   => Check 2 TIMING REPORT
 ```
 
 + Before Optimization:
-   + Schematic: Without optimization as expected, combinational block is retained as it is (mult_4) in beggining itself without spplitting them across the register chain.
+   + Schematic: Without optimization as expected, combinational block is retained as it is (mult_4) in beggining itself without splitting them across the register chain.
 
  <img width="1080" alt="d4_rrt_nopt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/671917296b6dc9b3a53c951a4b4afe388493a7f8/docs/assets/day9/d4_rrt_nopt_sch.png"> 
 
@@ -2242,7 +2245,7 @@ dc_shell> report_timing -nosplit -inp -cap -trans -from val_out_reg[1]/Q        
 ```
 
 + Before isolating the ports:
-   + Timing Report : Slack of 0.91 is provided but presence of load (0.3pF) is providing huuge increment of 2.09.
+   + Timing Report : Slack of 0.91 is provided but presence of load (0.3pF) is providing huge increment of 2.09.
 
 <img width="1080" alt="d4_iop_nopt_timrep.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_nopt_timrep.png">
 
@@ -2251,7 +2254,7 @@ dc_shell> report_timing -nosplit -inp -cap -trans -from val_out_reg[1]/Q        
 <img width="1080" alt="d4_iop_nopt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_nopt_sch.png">
 
 + After isolating the ports:
-   + Timing Report : Slack has improved from 0.91 to 1.61.
+   + Timing Report : Slack has improved from 0.91 to 1.61 and we can see the buffers inserted.
 
 <img width="1080" alt="d4_iop_nopt_timrep3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_nopt_timrep3.png">
 
@@ -2305,8 +2308,8 @@ dc_shell> report_timing -delay_type min -to prod_reg[*]/D -from [all_inputs]    
 
 + Before setting multicylce path: 
   + Set-up and Hold Timing Report :
-    
-    <p align="center">
+
+ <p align="center">
   <img alt="d4_mcp_nopt_timrep1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_nopt_timrep1.png" width="45%" >
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img alt="d4_mcp_opt_timrep_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_opt_timrep_min.png" width="45%">
