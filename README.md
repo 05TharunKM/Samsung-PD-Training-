@@ -11,7 +11,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-6-Introduction-to-logic-synthesis](#Day-6-Introduction-to-logic-synthesis)
 - [Day-7-Basic-SDC-constraints](#Day-7-Basic-SDC-constraints)
 - [Day-8-Advanced-Constraints](#Day-8-Advanced-Constraints)
-
+- [Day-9-Optimizations](#Day-9-Optimizations)
 
 ## Day-0-Tool-Setup-Check
 
@@ -1693,5 +1693,137 @@ set_output_delay -max 3 -clock clk -clock_fall -add [get_ports OUT_Y]
 - `set_driving_cell -lib_cell nameoflibcell [all_inputs]` 
 
 
+</details>
+
+
+## Day-9-Optimizations
+
+<details>
+
+<summary>Combinational Optimizations</summary>
+	
+	
+**What are the optimization goals?**
+* Cost function based optimizations
+	+ Optimization till the cost is met
+	+ Over optimization of one goal will harm other goals 
+	+ Goals for synthesis: ensure to meet timing, area, and power (Those are 3 metrics of netlist which will be contradictory)
+	
+**Combinational Logic Optimisation:**
+
+* Combinational logic optimization is a technique used to improve the efficiency and performance of digital circuits that consist of interconnected logic gates. The goal is to minimize the circuit's delay, power consumption, and area while maintaining the desired functionality.
+* To squeeze the logic to get the most optimised design in terms of Area and Power saving
+
+
+  1) Constant Propagtion:
+     + Constant propagation is a technique used in combinational logic optimization to replace variables or signals with their constant values in order to simplify the logic circuit. This helps reduce the complexity of the circuit and can lead to improved performance and reduced power consumption.
+   
+     + Example:-   Consider a logic circuit Y = (A.B + C)' and input A is hardwired to logic '0', following simplification can be made : 
+    
+ ```
+// if A=0
+// Y = ((0.B)+C)'
+// Y = (0+C) = C'
+ ```
+
+ Thus whole logic which needed two gates i.e 6 MOSFETS But now the logic is reduced to simple inverter which can be easily  built using a PMOS and an NMOS.
+   
+   2) Boolean logic optimization:
+      + Applying Boolean algebra rules to simplify logic expressions and reduce the number of gates needed. Following commands are used in yosys shell to perform the combinational optimization :
+
+
+Example 1:-
+opt_check.v RTL File :
+
+```
+module opt_check (input a , input b , output y);
+	assign y = a?b:0;                             
+endmodule
+// Simplification
+// y = (a').0 + a.b
+// y  = 0 + a.b
+// y = a.b         => AND gate is sufficient
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="d2_sch1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch1.png">
+As per the code above, circuit is optimized to simple AND gate.
+ 
+Example 2:-
+opt_check2.v RTL File :
+
+```
+module opt_check2 (input a , input b , output y);
+	assign y = a?1:b;
+endmodule
+// Simplification
+// y =  (a').b + a.1
+// y = a'.b + a
+// y = a + b        => OR gate is sufficient
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="d2_sch2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch2.png">
+As per the code above, circuit is optimized to simple OR gate.
+
+Example 3:-
+opt_check3.v RTL File :
+
+```
+module opt_check3 (input a , input b, input c , output y);
+	assign y = a?(c?b:0):0;
+endmodule
+// Simplification
+// y = a'.0 + a.(c'.0 + c.b)
+// y = 0 + a.b.c
+// y = a.b.c                => 3 input AND gate is sufficient
+
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="d2_sch3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch3.png">
+As per the code above, circuit is simplified to simple 3 input AND gate.
+
+Example 4:-
+opt_check4.v RTL File :
+
+```
+module opt_check4 (input a , input b , input c , output y);
+	assign y = a?(b?(a & c ):c):(!c);
+endmodule
+// y = a'.c' + a.(b'.c + b.a.c)
+// y = a'.c' + a.b.c + a.b'c
+// y = a'.c' + a.c(b + b')
+// y = a'.c' + a.c
+// y = a 0 c                  => XNOR Gate
+ 
+```
+
+Below is Schematic after optimization : 
+<img width="1080" alt="d2_sch4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a9043cd93b4228dd44e358e2e89e95fd6b75d34c/docs/assets/day9/d2_sch4.png">
+As per the code above, circuit is simplified to simple XNOR gate.- 
+
 
 </details>
+
+<details>
+
+<summary>Sequential Logic Optimisation</summary>
+
+**Sequential Logic Optimisation**
+* Basic
+	+ Sequential constant propagation
+	+ Retiming
+	+ Unused flop removal
+	+ Clock gating
+	
+* Advanced 
+	+ State optimisation
+	+ Sequential logic cloning (Floor plan aware synthesis)
+
+
+
+
+
+</details>
+
