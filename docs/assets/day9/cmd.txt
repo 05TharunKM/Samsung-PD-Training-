@@ -1,0 +1,98 @@
+///////////////////////////////////////////DSK1//////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+dc_shell> reset_design 
+dc_shell> read_verilog opt_check.v
+dc_shell> link
+dc_shell> compile
+dc_shell> get_attribute [get_cells *] ref_name
+	sky130_fd_sc_hd__clkinv_1 sky130_fd_sc_hd__and2_0
+dc_shell> write -f ddc -out opt_check.ddc >>> dk_sch1
+dc_shell> write -f ddc -out opt_check2.ddc >>> dk_sch2
+dc_shell> write -f ddc -out opt_check3.ddc >>> dk_sch3
+dc_shell> write -f ddc -out opt_check4.ddc >>> dk_sch4
+/////////////////////////////////////////////////////////////////////////////////////////
+//RUN1 - r1sch
+dc_shell> reset_design
+dc_shell> read_verilog resource..*.v
+dc_shell> link
+dc_shell> compile
+dc_shell> write -f ddc -out resource..*.ddc
+dv> report_area
+dv> report_timing > reparea
+//RUN2 - r2sch
+dv> set_max_delay -from [all_inputs] -to [all_outputs] 2.5
+dv> report_timing > reptime1 this is optmized to c2 book
+dv> report_area > reparea2
+// revert back to unoptmized state by  tightly constraining the set path
+dv> set_max_delay -from sel -to [all_outputs] 0.1
+dv> report_timing >reptime3
+dv> report_area > reparea3
+dv> compile_ultra
+dv> report_timing >reptime4
+dv> report_area > reparea4
+//RUN3 - r3sch
+dv> set_max_area 800 
+dv> compile_ultra 
+dv> report_timing >reptime5
+dv> report_timing >reparea5
+//////////////////////////////////////////////////////////////////////////////////
+dv> read_verilog dff_const1.v
+dv> link
+dv> compile
+dv> get_cells
+{q_reg U4 U5}
+//dfc1sch
+same for dff_const2,3,4,5
+///////////////////////////////////DSK4/////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+dc_shell> read_verilog check_boundry.v
+dc_shell> link
+dc_shell> compile_ultra   => cb_noopt and cb_noopt_cells
+dc_shell> reset_design 
+dc_shell> read_verilog check_boundry.v
+dc_shell> set_boundry_optimization u_im false 
+dc_shell> compile_ultra   => cb_opt and cb_opt_cells
+/////////////////////////////////////////////////////////////////////////////////////////////
+dc_shell> read_verilog check_reg_retime.v
+dc_shell> link
+dc_shell> compile
+dc_shell> gui_start rrt_nopt_sch
+dc_shell> report_timing  > timrep1
+dc_shell> reset_design 
+dc_shell> link
+dc_shell> compile_ultra -retime
+dc_shell> gui_start rrt_nopt_sch
+ /////////////////////////////////////////////////////////////////////////////////////////////////
+dc_shell> read_verilog check_boundry.v
+dc_shell> link
+dc_shell> compile_ultra
+dc_shell> create_clock -per 5 -name myclk [get_ports clk]
+dc_shell> set_input_delay -max 2 [all_inputs] -clock myclk
+dc_shell> set_output_delay -max 2 [all_outputs] -clock myclk
+dc_shell> set_load -max 0.3 [all_outputs] 
+dc_shell> report_timing >nopt_timerep
+dc_shell> report_timing -nosplit -inp -cap -trans -to val_out_reg[0]/D >nopt_timerep2
+dc_shell> set_isolate_ports -type buffer [all_outputs]
+dc_shell> report_timing -nosplit -inp -cap -trans -from val_out_reg[1]/Q d4_iop_nopt_timrep3
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+dc_shell> read_verilog mcp_check.v
+dc_shell> link
+dc_shell> compile_ultra
+dc_shell> report_timing > mcp_nopt_timrep
+dc_shell> compile_ultra > 
+dc_shell> report_timing > mcp_nopt_timrep1
+dc_shell> report_timing -from valid (this should be ssp) mcp_opt_timrep_ssp
+dc_shell> report_timing -from [all_inputs] -to prod_reg[*]/D > d4_mcp_opt_timrep_mcp 
+dc_shell> report_timing -delay_type min >d4_mcp_opt_timrep_min
+dc_shell> set_multicycle_path -hold 1 -from [all_inputs] -to prod_reg[*]/D
+dc_shell> report_timing -delay_type min -to prod_reg[*]/D -from [all_inputs] > d4_mcp_opt_timrep_min2
+
+
+
+
+
+
+
+
+
+
