@@ -2037,8 +2037,289 @@ Similar to example3 here input to first flip flop is pulled to logic '1' there f
 
 <img width="1080" alt="d2_dff4sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff4sch.png">
 
-Tool has optimized the design and synthesized it into two outputs connected to input pulled to logic '1'.
+Tool has optimized the design and synthesized it into an output directly connected to input pulled to logic '1'.
 
 
 </details>
 
+<details>
+
+<summary>Other Optimizations</summary>
+
+**Boundry Optimization:** 
+
++ Boundary optimization is a technique used while logic synthesis for proper area, timing and power optimization. Boundary optimization may result in about 5-10% of standard cell area reduction and 2-5% of timing improvement. While synthesizing a design, we have  to decide the list modules which should be boundary optimized and which should not.
+
+*Labs:*
+
++ RTL Code:
+
+```
+module check_boundary (input clk , input res , input [3:0] val_in , output reg [3:0] val_out);
+wire en;
+internal_module u_im (.clk(clk) , .res(res) , .cnt_roll(en));
+always @ (posedge clk , posedge res)
+begin
+	if(res)
+		val_out <= 4'b0;
+	else if(en)
+		val_out <= val_in;	
+end
+endmodule
+module internal_module (input clk , input res , output cnt_roll);
+reg [2:0] cnt;
+always @(posedge clk , posedge res)
+begin
+	if(res)
+		cnt <= 3'b0;
+	else
+		cnt <= cnt + 1;
+end
+assign cnt_roll = (cnt == 3'b111);
+endmodule
+```
+
++ Commands to be used:
+
+```
+dc_shell> read_verilog check_boundry.v
+dc_shell> link
+dc_shell> compile_ultra                               => Check 1
+dc_shell> reset_design 
+dc_shell> read_verilog check_boundry.v
+dc_shell> set_boundry_optimization u_im false 
+dc_shell> compile_ultra                               => Check 2
+
+```
++ Intially compilation is done without setting boundry optimization true and as expected desigm will contain the u_im module which is a internal module to which boundry optimization is set to false.
++ Following is the schematic of the same:
+
+ <img width="1080" alt="" src="">
+
++ We can also check the cells present in the design using `get_cells *` command and check of u_im module
+
+ <img width="1080" alt="" src="">
+
++ Now set the boundry optimization to true for u_im module  using command ` set_boundry_optimization u_im true` and perform the compilation again ('compile_ultra`).
++ As expected u_im module now has been absorbed into the design and also optimzed further.
++ Following the schematic:
+
+ <img width="1080" alt="" src="">
+
++ Now if we check with `get_cells *` no sub modules should be found and all the cells should be on same heirarchy.
+
+ <img width="1080" alt="" src="">
+     
+      
+**Register Retiming:**
+
+ <img width="1080" alt="day9_regretime.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/671917296b6dc9b3a53c951a4b4afe388493a7f8/docs/assets/day9/day9_regretime.png">
+
++ Retiming is an optimizing algorithm for improving the circuit performance. It moves registers across combo-logic without affecting the functionality of design at primary input/output ports. Registers shall be added and to or removed from the design while performing retiming. However, additional registers do not add clock latency to the design’s performance.
++ Critical paths are examined along with their non-critical adjacent paths. There shall be many non-critical paths with positive slack. The strategy is to leverage positive slack on one side of a sequential element to balance negative slack on the other. In essence, the process is
+   + to perform timing analysis of the design.
+   + calculate slack on registers.
+   + sort the registers based on slack.
+   + balance the path by moving registers backward or forward across combo-logic. New registers shall be added or existing registers shall be merged.
+
+**Labs:*
+
++ RTL Code:
+
+```
+module check_reg_retime (input clk , input [3:0] a, input [3:0] b , output [7:0] c , input reset);
+wire [7:0] mult;
+assign mult = a * b;
+reg [7:0] q1;
+reg [7:0] q2;
+reg [7:0] q3;
+always @ (posedge clk , posedge reset)
+begin
+	if(reset)
+	begin
+		q1 <= 8'b0;
+		q2 <= 8'b0;
+		q3 <= 8'b0;
+	end
+	else
+	begin
+		q1 <= mult;
+		q2 <= q1;
+		q3 <= q2;
+	end
+end
+assign c = q3;
+
+endmodule
+```
+
++ Commands to be used:
+
+```
+dc_shell> read_verilog check_reg_retime.v
+dc_shell> link
+dc_shell> compile
+dc_shell> gui_start                       => Check 1 SCHEMATIC 
+dc_shell> report_timing                   => Check 1 TIMING REPORT
+dc_shell> reset_design 
+dc_shell> link
+// Attribute  -retime will perform register retiming optimzation
+dc_shell> compile_ultra -retime           => Check 2 SCHEMATIC
+dc_shell> report_timing                   => Check 2 TIMING REPORT
+```
+
++ Before Optimization:
+   + Schematic: Without optimization as expected, combinational block is retained as it is (mult_4) in beggining itself without spplitting them across the register chain.
+
+ <img width="1080" alt="d4_rrt_nopt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/671917296b6dc9b3a53c951a4b4afe388493a7f8/docs/assets/day9/d4_rrt_nopt_sch.png"> 
+
+   + Timing Report: Slack of  -0.83 is provided from input port to one of the register input reason being single combinational block is in the beggining providing huge latency.  
+
+<img width="1080" alt="d4_rrt_nopt_reptime1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/671917296b6dc9b3a53c951a4b4afe388493a7f8/docs/assets/day9/d4_rrt_nopt_reptime1.png">
+
++ After Optimization:
+   + Schematic: Now after compiling (`compile_ultra -retime`) combinational block is split between the register to balance the slack.
+
+ <img width="1080" alt="d4_rrt_opt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/671917296b6dc9b3a53c951a4b4afe388493a7f8/docs/assets/day9/d4_rrt_opt_sch.png"> 
+
+   + Timing Report: Slack is reduced from -0.83 to -0.06 and further optimization can reduce it to positive slack. 
+
+<img width="1080" alt="d4_rrt_opt_reptime1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/671917296b6dc9b3a53c951a4b4afe388493a7f8/docs/assets/day9/d4_rrt_opt_reptime1.png">
+
+**Isolating Output Ports:**
+
+<img width="1080" alt="day9_io.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/day9_io.png">
+
++ In above example, we can see path from output to one of the combinational logic block. when this happpens whenever there's variation in output load it's effect is seen in inside the combinational logic block worsening the timimg path again.
++ To avoid this we can isolate the output ports by inserting a buffer behind the end of output port.
++ This will also improve the output path timing performance and make it less sensitive to load changes.
+
+*Labs:*
+
+RTL Code: 
+
+```
+module check_boundary (input clk , input res , input [3:0] val_in , output reg [3:0] val_out);
+wire en;
+internal_module u_im (.clk(clk) , .res(res) , .cnt_roll(en));
+always @ (posedge clk , posedge res)
+begin
+	if(res)
+		val_out <= 4'b0;
+	else if(en)
+		val_out <= val_in;	
+end
+endmodule
+module internal_module (input clk , input res , output cnt_roll);
+reg [2:0] cnt;
+
+always @(posedge clk , posedge res)
+begin
+	if(res)
+		cnt <= 3'b0;
+	else
+		cnt <= cnt + 1;
+end
+assign cnt_roll = (cnt == 3'b111);
+endmodule
+```
+
++ Commands to be used:  
+
+```
+dc_shell> read_verilog check_boundry.v
+dc_shell> link
+dc_shell> compile_ultra
+// Constraining the Design
+dc_shell> create_clock -per 5 -name myclk [get_ports clk]
+dc_shell> set_input_delay -max 2 [all_inputs] -clock myclk
+dc_shell> set_output_delay -max 2 [all_outputs] -clock myclk
+dc_shell> set_load -max 0.3 [all_outputs] 
+dc_shell> report_timing -nosplit -inp -cap -trans -to val_out_reg[0]/D                    => CHECK 1
+dc_shell> set_isolate_ports -type buffer [all_outputs]
+dc_shell> compile_ultra
+dc_shell> report_timing -nosplit -inp -cap -trans -from val_out_reg[1]/Q                  => CHECK 2
+```
+
++ Before isolating the ports:
+   + Timing Report : Slack of 0.91 is provided but presence of load (0.3pF) is providing huuge increment of 2.09.
+
+<img width="1080" alt="d4_iop_nopt_timrep.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_nopt_timrep.png">
+
+   + Schematic : We can see the direct connection to intermediate combinational logic block and flops to output ports. 
+
+<img width="1080" alt="d4_iop_nopt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_nopt_sch.png">
+
++ After isolating the ports:
+   + Timing Report : Slack has improved from 0.91 to 1.61.
+
+<img width="1080" alt="d4_iop_nopt_timrep3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_nopt_timrep3.png">
+
+   + Schematic : Now the 4 buffers (U38,U39,U40,U41) are added at the output stage as it is a 4 bit signal. 
+
+<img width="1080" alt="d4_iop_opt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_iop_opt_sch.png">
+     
+
+**MultiCycle Path:**
+
++ A Multi-Cycle Path (MCP) is a flop-to-flop path, where the combinational logic delay in between the flops is permissible to take more than one clock cycle. Sometimes timing paths with large delays are designed such that they are permitted multiple cycles to propagate from source to destination. Unlike false paths, multicycle paths are valid and must be analyzed, but against more than one clock period.
++ By default (without any MCP constraint), setup checks are measured from the source clock edge to the destination’s next clock edge and hold checks are measured from the source clock edge to the destination’s same clock edge. In other words, we can also say hold timing analysis is performed in the same clock period where setup timing is performed.
+
+*Labs:*
+
++ RTL Code:
+
+```
+module mcp_check (input clk , input res  , input [7:0] a , input [7:0] b, input en , output reg [15:0] prod);
+reg valid; 
+always @ (posedge clk , posedge res)
+begin
+	if(res)
+		valid <= 1'b0;
+	else 
+		valid <= en;
+end
+always @ (posedge clk , posedge res)
+begin
+	if(res)
+		prod <= 16'b0;
+	else if (valid)
+		prod <= a * b;
+end
+endmodule
+```
+
++ Commands used:
+
+```
+dc_shell> read_verilog mcp_check.v
+dc_shell> link
+dc_shell> compile_ultra
+dc_shell> report_timing                                                                              => CHECK 1 TIMING REPORT (Set-Up)
+dc_shell> report_timing -delay_type min                                                              => CHECK 2 TIMING REPORT (Hold)
+dc_shell> set_multicycle_path -setup 2 -from [all_inputs] -to prod_reg[*]/D
+dc_shell> report_timing -from [all_inputs] -to prod_reg[*]/D > d4_mcp_opt_timrep_mcp                 => CHECK 3 TIMING REPORT (Set-Up)
+dc_shell> set_multicycle_path -hold 1 -from [all_inputs] -to prod_reg[*]/D
+dc_shell> report_timing -delay_type min -to prod_reg[*]/D -from [all_inputs]                         => CHECK 4 TIMING REPORT (Hold)
+```
+
++ Before setting multicylce path: 
+  + Set-up and Hold Timing Report :
+    
+    <p align="center">
+  <img alt="d4_mcp_nopt_timrep1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_nopt_timrep1.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d4_mcp_opt_timrep_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_opt_timrep_min.png" width="45%">
+</p>  
+ 
++ After setting multicylce path:
+  + Set-up and Hold Timing Report : We can see in set-up timing report, clock myclk  increment is shown as 8ns even though period is 4ns since its a multicycle path and 0ns in hold timing report as expected.
+
+<p align="center">
+  <img alt="d4_mcp_opt_timrep_mcp.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_opt_timrep_mcp.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d4_mcp_opt_timrep_min2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_opt_timrep_min2.png" width="45%">
+</p> 
+
+        
+</details>
