@@ -1809,13 +1809,22 @@ As per the code above, circuit is simplified to simple XNOR gate.
 *3) Resource Sharing:*
 
 + In physical design, resource sharing is the process of effectively  logic gates, memory components, or functional units, in order to minimize the overall size, power consumption, and complexity. 
-+ Example: y=(sel?a:c) * (sel?b:d). 
++ The goal of resource sharing  is to minimize the number of operators and the subsequent logic in the synthesized design. This optimization is based on the principle that two similar arithmetic resources may be implemented as one single arithmetic operator if they are never used at the same time.
++  Example: y=(sel?a:c) * (sel?b:d). 
 
 <img width="1080" alt="day9_1.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/day9_1.jpg">
 
 + As we can see instead of using two multiplier block which take up large area and power, tool can optimize it into design with two mux and one multiplier.
 
 **Labs:**
+
++ RTL code:
+
+```
+module resource_sharing_mult_check (input [3:0] a , input [3:0] b, input [3:0] c , input [3:0] d, output [7:0] y  , input sel);
+   assign y = sel ? (a*b) : (c*d);
+endmodule
+```
 
 + Run1: Design is synthesized and optimized using command `compile_ultra` and following are the results:
 + Schematic: As we can see in the below schematic select line is seen in the beggining i.e from previous example we can conclude it has optimized the logic.
@@ -1867,7 +1876,22 @@ As per the code above, circuit is simplified to simple XNOR gate.
   <img alt="d2_reparea5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5bf67c1f81a924268a39986c874874afd1c66f0b/docs/assets/day9/d2_reparea5.png" width="45%">
 </p> 
 
-   
+
+*4) Logic Sharing:*
+
++ In Logic Sharing if the same logic has been implemented in near-by block, instead of having an extra logic output from that nearby logic block is used.
++ As we  can see in below example, tool will optimize it to design from '1x 3-i/p AND gate', '1x 2-i/p AND gate' and '1x 2-i/p OR gate'  to design with '1x 2-i/p AND gate' and '1x 2-i/p OR gate' saving area and power.  
+
+ <img alt="day9_2.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/day9_2.jpg" width="45%" >
+
+
+*5) Balanced Implementation vs. Preferential Implementation:*
+
++ In balanced implementation, all the timing paths have same latency.
++ In preferential implementation, if any path has low latency requirement it will be kept at the end and one with relaxed latency requirement can be at startpoint where latency is maximum
+  
+ <img alt="day9_3.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/day9_3.jpg">
+
 </details>
 
 <details>
@@ -1886,7 +1910,134 @@ As per the code above, circuit is simplified to simple XNOR gate.
 	+ Sequential logic cloning (Floor plan aware synthesis)
 
 
++ Example 1:- dff_const1.v 
 
+```
+module dff_const1(input clk, input reset, output reg q);
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+			q <= 1'b0;
+		else
+			q <= 1'b1;
+	end
+endmodule
+```
+
++ Waveform : 
+
+<img width="1080" alt="dc1wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc1wv.png">
+
+As we see in above image , when is reset is going from logic '1' to '0' output q is changed to '0' to '1' in next edge of clock cycle and stays the same until reset is '1' again.
+
++ Schematic: 
+
+<img width="1080" alt="d2_dff1sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff1sch.png">
+
+Thus as we see in above schematic one flip flop is enough to realize the above design.
+
++ Example 2:- dff_const2.v
+
+```
+module dff_const2(input clk, input reset, output reg q);
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+			q <= 1'b1;
+		else
+			q <= 1'b1;
+	end
+endmodule
+```
+
++ Waveform : 
+
+<img width="1080" alt="dc2wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc2wv.png">
+
+As we see in above waveform, output is always '1' irrespective of  reset or clock.
+
++ Schematic before optimization: 
+
+<img width="1080" alt="d2_dff2sch_noopt1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff2sch_noopt1.png">
+
+
++ Schematic after optimization: 
+
+<img width="1080" alt="d2_dff2sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff2sch.png">
+
+As per the waveform, output is connected to  input pulled to logic '1' .
+
++ Example 3:-  dff_const3.v 
+
+```
+	module dff_const3(input clk, input reset, output reg q);
+	reg q1;
+
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b0;
+		end
+		else
+		begin
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+	endmodule
+```
+
++ Waveform : 
+
+<img width="1080" alt="dc3wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc3wv.png">
+
+In this design, when the reset is going from '1' to '0' q1 will be set to '1' in next edge of clock cycle and q will be latched a data from q1. Because of Clk-Q delay(Tc-q) q is latched with '0' and will be changed to '1' in next edge of  cock cycle.
+
++ Schematic: 
+
+<img width="1080" alt="d2_dff3sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff3sch.png">
+
+Minimum of two D flip flop are required to realize the above design and further optimization is not possible.
+
++ Example 4:- dff_const4.v 
+
+```
+	module dff_const4(input clk, input reset, output reg q);
+	reg q1;
+
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b1;
+		end
+	else
+		begin
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+	endmodule
+```
+
++ Waveform : 
+
+<img width="1080" alt="dc4wv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9a02b148108b4357bfdaf85ca28b8b889cb483f9/docs/assets/images3/dc4wv.png">
+
+Similar to example3 here input to first flip flop is pulled to logic '1' there form both q and q1 will be '1' all the time irrespective of clock or reset.
+
++ Schematic before optimization: 
+
+<img width="1080" alt="d2_dff4sch_noopt,png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff4sch_noopt.png">
+
++ Schematic after optimization: 
+
+<img width="1080" alt="d2_dff4sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/14abeb8ebe33fcbf99a4787d44f63549f45bb632/docs/assets/day9/d2_dff4sch.png">
+
+Tool has optimized the design and synthesized it into two outputs connected to input pulled to logic '1'.
 
 
 </details>
