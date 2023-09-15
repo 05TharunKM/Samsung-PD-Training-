@@ -1,0 +1,11 @@
+///////////////////////////DAY10.///////////////////////////////////////////
+/////////////////////////LAB1//////////////////////////////////////////////////
+sh gvim lab8_cons_modified.tcl
+link
+source lab8_cons_modified.tcl
+compile_ultra
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -from IN_A  => timrep1 
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A => timrep2
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A -to REGA_reg/D => timrep3
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -fall_from IN_A -to REGA_reg/D -delay_type min => timrep4
+
