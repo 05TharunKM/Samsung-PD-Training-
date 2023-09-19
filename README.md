@@ -2370,16 +2370,60 @@ Below are the different example commands to generate the timing report and thier
 
 **Propagation Delay:**
 
++ Propagation delay in VLSI is normally described as the time difference between when the transitional input reaches 50% of its final value and when the output reaches 50% of its final value.
++ Lets take an example of inverter to understand the propagation delay concept:
+
+  <img alt="prop.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/70770a7655bfcfbf51a4a790ac23313c86486206/docs/assets/day10_p1/prop.jpg" width="1080" >
+ 
++ In this we can observe that T<sub>HL</sub> and T<sub>LH</sub> are not same so to calculate the total propagation delay average of two are taken.
+
++ Following example elaborate why rise delay and fall delay are not same:
+
+ <img alt="pdnpun.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/70770a7655bfcfbf51a4a790ac23313c86486206/docs/assets/day10_p1/pdnpun.png" width="1080" >
+
+
++ Any CMOS Circuit comprises of PUN(pull up network) and PDN(pull down network) as shown in above image.
++ For example in inverter, when input goes from 0 -> 1 nmos(PDN) is active and input goes from 1-> 0 pmos(PUN) is active.
++ nmos and pmos cannot have same delay therefore rise delay and fall delay will obviously be different.
 
 
 **Timing Paths:**
 
++ Consider the below circuit and their timing information are given in right:
+
+ <img alt="timpath.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/70770a7655bfcfbf51a4a790ac23313c86486206/docs/assets/day10_p1/timpath.jpg" width="1080" >
+
++ Lets calculate arrival time for each path with different input signal cases:
++ Case 1 : Rising input signal at DFFA            ----------- PATH ACR
+   + `At = 0.5 + 0.5 + 0.65 = 1.65ns` 
++ Case 2 : Falling input signal at DFFA           ----------- PATH ACF
+   + `At = 0.4 + 0.4 + 0.7 = 1.5ns`
++ Case 3 : Rising input signal at DFFB            ----------- PATH BCR
+   + `At = 0.5 + 0.65  = 1.15ns`
++ Case 4 : Falling input signal at DFFB           ----------- PATH BCF
+   + `At = 0.5 + 0.65  = 1ns`
++ Now lets consider different arguments for timing report commands (`report_timing -args`) and analyse which path will be reported.
++ `-delay_type min -to DFFC/D` will report path BCF because its providing minimum delay(At-Arrival Time).
++ `-delay_type max -to DFFC/D` will report path ACR because its providing maximum delay.
++ `-delay_type min -rise_to DFFC/D ` will report path BCR.
++ `-delay_type max -rise_to DFFC/D ` will report path ACF.
++ `-delay_type min -fall_to DFFC/D ` will report path BCF.
++ `-delay_type max -fall_to DFFC/D ` will report path ACR.
+
 **Max path and nworst:**
+
+  <img alt="mnworst.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/70770a7655bfcfbf51a4a790ac23313c86486206/docs/assets/day10_p1/mnworst.jpg" width="1080" >
+
++ As per above schematic max_paths and nworst attributes are explored below:
++ Command `report_timing` without any arguments will report the timing for path with WNS(worst negative slack) i.e path 4.
++ Command `report_timing -max_paths 2` will report timing for path 2 and 4 because it will consider path with WNS per endpoint.
++ Command `report_timing -nworst 2` will report timing for path 3 and 4 since those are the two path with WNS.   
  
 </details>
 
 <summary>Labs</summary>
 
-**
+<details>Lab1</details>
+<details>Lab2</details>
 
 ## Day-11-Intro-to-BabySoC
