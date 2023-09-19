@@ -2454,46 +2454,160 @@ endmodule
 ```
 + Different paths in designs are given below:
 
-  <img alt="" src="" width="1080" >
+  <img alt="lab8.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p1/lab8.jpg" width="1080" >
   
 + Read the above deisgn, link and compile the same and generate timing reports.
 + Timing report1: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -from IN_A`
 
-  <img alt="" src="" width="1080" >
+  <img alt="d10_reptime1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p1/d10_reptime1.png" width="1080" >
 
 + In this report path A1 is reported because out of two paths from 'IN_A'   path A1 has the least slack value.
 + Timing report2: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A`
 
-  <img alt="" src="" width="1080" >
+  <img alt="d10_reptime2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p1/d10_reptime2.png" width="1080" >
 
 + In this report path A2 is reported.
 + We can observe the rise and fall of the signal in the report annotated  in 'r' and 'f'.
 + Cell U16 is nor gate which has negative unateness, we can observe the transition changing from rise 'r' to fall 'f'. Similarly U15 an inverter which also has a negative unate. 
 + Timing report3: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A -to REGA_reg/D`
 
-  <img alt="" src="" width="1080" >
+  <img alt="d10_reptime3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p1/d10_reptime3.png" width="1080" >
 
 + Similar to previous report path A1 is reported but endpoint is forced to 'REGA_reg/D' and input signal has rising transtion(0->1).
 + Timing report4: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -fall_from IN_A -to REGA_reg/D -delay_type min`
 
-  <img alt="" src="" width="1080" >
+  <img alt="d10_reptime4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p1/d10_reptime4.png" width="1080" >
 
 + In this report path A1 is reported with falling signal applied at startpoint and delay type of min(hold).
 
 **Lab 2:**
 
 *Example 1:*
-+ Using same example from previous check timing issue using `chech_timing` command.
-+ Before sourceing the constraints:
++ Using same example from previous check timing issue using `check_timing` command.
++ Before sourcing the constraints:
 
+ <img alt="d10_checktime.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_checktime.png" width="1080" >
 
++ After Sourcing the constraints:
 
-+ After SOurceing the constraints:
-
+ <img alt="d10_checktime2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_checktime2.png" width="1080" >
  
-*Example 2:*
-+
+*Example 2:  *
++ Behavioural code:
+
+```
+module mux_generate (input [127:0] in , input [6:0] sel  , output reg y);
+//wire [3:0] i_int;
+//assign i_int = {i3,i2,i1,i0};
+integer k;
+always @ (*)
+begin
+for(k = 0; k < 127; k=k+1) begin
+	if(k == sel)
+		y = in[k];
+end
+end
+endmodule
+```
+
++ This is the modified 128:1 multiplexer.
++ Here as per code pin 'sel' will be connected to multiple cells to optimize this compile the design. and generate the timing and constraint reports.
++ Timing report 1 :
+
+ <img alt="d10_reptime02.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_reptime02.png" width="1080" >
+
++ In this report we can see the huge fanout from pin 'sel' and its effect on the timing performance of the design. We can also see the huge capacitance of >300pF on sel pins.
++ Now set the max delay and capacitance using `set_max_delay -from [all_inputs] -to [all_outputs] 3.5 ` and `set_max_capacitance 0.025 [current_design]`. Compile the design to update the new constraints
++ Timing report 2 :
+
+<p align="center">
+  <img alt="d10_reptime04_p1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_reptime04_p1.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d10_reptime04_p2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_reptime04_p2.png" width="45%">
+</p> 
+
++ Now after setting the constraints and recompiling the design fanout at pin 'sel' has decreased to 6 and capacitive load has decreased lower than 0.025pF.
++ Constraint report before(left) and after(afer) setting the max capacitance:
+
+<p align="center">
+  <img alt="d10_repcon01.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_repcon01.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d10_repcon02.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_repcon02.png" width="45%">
+</p> 
+
++ We can observe multiple max cap violations before setting the max capacitance and after its slack has become '0' i.e no violations.
+
+*Example 3:*
++ Bevioural code:
+
+```
+module en_128 (input [127:0] x , output [127:0] y , input en);
+	assign y[127:0] = en ?x[127:0]:128'b0;
+endmodule
+```
+
++ In this design we can observe that every single outputs need some logic decision from pin 'en' thus increasing its fanout and load.
++ Timing Report 1:
+
+  <img alt="d10_reptime05.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_reptime05.png" width="1080" >
+
++ We can observe the fanout , capacitance and transtion time of pin 'en' which are huge and are difficult to deal while designing.
++ To avoid these huge fanout and insert buffers between use  `set_max_capacitance 0.03 [current_design]` command and recompile the design so that tool can optimize it again.
++ Generate the .ddc file and push to design vision to view the schematic :
+
+  <img alt="d10_sch01.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_sch01.png" width="1080" >
+  
++ Timing Report 2 :
+  
+  <img alt="d10_reptime07_after.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_reptime07_after.png" width="1080" > 
+
++ We can see that fanout has reduced to 17 now and intermedeiate buffers has been added.
++ But transition time is still high and it can be reduced using command `set_max_transition 0.150 [current_design]`
++ Timing Report 3 :
+ 
+<img alt="d10_reptime08.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_reptime08.png" width="1080" > 
+
++ Constraint report before and after setting max trans value: 
+
+<p align="center">
+  <img alt="d10_repcon03.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_repcon03.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="d10_repcon04.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/3951f8d6f3d036ad8424a6dcb5598bc97cd28a3e/docs/assets/day10_p2/d10_repcon04.png" width="45%">
+</p> 
 
 </details>
 
 ## Day-11-Intro-to-BabySoC
+
+<details>
+
+<summary>SOC</summary>
+
+**Introduction:**
++ A System-on-Chip (SoC) is a specialized integrated circuit (IC) that combines various components and functionalities of a computer or electronic system into a single chip. SoCs are widely used in a diverse range of applications, from smartphones and tablets to embedded systems and IoT devices. 
+
+**Components of a SoC:**
++ A typical SoC includes several key components, which may vary depending on the specific application. Common components found in SoCs include:
+  + Central Processing Unit (CPU): The CPU is the brain of the SoC, responsible for executing instructions and performing computations.
+  + Memory: SoCs may include various types of memory, such as RAM (Random Access Memory) and ROM (Read-Only Memory), to store data and code.
+  + Input/Output Interfaces: SoCs feature interfaces for connecting to external devices, such as USB ports, HDMI, and Ethernet.
+  + Graphics Processing Unit (GPU): Many SoCs include a GPU for handling graphical tasks and rendering.
+  + Connectivity: Wireless connectivity modules like Wi-Fi, Bluetooth, and cellular modems are often integrated into SoCs.
+  + Peripherals: SoCs may include various peripherals like sensors, timers, and analog-to-digital converters (ADCs).
+  + Security: Security features like encryption engines and secure boot mechanisms are critical in modern SoCs.
+  + Power Management: SoCs incorporate power management units to optimize energy consumption.
+
+**Applications of SoCs:**
++ SoCs find applications in a wide range of industries and devices, including:
+  + Mobile Devices: SoCs power smartphones, tablets, and wearables, providing computing power and connectivity.
+  + IoT (Internet of Things): SoCs enable IoT devices to gather data, process it locally, and communicate with other devices or the cloud.
+  + Automotive: SoCs are used in automotive systems for infotainment, driver assistance, and engine control.
+  + Consumer Electronics: Smart TVs, set-top boxes, and gaming consoles utilize SoCs for multimedia and connectivity.
+  + Industrial Automation: SoCs are employed in industrial controllers, PLCs (Programmable Logic Controllers), and robotics.
+  + Medical Devices: SoCs power medical imaging devices, patient monitors, and diagnostic equipment.
+
+**About Qualcomm Snapdragon 662:**
++ The Qualcomm Snapdragon 662 is a lower mid-range ARM-based SoC largely found in Android tablets and smartphones.
++ It features 8 Kryo 260 cores  that are divided in two clusters. A fast cluster of four cores with up to 2 GHz and a power saving efficiency cluster with up to 1.8 GHz. Both clusters can also be used together.
++ In addition to the 8 CPU cores, the SoC integrates a mid range Adreno 610 GPU with a LPDDR4 memory controller (dual-channel)  and supports Wi-Fi (802.11ac + MIMO, max. 867 Mbps), Bluetooth 5, and LTE (X12 LTE modem with up to 600 Mbps download and 150 Mbps upload).
+</details>
