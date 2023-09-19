@@ -2610,5 +2610,5 @@ endmodule
 + The Qualcomm Snapdragon 662 is a lower mid-range ARM-based SoC largely found in Android tablets and smartphones.
 + It features 8 Kryo 260 cores  that are divided in two clusters. A fast cluster of four cores with up to 2 GHz and a power saving efficiency cluster with up to 1.8 GHz. Both clusters can also be used together.
 + In addition to the 8 CPU cores, the SoC integrates a mid range Adreno 610 GPU with a LPDDR4 memory controller  and supports Wi-Fi , Bluetooth 5, and LTE.
-+ 
+
 </details>
