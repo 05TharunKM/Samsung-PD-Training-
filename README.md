@@ -13,7 +13,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-8-Advanced-Constraints](#Day-8-Advanced-Constraints)
 - [Day-9-Optimizations](#Day-9-Optimizations)
 - [Day-10-QOR](#Day-10-QOR)
-- [Day-11-Intro-to-BabySoC](#Day-Intro-to-BabySoC)
+- [Day-11-Intro-to-BabySoC](#Day-11-Intro-to-BabySoC)
 
 ## Day-0-Tool-Setup-Check
 
