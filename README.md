@@ -2538,7 +2538,7 @@ endmodule
 + We can observe multiple max cap violations before setting the max capacitance and after its slack has become '0' i.e no violations.
 
 *Example 3:*
-+ Bevioural code:
++ Behavioural code:
 
 ```
 module en_128 (input [127:0] x , output [127:0] y , input en);
@@ -2609,5 +2609,6 @@ endmodule
 **About Qualcomm Snapdragon 662:**
 + The Qualcomm Snapdragon 662 is a lower mid-range ARM-based SoC largely found in Android tablets and smartphones.
 + It features 8 Kryo 260 cores  that are divided in two clusters. A fast cluster of four cores with up to 2 GHz and a power saving efficiency cluster with up to 1.8 GHz. Both clusters can also be used together.
-+ In addition to the 8 CPU cores, the SoC integrates a mid range Adreno 610 GPU with a LPDDR4 memory controller (dual-channel)  and supports Wi-Fi (802.11ac + MIMO, max. 867 Mbps), Bluetooth 5, and LTE (X12 LTE modem with up to 600 Mbps download and 150 Mbps upload).
++ In addition to the 8 CPU cores, the SoC integrates a mid range Adreno 610 GPU with a LPDDR4 memory controller  and supports Wi-Fi , Bluetooth 5, and LTE.
++ 
 </details>
