@@ -12,6 +12,8 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-7-Basic-SDC-constraints](#Day-7-Basic-SDC-constraints)
 - [Day-8-Advanced-Constraints](#Day-8-Advanced-Constraints)
 - [Day-9-Optimizations](#Day-9-Optimizations)
+- [Day-10-QOR](#Day-10-QOR)
+- [Day-11-Intro-to-BabySoC](#Day-Intro-to-BabySoC)
 
 ## Day-0-Tool-Setup-Check
 
@@ -2323,6 +2325,61 @@ dc_shell> report_timing -delay_type min -to prod_reg[*]/D -from [all_inputs]    
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img alt="d4_mcp_opt_timrep_min2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/96e4271ab1878abd6c15743ca8e1bf1984ad9304/docs/assets/day9/d4_mcp_opt_timrep_min2.png" width="45%">
 </p> 
-
-        
+      
 </details>
+
+
+## Day-10-QOR
+<details>
+<summary>Introduction</summary>
+
+**Generating Timing Report:**
+
+Below are the different example commands to generate the timing report and thier syntax: 
+
++ `report_timing -from DFFA/Clk`:
+   + This command will report timing with path startpoint as 'DFFA/Clk'.
+   + Endpoint will be selected based on the worst slack it gives on available different paths.
+   + By default  delay type is set to max.
+   
++ `report_timing -from DFFA/Clk -to DFFC/D`:
+   + Here both endpoint and startpoint is specified and timing report will be done between these two points.
+   
++ `report_timing -fall_from DFFA/Clk`:
+   + Here  '-fall_from' is referring to the transition of the signal in DFFA/Clk  pin.
+   + '-fall_from' specify the tool to select path where the signal at 'Clk' pin is transiting from '1' to '0'.
+
++ `report_timing -rise_from DFFA/Clk`:
+   + '-rise_from' specify the tool to select path where the signal at 'Clk' pin is transiting from '0' to '1'.
+
++ `report_timing -delay_type min -to DFFA/Clk`:
+   + By default  delay type is set to max to change the delay type use attribute '-delay_type'.  
+ 
++ `report_timing -delay_type min -through DFFA/Clk`:
+   + This command will report the path with worst slack which is passing through 'DFFA/Clk'.  
+ 
++ `report_timing -delay_type max -through DFFA/Clk`:
+   + Similar to previous command with delay type set  to max.
+
++ `report_timing -rise_from DFFA/Clk -delay_type max  -nets -cap -trans`:
+   + '-nets' will give fanout at different nets available.
+   + '-cap' will give load capacitance available on the different pin.
+   + '-trans' provides info regarding transition time.
+
+    
+
+**Propagation Delay:**
+
+
+
+**Timing Paths:**
+
+**Max path and nworst:**
+ 
+</details>
+
+<summary>Labs</summary>
+
+**
+
+## Day-11-Intro-to-BabySoC
