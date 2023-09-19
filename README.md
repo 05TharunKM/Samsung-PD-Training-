@@ -2422,8 +2422,78 @@ Below are the different example commands to generate the timing report and thier
 <details>
 <summary>Labs</summary>
 
+**Lab 1:**
+
+*Example 1:*
+
++ Behavioural description :
+
+```
+module lab8_circuit (input rst, input clk , input IN_A , input IN_B , output OUT_Y , output out_clk , output reg out_div_clk);
+reg REGA , REGB , REGC ; 
+always @ (posedge clk , posedge rst)
+begin
+	if(rst)
+	begin
+		REGA <= 1'b0;
+		REGB <= 1'b0;
+		REGC <= 1'b0;
+		out_div_clk <= 1'b0;
+	end
+	else
+	begin
+		REGA <= IN_A | IN_B;
+		REGB <= IN_A ^ IN_B;
+		REGC <= !(REGA & REGB);
+		out_div_clk <= ~out_div_clk; 
+	end
+end
+assign OUT_Y = ~REGC;
+assign out_clk = clk;
+endmodule
+```
++ Different paths in designs are given below:
+
+  <img alt="" src="" width="1080" >
+  
++ Read the above deisgn, link and compile the same and generate timing reports.
++ Timing report1: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -from IN_A`
+
+  <img alt="" src="" width="1080" >
+
++ In this report path A1 is reported because out of two paths from 'IN_A'   path A1 has the least slack value.
++ Timing report2: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A`
+
+  <img alt="" src="" width="1080" >
+
++ In this report path A2 is reported.
++ We can observe the rise and fall of the signal in the report annotated  in 'r' and 'f'.
++ Cell U16 is nor gate which has negative unateness, we can observe the transition changing from rise 'r' to fall 'f'. Similarly U15 an inverter which also has a negative unate. 
++ Timing report3: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A -to REGA_reg/D`
+
+  <img alt="" src="" width="1080" >
+
++ Similar to previous report path A1 is reported but endpoint is forced to 'REGA_reg/D' and input signal has rising transtion(0->1).
++ Timing report4: command used `report_timing -sig 4 -nosplit -trans -cap -nets -inp -fall_from IN_A -to REGA_reg/D -delay_type min`
+
+  <img alt="" src="" width="1080" >
+
++ In this report path A1 is reported with falling signal applied at startpoint and delay type of min(hold).
+
+**Lab 2:**
+
+*Example 1:*
++ Using same example from previous check timing issue using `chech_timing` command.
++ Before sourceing the constraints:
 
 
-</details>details>
+
++ After SOurceing the constraints:
+
+ 
+*Example 2:*
++
+
+</details>
 
 ## Day-11-Intro-to-BabySoC
