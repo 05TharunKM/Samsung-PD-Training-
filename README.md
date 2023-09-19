@@ -2366,8 +2366,6 @@ Below are the different example commands to generate the timing report and thier
    + '-cap' will give load capacitance available on the different pin.
    + '-trans' provides info regarding transition time.
 
-    
-
 **Propagation Delay:**
 
 + Propagation delay in VLSI is normally described as the time difference between when the transitional input reaches 50% of its final value and when the output reaches 50% of its final value.
@@ -2421,9 +2419,11 @@ Below are the different example commands to generate the timing report and thier
  
 </details>
 
+<details>
 <summary>Labs</summary>
 
-<details>Lab1</details>
-<details>Lab2</details>
+
+
+</details>details>
 
 ## Day-11-Intro-to-BabySoC
