@@ -1,0 +1,84 @@
+///////////////////////////DAY10.///////////////////////////////////////////
+/////////////////////////LAB1//////////////////////////////////////////////////
+sh gvim lab8_cons_modified.tcl
+link
+source lab8_cons_modified.tcl
+compile_ultra
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -from IN_A  => timrep1 
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A => timrep2
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -rise_from IN_A -to REGA_reg/D => timrep3
+report_timing -sig 4 -nosplit -trans -cap -nets -inp -fall_from IN_A -to REGA_reg/D -delay_type min => timrep4
+/////////////////////LAB2///////////////////////////////////////////////////////////
+read_verillog lab8_circuit_modified.v 
+link 
+check_design  => checkdesign
+compile_ultra 
+check_timing  => checktime
+source lab8_cons_modified.tcl 
+check_timing  => checktime2
+report_timing => reptime01
+//////////////////part2./////////////////////////////////////////////////////////////
+read_verilog mux_generate_mod.v 
+link 
+compile_ultra 
+report_timing -cap =>  reptime02 huge fanout 
+set_max_delay -from [all_inputs] -to [all_outputs] 3.5 
+report_timing => reptime03
+set_max_capacitance 0.025 [current_design]
+report_constraints -all_violators => repcon01
+compile_ultra
+report_contraints -all_violators  =>repcon02
+report_timing  => reptime04_p1 and p2 
+///example of effect of huge cap on single pin 
+/ read,link,compile_ultra 
+/ report_timing -from en -net -cap => reptime05 check 128 fanout 
+/ set_max_capacitance 0.03 [current_design]
+/ report_timing -from en -net cap => reptime06 
+/ schematic sch01 
+/ report_timing -from en -nets -cap -trans =>reptime07 pathx
+/ report_constraints =>repcon03 // check for max  trans violation  
+/ set_max_transition 0.150 [current_design]
+/ report_constraint =>repcon04
+/ report_timing -from en -nets -cap -trans =>reptime08
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
