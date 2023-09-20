@@ -14,6 +14,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-9-Optimizations](#Day-9-Optimizations)
 - [Day-10-QOR](#Day-10-QOR)
 - [Day-11-Intro-to-BabySoC](#Day-11-Intro-to-BabySoC)
+- [Day-12-BabySoC-Modelling](#Day-12-BabySoC-Modelling)
 
 ## Day-0-Tool-Setup-Check
 
@@ -2612,3 +2613,82 @@ endmodule
 + In addition to the 8 CPU cores, the SoC integrates a mid range Adreno 610 GPU with a LPDDR4 memory controller  and supports Wi-Fi , Bluetooth 5, and LTE.
 
 </details>
+
+
+
+
+## Day-12-BabySoC-Modelling
+<details>
+<summary>Task</summary>
+
+**Ring Counter:**
+
++ A ring counter is a typical application of the Shift register. The ring counter is almost the same as the shift counter. The only change is that the output of the last flip-flop is connected to the input of the first flip-flop in the case of the ring counter but in the case of the shift register it is taken as output. Except for this, all the other things are the same.
++ Commands used:
+
+```
+iverilog ringconter.v ringcounter_tb.v -o op.out    // Generating the executable
+./op.out                                            // Executing
+gtkwave ringcounter_tb.vcd                          // Pushing VCD to gtkwave  
+```
+
++ Verilog Code:
+
+<p align="center">
+  <img width="400" alt="day11_taskcode.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_taskcode.png"  >
+</p>
+
++ Test Bench:
+
+<p align="center">
+  <img width="400" alt="day11_tasktb.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_tasktb.png"  >
+</p>
+
++ Waveform:
+
+<p align="center">
+  <img width="400" alt="day11_taskwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_taskwv.png"  >
+</p>
+
+
+</details>
+
+<details>
+<summary>VSD BabySoC</summary>
+
+**Modelling the RVMYTH:**
+
+Waveform: 
+
+<p align="center">
+  <img width="1080" alt="day11_corewv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_corewv.png"  >
+</p>
+
+**Modelling the DAC:**
+
+Waveform: 
+
+<p align="center">
+  <img width="1080" alt="day11_dacwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_dacwv.png"  >
+</p>
+
+**Modelling the PLL:**
+
+Waveform: 
+
+<p align="center">
+  <img width="400" alt="day12_pllwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day12_pllwv.png"  >
+</p>
+
+**Modelling the SoC:**
+
+Waveform: 
+
+<p align="center">
+  <img width="400" alt="day11_finalwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_finalwv.png"  >
+</p>
+
+
+ 
+</details>
+
