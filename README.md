@@ -2656,7 +2656,31 @@ gtkwave ringcounter_tb.vcd                          // Pushing VCD to gtkwave
 <details>
 <summary>VSD BabySoC</summary>
 
+**RISC v/s CISC:**
+
+| RISC | CISC |
+| --------------------- | ---------------------|
+| Fixed sized instructions | Variable sized instructions |
+| Can perform only Register to Register Arithmetic operations | Can perform REG to REG or REG to MEM or MEM to MEM |
+| Requires more number of registers | Requires less number of registers |
+| Code size is large | Code size is small |
+| An instruction executed in a single clock cycle | Instruction takes more than one clock cycle |
+| An instruction fit in one word | Instructions are larger than the size of one word |
+| Simple and limited addressing modes | Complex and more addressing modes |
+| RISC is Reduced Instruction Cycle. | CISC is Complex Instruction Cycle |
+| The number of instructions are less as compared to CISC. | The number of instructions are more as compared to RISC. |
+| RISC is highly pipelined.| CISC is less pipelined. |
+| RISC required more RAM. | CISC required less RAM. |
+
+**Why RISC is preffered:**
++ Simpler instructions: RISC processors use a smaller set of simple instructions, which makes them easier to decode and execute quickly. This results in faster processing times.
++ Faster execution: Because RISC processors have a simpler instruction set, they can execute instructions faster than CISC processors.
++ Lower power consumption: RISC processors consume less power than CISC processors, making them ideal for portable devices
+
+
 **Modelling the RVMYTH:**
++ RVMYTH core is a simple RISCV-based CPU, introduced in a workshop by RedwoodEDA and VSD.
++ Verilog code and test bench are attached here: [verilog code](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/mythcore_test.v) & [Test Bench](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/tb_mythcore_test.v) 
 
 Waveform: 
 
@@ -2665,6 +2689,9 @@ Waveform:
 </p>
 
 **Modelling the DAC:**
++ A Digital to Analog Converter commonly referred as DAC, D/A or D2A is a device that converts binary values (0s and 1s) to a set of continuous analog voltages.
++ Verilog code and test bench are attached here: [verilog code](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/rvmyth_avsddac.v) & [Test Bench](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/rvmyth_avsddac_TB.v) 
++ The whole digital to analog conversion process is a scaling operation – the binary count is mapped to a certain voltage range, with 0V being the minimum( and the maximum voltage being the maximum input binary voltage i.e 3.3V in our case.
 
 Waveform: 
 
@@ -2672,7 +2699,28 @@ Waveform:
   <img width="1080" alt="day11_dacwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_dacwv.png"  >
 </p>
 
++  We can also calculate the corresponding anolog value.
++  Consider the below data:
+   + Vref = 3.3V
+   + N = 10
+   + Digital Data = (0101111010)<sub>2</sub> = (378)<sub>10</sub>
+   + Anolog Data  = (D) x (Vref) / (2<sup>N</sup> - 1)
+   + Anolog Data  = (378) x (3.3) / 2<sup>10/<sup> -1)   = 1.219354838709677 V  
+
+   
+<p align="center">
+  <img width="400" alt="day11_daccalc.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/39ee2b0ee562ea51c71bfb6cd571cbbe88915775/docs/assets/day11_p1/day11_daccalc.png" >
+</p>
+
 **Modelling the PLL:**
++ A phase-locked loop (PLL) is an electronic circuit with a voltage or voltage-driven oscillator that constantly adjusts to match the frequency of an input signal. PLLs are used to generate, stabilize, modulate, demodulate, filter or recover a signal.
++ Verilog code and test bench are attached here: [verilog code](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/rvmyth_pll.v) & [Test Bench](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/rvmyth_pll_tb.v) 
+
+Block Diagram: 
+
+<p align="center">
+  <img width="650" alt="pll.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a4fcd623dabcee0c0fae417e752e1d9bac5cf631/docs/assets/day11_p1/pll.jpg"  >
+</p>
 
 Waveform: 
 
@@ -2681,6 +2729,8 @@ Waveform:
 </p>
 
 **Modelling the SoC:**
++ Now interconnect all the three IPs and execute  at once.
++ Verilog code and test bench are attached here: [verilog code](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/vsdbabysoc.v) & [Test Bench](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/testbench.v) 
 
 Waveform: 
 
@@ -2688,7 +2738,13 @@ Waveform:
   <img width="400" alt="day11_finalwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_finalwv.png"  >
 </p>
 
++ Commands used:
 
+```
+iverilog design.v testbench.v -o op.out
+./op.out
+gtwave design_tb.vcd
+```
  
 </details>
 
