@@ -2647,7 +2647,7 @@ gtkwave ringcounter_tb.vcd                          // Pushing VCD to gtkwave
 + Waveform:
 
 <p align="center">
-  <img width="400" alt="day11_taskwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_taskwv.png"  >
+  <img width="1080" alt="day11_taskwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_taskwv.png"  >
 </p>
 
 
@@ -2672,7 +2672,7 @@ gtkwave ringcounter_tb.vcd                          // Pushing VCD to gtkwave
 | RISC is highly pipelined.| CISC is less pipelined. |
 | RISC required more RAM. | CISC required less RAM. |
 
-**Why RISC is preffered:**
+**Why RISC is preferred:**
 + Simpler instructions: RISC processors use a smaller set of simple instructions, which makes them easier to decode and execute quickly. This results in faster processing times.
 + Faster execution: Because RISC processors have a simpler instruction set, they can execute instructions faster than CISC processors.
 + Lower power consumption: RISC processors consume less power than CISC processors, making them ideal for portable devices
