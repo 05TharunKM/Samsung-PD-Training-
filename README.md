@@ -2725,7 +2725,7 @@ Block Diagram:
 Waveform: 
 
 <p align="center">
-  <img width="400" alt="day12_pllwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day12_pllwv.png"  >
+  <img width="1080" alt="day12_pllwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day12_pllwv.png"  >
 </p>
 
 **Modelling the SoC:**
@@ -2735,7 +2735,7 @@ Waveform:
 Waveform: 
 
 <p align="center">
-  <img width="400" alt="day11_finalwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_finalwv.png"  >
+  <img width="1080" alt="day11_finalwv.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/030818dc4c5439ffc102c5d711ef18fa8db58723/docs/assets/day11_p1/day11_finalwv.png"  >
 </p>
 
 + Commands used:
