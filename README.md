@@ -2705,7 +2705,7 @@ Waveform:
    + N = 10
    + Digital Data = (0101111010)<sub>2</sub> = (378)<sub>10</sub>
    + Anolog Data  = (D) x (Vref) / (2<sup>N</sup> - 1)
-   + Anolog Data  = (378) x (3.3) / 2<sup>10/<sup> -1)   = 1.219354838709677 V  
+   + Anolog Data  = (378) x (3.3) / 2<sup>10</sup> -1) = 1.219354838709677 V  
 
    
 <p align="center">
