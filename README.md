@@ -15,6 +15,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-10-QOR](#Day-10-QOR)
 - [Day-11-Intro-to-BabySoC](#Day-11-Intro-to-BabySoC)
 - [Day-12-BabySoC-Modelling](#Day-12-BabySoC-Modelling)
+- [Day-13-Post-synthesis-simulation](#Day-13-Post-synthesis-simulation)
 
 ## Day-0-Tool-Setup-Check
 
@@ -2748,3 +2749,116 @@ gtwave design_tb.vcd
  
 </details>
 
+
+## Day-13-Post-synthesis-simulation
+
+<details>
+<summary>Synthesis and Post-synth simulation </summary>
+	
+**Synthesis:**
++ Synthesis refers to the process of converting a high-level hardware description of a digital circuit into a gate-level representation.
++ Design is converted into gates and connection are made between the gates.
++ This is given out as file called netlist.
++ Following commands are used to carry out synthesis in DC:
+
+```
+```
+
+**Setting up library files:**
++ .lib file is Collection of logical modules which include basic logic gates of different flavour.
++ .db is the compiled version of liberty file(.lib) since DC can't read .lib file, library compiler is used to generate the .db file from .lib file.
++ Following commands are used:
+
+```
+```
+
+**Post synthesis simulation:**
+
++ Post synthesis simulation is a type of simulation where the netlist is simulated with orginal test bench.
++ Since the netlist is logically same as RTL code same test bench can be used.
++ Post-synth simulation is  performed to verify logic correctness of design.
++ *Why perform post-synth simulation:*
+     + Post-synth simulation is  performed to verify logic correctness of design.
+     + A synthesis simulation mismatch refers to a situation where the behavior of a design as simulated before synthesis does not match the behavior of the same design after it has been synthesized and simulated at a gate level.
+     + This can happen due to multiple design:
+         1) Missing sensitivity list.
+         2) Blocking and Non-blocking Assignment.
+         3) Non-Standard verilog coding. 
+
++ Following is the steps to perform post-synth simulations :
+
+```
+      Design-Netlist  ⬂ 
+  GLS Verilog Models  ⇨ Iverilog ⇨ VCD File ⇨  GTKWave
+           TestBench  ⬀ 
+```
+
++ Following are the commands used to perform the simluation after synthesis:
+
+```
+```
+
+</details>
+
+
+<details>
+<summary>Task</summary>
+
++ RTL Code :
+
+```
+module ringcounter (clk, rst, count)
+input clk, rst; output [5:0] count;
+wire clk, rst;
+reg [5:0] count = 6'b1;
+always@(posedge clk)
+  begin
+  if (rst)
+    begin
+    count <= count << 1;
+    count[0]<< count [5];
+    end
+   end
+always@posedge rst)
+ begin
+  count <= 6'b1;
+ end
+endmodule
+```
+
++ As we can see above code is not synthesizable and when code is read in dc_shell it will throw an error.
++ So ring counter code is modified using synthesizable constructs and following the new RTL Code:
+
+```
+module ringcounter(clk, rst, count); 
+    input clk, rst;
+    output  [5:0] count;
+    wire clk, rst;
+    reg [5:0] count = 6'b1;  
+    always @ (posedge clk, posedge rst )
+        begin  
+        if ( rst == 1 )  
+            begin    
+            count[5:0] <= { count[4:0] , count[5] };   
+        end
+	else 
+            count <= 6'b1;
+    end 
+endmodule
+```
+
+**Schematic after synthesis:** 
+
+**Comparing post-synth simulation with pre-synth simulation:** 
+
+
+ 
+</details>
+
+<details>
+
+<summary>MYTHCORE</summary>
+
+
+ 
+</details> 
