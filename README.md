@@ -2762,6 +2762,14 @@ gtwave design_tb.vcd
 + Following commands are used to carry out synthesis in DC:
 
 ```
+# csh
+# dc_shell
+dc_shell>> read_verilog <design.v>
+dc_shell>> read_db <.db files>
+// set link and target library using .synopsys_dc.setup
+dc_shell>> link
+dc_shell>> compile_ultra
+dc_shell>> write -f verilog -o <netlist>
 ```
 
 **Setting up library files:**
@@ -2770,8 +2778,17 @@ gtwave design_tb.vcd
 + Following commands are used:
 
 ```
+# lc_shell
+lc_shell>> read_lib <path to .lib file>
+lc_shell>> write_lib <name> -f db -o <name>.db
+lc_shell>> quit
 ```
 
++ Generate the .db file for  folowing lib files:
+    1)  avsdpll.lib
+    2)  avsddac.lin
+    3)  sky130_fd_sc_hd__tt_025C_1v80.lib
+  
 **Post synthesis simulation:**
 
 + Post synthesis simulation is a type of simulation where the netlist is simulated with orginal test bench.
@@ -2796,6 +2813,9 @@ gtwave design_tb.vcd
 + Following are the commands used to perform the simluation after synthesis:
 
 ```
+# iverilog -DFUNCTIONAL -DUNIT_DELAY=#1 <required_files>
+# ./a.out
+# gtkwave <filename>.vcd 
 ```
 
 </details>
@@ -2845,12 +2865,41 @@ module ringcounter(clk, rst, count);
             count <= 6'b1;
     end 
 endmodule
+
+//TestBench
+`timescale 1ns / 1ps 
+module ringcounter_tb(); 
+    reg clk = 0, rst = 0;
+    wire [5:0] count; 
+    always #1 clk = !clk;
+    initial begin  
+    $dumpfile("task_ringc_tbB.vcd");
+    $dumpvars(0,ringcounter_tb);
+        #20 rst = 1;  
+        #20 rst = 0;
+        #20 $finish;
+    end 
+    ringcounter cntr01 ( .clk(clk), .rst(rst), .count(count) ); 
+endmodule 
 ```
 
 **Schematic after synthesis:** 
 
+<p align="center">
+  <img width="1080" alt="day14_Tasksynt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/abfa9a47717599729a17aa774fbb5e4603ade99b/docs/assets/day13_img/day14_Tasksynt_sch.png"  >
+</p>
+
++ Since its 6 bit ring counter we can see tool has generated 6 flip-flops.
++ And as expected output is fed back into input through net 'n27'.
+  
 **Comparing post-synth simulation with pre-synth simulation:** 
 
+<p align="center">
+  <img width="1080" alt="day18_tasksynt_NWF.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/4ff46f2bc4b1121b8c36ceb27f003b29a163d2d7/docs/assets/day13_img/day18_tasksynt_NWF.png"  >
+</p>
+
++ We can see the action of ring counter matchig before(top tab) and after(bottom tab) synthesis.
++ 
 
  
 </details>
