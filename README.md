@@ -2793,7 +2793,6 @@ lc_shell>> quit
 
 + Post synthesis simulation is a type of simulation where the netlist is simulated with orginal test bench.
 + Since the netlist is logically same as RTL code same test bench can be used.
-+ Post-synth simulation is  performed to verify logic correctness of design.
 + *Why perform post-synth simulation:*
      + Post-synth simulation is  performed to verify logic correctness of design.
      + A synthesis simulation mismatch refers to a situation where the behavior of a design as simulated before synthesis does not match the behavior of the same design after it has been synthesized and simulated at a gate level.
@@ -2805,9 +2804,9 @@ lc_shell>> quit
 + Following is the steps to perform post-synth simulations :
 
 ```
-      Design-Netlist  ⬂ 
-  GLS Verilog Models  ⇨ Iverilog ⇨ VCD File ⇨  GTKWave
-           TestBench  ⬀ 
+      Design/Netlist.v  ⬂ 
+      Verilog Models.v  ⇨ Iverilog ⇨ VCD File ⇨  GTKWave/TwinWave
+           TestBench.v  ⬀ 
 ```
 
 + Following are the commands used to perform the simluation after synthesis:
@@ -2847,7 +2846,7 @@ endmodule
 ```
 
 + As we can see above code is not synthesizable and when code is read in dc_shell it will throw an error.
-+ So ring counter code is modified using synthesizable constructs and following the new RTL Code:
++ So ring counter code is modified using synthesizable constructs and following is the new RTL Code:
 
 ```
 module ringcounter(clk, rst, count); 
@@ -2893,6 +2892,8 @@ endmodule
 + And as expected output is fed back into input through net 'n27'.
   
 **Comparing post-synth simulation with pre-synth simulation:** 
++ Following analysis is carried out in  Twinwave and commands used is given below:
++ Command : `twinwave  presynth.vcd pre.sav + postsynth.vcd post.sav`
 
 <p align="center">
   <img width="1080" alt="day18_tasksynt_NWF.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/4ff46f2bc4b1121b8c36ceb27f003b29a163d2d7/docs/assets/day13_img/day18_tasksynt_NWF.png"  >
@@ -2923,7 +2924,9 @@ dc_shell>> set link_library  {* <path to avsddac.db> <path to avsdpll> <path to 
 dc_shell>> set target_library  {<path to avsddac.db> <path to avsdpll> <path to sky130_fd_sc_hd__tt_025C_1v80.db>}
 dc_shell>> link
 dc_shell>> compile
-dc_shell>> write -f verilog -o netlist_vsdbabysoc.v 
+dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
+// GLS with netlist
+
 ```
 + Netlist generated is provided [here](https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_files/net2.v).
 + Schematic is provided below:
@@ -2932,8 +2935,14 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
   <img width="1080" alt="day13_postsynth_schem.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day13_postsynth_schem.png"  >
 </p>
 
-+ while generating the use following files as input for iverilog:
++ while generating the executable and VCD  use following files as input for iverilog:
+	1) Design/Netlist.v
+	2) TestBench.v
+	3) primitives.v
+	4) sky130_fd_sc_hd.v
+	5) avsddac.v and avsdpll.v for VSDBabySoC Simulation.      
 + If any errors appear while simulation open `sky130_fd_sc_hd.v` file and correct this statement `endif SKY130_FD_SC_HD__LPFLOW_BLEEDER_FUNCTIONAL_V ` to `endif //SKY130_FD_SC_HD__LPFLOW_BLEEDER_FUNCTIONAL_V`.
++ And if error still persist use below command to generate the executable.
 
 ```
 #  iverilog -DFUNCTIONAL -DUNIT_DELAY=#1 nelistt.v tb_mythcore.v  primitives.v sky130_fd_sc_hd.v -o out1
@@ -2941,16 +2950,13 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
 ```
 
 + To ease the comparision generate two seprate VCD files and save them in different name.
-+ Now check for Synth-Simulation mismatch using 'twinwave' and commands used are given below:
-
-```
-twinwave  presynth.vcd pre.sav + postsynth.vcd post.sav
-```
++ Now check for Synth-Simulation mismatch using 'twinwave' and commands used is `twinwave  presynth.vcd pre.sav + postsynth.vcd post.sav`.
+  
 <p align="center">
   <img width="1080" alt="day13_synthWV.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day13_synthWV.png"  >
 </p>
 
-+ As we can observe in above waveforms, top tab being pre-synth waveform and bottom tab being post-synth waveform.
++ As we can observe in above waveforms, top tab being pre-synth waveform and bottom tab being post-synth waveform there's no Synthesis-simulation mismatch.
 + Detailed analysis of wavefrom is give in last section.
 
 **VSDBabySoC:**
@@ -2968,6 +2974,7 @@ twinwave  presynth.vcd pre.sav + postsynth.vcd post.sav
   <img width="1080" alt="day16_VSDsynt_WF.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day16_VSDsynt_WF.png"  >
 </p>
 
++ We can see there's no Synthesis-simulation mismatch in this case and logic of netlist is same as that of RTL Code.
 
 **Waveform Analysis:**
 
@@ -2982,16 +2989,16 @@ twinwave  presynth.vcd pre.sav + postsynth.vcd post.sav
 - `clk`: Source clock Pin.
 - `reset`: Reset is intially pulled to logic '1' state where core is inactive and after 20ns it is pulled to logic '0' that's when execution starts.
 - `CPU_pc_a0[31:0]`:
-	+ This is program counter and it can seen incrementing/decrementing by 4.
+	+ This is program counter and it can be seen incrementing/decrementing by 4.
         + Incr/Decr of 4 because instruction is 32 bit long which means 4 Byte per instruction.
 - `CPU_src1/2_value_a1/2[31:0]:`
 	+ After Fetch cycle, to increment/decrement PC or for doing any ALU operation these registers are used.
  	+ These are directly connected to inputs of ALU.
 - `CPU_result_a3[31:0]`:
 	+ After the ALU operation this register will store the output temprorily until its outputted in port `out[9:0]`.
- 	+ At marker 'A' we can see value of 1 which is previously calculated value from ALU and its being output is available now.
+ 	+ At marker 'A' we can see value of 1 which is previously calculated value from ALU and its being outputted at present cycle.
   	+ After two cylces(at marker A)  next output(2+1) is calculated and ouputted through `out[9:0]`  after one clock cycle.
   	+ Similarly at marker B,C and D we can observe the present output and next output being calculated after two clock cycle.
 -  `out[9:0]` : This is 10-bit output of the Mythcore module.
--  This analysis is purel based on my understanding and if there are any mistake please let me know.  
+-  This analysis is purely based on my understanding and if there are any mistake please correct me.  
 </details> 
