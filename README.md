@@ -2786,7 +2786,7 @@ lc_shell>> quit
 
 + Generate the .db file for  folowing lib files:
     1)  avsdpll.lib
-    2)  avsddac.lin
+    2)  avsddac.lib
     3)  sky130_fd_sc_hd__tt_025C_1v80.lib
   
 **Post synthesis simulation:**
@@ -2899,15 +2899,99 @@ endmodule
 </p>
 
 + We can see the action of ring counter matchig before(top tab) and after(bottom tab) synthesis.
-+ 
-
++ In ring counter there are two types based on whether the bit is shifted to right or lift. In our code we have specfied left shifting using `count[5:0] <= { count[4:0] , count[5] };` since `<<` was throwing error 'non synthesizable constructs'.
  
 </details>
 
 <details>
 
-<summary>MYTHCORE</summary>
+<summary>MYTHCORE and VSDBabySoC</summary>
+
+**MythCore:**
+
++ Verilog code and test bench are attached here: [verilog code](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/mythcore_test.v) & [Test Bench](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/tb_mythcore_test.v)
++ Following are the steps followed to do synthesis and GLS:
+
+```
+//Generate .db file in Library Compiler
+lc_shell>> read_lib <path to .lib file>
+lc_shell>> write_lib <name> -f db -o <name>.db
+lc_shell>> quit 
+//Synthesis
+dc_shell>> read_verilog mythcore.v
+dc_shell>> set link_library  {* <path to avsddac.db> <path to avsdpll> <path to sky130_fd_sc_hd__tt_025C_1v80.db>}
+dc_shell>> set target_library  {<path to avsddac.db> <path to avsdpll> <path to sky130_fd_sc_hd__tt_025C_1v80.db>}
+dc_shell>> link
+dc_shell>> compile
+dc_shell>> write -f verilog -o netlist_vsdbabysoc.v 
+```
++ Netlist generated is provided [here](https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_files/net2.v).
++ Schematic is provided below:
+
+<p align="center">
+  <img width="1080" alt="day13_postsynth_schem.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day13_postsynth_schem.png"  >
+</p>
+
++ while generating the use following files as input for iverilog:
++ If any errors appear while simulation open `sky130_fd_sc_hd.v` file and correct this statement `endif SKY130_FD_SC_HD__LPFLOW_BLEEDER_FUNCTIONAL_V ` to `endif //SKY130_FD_SC_HD__LPFLOW_BLEEDER_FUNCTIONAL_V`.
+
+```
+#  iverilog -DFUNCTIONAL -DUNIT_DELAY=#1 nelistt.v tb_mythcore.v  primitives.v sky130_fd_sc_hd.v -o out1
+# ./out1.out
+```
+
++ To ease the comparision generate two seprate VCD files and save them in different name.
++ Now check for Synth-Simulation mismatch using 'twinwave' and commands used are given below:
+
+```
+twinwave  presynth.vcd pre.sav + postsynth.vcd post.sav
+```
+<p align="center">
+  <img width="1080" alt="day13_synthWV.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day13_synthWV.png"  >
+</p>
+
++ As we can observe in above waveforms, top tab being pre-synth waveform and bottom tab being post-synth waveform.
++ Detailed analysis of wavefrom is give in last section.
+
+**VSDBabySoC:**
++ Verilog code and test bench are attached here: [verilog code](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/vsdbabysoc.v) & [Test Bench](https://github.com/05TharunKM/Samsung-PD-Training-/blob/8c1e90fe54a779bd4795ac6506b2395368133314/docs/assets/day11_p1/testbench.v)
++ Similar to previous procedure, perform synthesis and use twinwave to compare the results.
++ Schematic :
+
+<p align="center">
+  <img width="1080" alt="day17_VSDsynt_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day17_VSDsynt_sch.png"  >
+</p>
+
++ Waveform :
+
+<p align="center">
+  <img width="1080" alt="day16_VSDsynt_WF.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/day16_VSDsynt_WF.png"  >
+</p>
 
 
- 
+**Waveform Analysis:**
+
++ Consider following waveform of MythCore :
+
+<p align="center">
+  <img width="1080" alt="WVDetail.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/01e1de434f5698c6c7e799e7bf72b024b32b474b/docs/assets/day13_img/WVDetail.png"  >
+</p>
+
+- Following are minimum necessary pins selected to analyse the operation of core.
+- There are 4 markers A,B,C and D to ease the analysis.
+- `clk`: Source clock Pin.
+- `reset`: Reset is intially pulled to logic '1' state where core is inactive and after 20ns it is pulled to logic '0' that's when execution starts.
+- `CPU_pc_a0[31:0]`:
+	+ This is program counter and it can seen incrementing/decrementing by 4.
+        + Incr/Decr of 4 because instruction is 32 bit long which means 4 Byte per instruction.
+- `CPU_src1/2_value_a1/2[31:0]:`
+	+ After Fetch cycle, to increment/decrement PC or for doing any ALU operation these registers are used.
+ 	+ These are directly connected to inputs of ALU.
+- `CPU_result_a3[31:0]`:
+	+ After the ALU operation this register will store the output temprorily until its outputted in port `out[9:0]`.
+ 	+ At marker 'A' we can see value of 1 which is previously calculated value from ALU and its being output is available now.
+  	+ After two cylces(at marker A)  next output(2+1) is calculated and ouputted through `out[9:0]`  after one clock cycle.
+  	+ Similarly at marker B,C and D we can observe the present output and next output being calculated after two clock cycle.
+-  `out[9:0]` : This is 10-bit output of the Mythcore module.
+-  This analysis is purel based on my understanding and if there are any mistake please let me know.  
 </details> 
