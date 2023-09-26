@@ -16,6 +16,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-11-Intro-to-BabySoC](#Day-11-Intro-to-BabySoC)
 - [Day-12-BabySoC-Modelling](#Day-12-BabySoC-Modelling)
 - [Day-13-Post-synthesis-simulation](#Day-13-Post-synthesis-simulation)
+- [Day-14-Synopsys-DC-and-timing-analysis](#Day-14-Synopsys-DC-and-timing-analysis)
 
 ## Day-0-Tool-Setup-Check
 
@@ -3001,4 +3002,37 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
   	+ Similarly at marker B,C and D we can observe the present output and next output being calculated after two clock cycle.
 -  `out[9:0]` : This is 10-bit output of the Mythcore module.
 -  This analysis is purely based on my understanding and if there are any mistake please correct me.  
-</details> 
+</details>
+
+
+## Day-14-Synopsys-DC-and-timing-analysis4
+
+<details>
+
+<summary>PVT Concepts</summary>
+
++ In VLSI design and timing verification, PVT corners are a set of specific operating conditions or scenarios used to analyze and validate the performance and timing of a integrated circuit. PVT stands for Process, Voltage, and Temperature, which are three critical factors that can affect the behavior and performance of integrated chips.
+
+<p align="center">
+  <img alt="P_VT.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/df744b1dd201f8459ec99be52fb7a24f6bf32414/docs/assets/Day14/P_VT.jpg" width="30%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="P_V_T.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/df744b1dd201f8459ec99be52fb7a24f6bf32414/docs/assets/Day14/P_V_T.jpg" width="30%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="PV_T.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/df744b1dd201f8459ec99be52fb7a24f6bf32414/docs/assets/Day14/PV_T.jpg" width="30%">	
+</p> 
+
++ Process Corner: The process corner represents variations in the manufacturing process. Manufacturing processes can introduce variations in parameters like transistor threshold voltage, channel length, oxide thickness, and doping levels. These variations can lead to differences in the electrical characteristics of transistors. The two main process corners are:
+	 + Fast Process Corner: This corner represents the best-case scenario in terms of speed and performance. It assumes that the transistors in the circuit are at the upper limits of their specified parameters, resulting in faster operation.
+	 + Nominal Pocess Corner: In the nominal corner, the manufacturing process parameters are assumed to be close to their target or average values. This corner represents the typical or average behavior of the process.  
+	 + Slow Process Corner: This corner represents the worst-case scenario in terms of speed and performance. It assumes that the transistors are at the lower limits of their specified parameters, resulting in slower operation.
++ Voltage Corner: The voltage corner refers to variations in the supply voltage (Vdd) applied to the integrated circuit. Operating a chip at a lower voltage can reduce power consumption but may also reduce its performance. The two main voltage corners are:
+ 	+ Low Voltage Corner: This corner represents the scenario where the chip is operating at the lowest allowed supply voltage. It helps evaluate the circuit's performance and timing under low-power conditions.
+  	+ Nominal Voltage Corner: The supply voltage (Vdd) is set to a typical or standard value. This is the voltage at which the circuit is typically expected to operate. 
+ 	+ High Voltage Corner: This corner represents the scenario where the chip is operating at the highest allowed supply voltage. It helps evaluate the circuit's performance and timing under high-performance conditions.
++ Temperature Corner: The temperature corner accounts for variations in operating temperature. Temperature can impact the speed of electronic components. The two main temperature corners are:
+ 	+ Low Temperature Corner: This corner represents the scenario where the chip is operating at the lowest expected temperature. Lower temperatures typically result in slower operation.
+  	+ Temperature: The operating temperature is set to a typical or standard value, which is usually around room temperature (25°C or 298 K). 
+ 	+ High Temperature Corner: This corner represents the scenario where the chip is operating at the highest expected temperature. Higher temperatures can lead to faster operation but may also introduce reliability concerns.
+
+ 
+</details>
