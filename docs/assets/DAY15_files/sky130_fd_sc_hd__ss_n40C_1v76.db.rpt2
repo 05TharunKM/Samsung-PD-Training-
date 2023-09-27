@@ -1,0 +1,67 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : vsdbabysoc
+Version: T-2022.03-SP5-1
+Date   : Wed Sep 27 17:51:39 2023
+****************************************
+
+Operating Conditions: ss_n40C_1v76   Library: sky130_fd_sc_hd__ss_n40C_1v76
+Wire Load Model Mode: top
+
+  Startpoint: test/CPU_is_addi_a3_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: test/CPU_Xreg_value_a4_reg[19][25]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  test/CPU_is_addi_a3_reg/CLK (sky130_fd_sc_hd__dfxtp_2)
+                                                          0.00       0.00 r
+  test/CPU_is_addi_a3_reg/Q (sky130_fd_sc_hd__dfxtp_2)
+                                                          0.56       0.56 r
+  test/U68448/Y (sky130_fd_sc_hd__o21ai_2)                0.11       0.67 f
+  test/U68436/Y (sky130_fd_sc_hd__nand2_2)                0.16       0.82 r
+  test/U68435/Y (sky130_fd_sc_hd__inv_2)                  0.09       0.91 f
+  test/U68401/Y (sky130_fd_sc_hd__inv_2)                  0.11       1.02 r
+  test/U68398/Y (sky130_fd_sc_hd__nand2_2)                0.09       1.11 f
+  test/U68532/Y (sky130_fd_sc_hd__nand3_2)                0.14       1.25 r
+  test/U67576/Y (sky130_fd_sc_hd__nand3_2)                0.12       1.38 f
+  test/U68625/Y (sky130_fd_sc_hd__inv_2)                  0.12       1.50 r
+  test/U68449/Y (sky130_fd_sc_hd__nand3_2)                0.09       1.59 f
+  test/U67213/Y (sky130_fd_sc_hd__inv_2)                  0.07       1.66 r
+  test/U68295/Y (sky130_fd_sc_hd__nand3_2)                0.08       1.74 f
+  test/U68294/Y (sky130_fd_sc_hd__nand2_1)                0.11       1.85 r
+  test/U67269/Y (sky130_fd_sc_hd__nand3_2)                0.14       1.99 f
+  test/U67268/Y (sky130_fd_sc_hd__clkinv_1)               0.10       2.09 r
+  test/U67651/Y (sky130_fd_sc_hd__nor2_1)                 0.04       2.13 f
+  test/U67711/Y (sky130_fd_sc_hd__nand2_1)                0.09       2.22 r
+  test/U67210/Y (sky130_fd_sc_hd__nand3_2)                0.15       2.37 f
+  test/U67700/Y (sky130_fd_sc_hd__inv_2)                  0.18       2.54 r
+  test/U69628/Y (sky130_fd_sc_hd__o22ai_1)                0.10       2.64 f
+  test/CPU_Xreg_value_a4_reg[19][25]/D (sky130_fd_sc_hd__dfxtp_4)
+                                                          0.00       2.64 f
+  data arrival time                                                  2.64
+
+  clock clk (rise edge)                                   1.50       1.50
+  clock network delay (ideal)                             0.00       1.50
+  test/CPU_Xreg_value_a4_reg[19][25]/CLK (sky130_fd_sc_hd__dfxtp_4)
+                                                          0.00       1.50 r
+  library setup time                                     -0.25       1.25
+  data required time                                                 1.25
+  --------------------------------------------------------------------------
+  data required time                                                 1.25
+  data arrival time                                                 -2.64
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -1.39
+
+
+1
