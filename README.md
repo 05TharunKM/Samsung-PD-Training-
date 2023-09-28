@@ -3199,6 +3199,7 @@ dc_shell >> report_qor >> QOR.txt
 
 
 + To analyse the trend of this variations different graphs are plotted:
+
    1) How Worst negative slack varries across different corners.
  
 <p align="center">
