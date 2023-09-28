@@ -3033,7 +3033,6 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
  	+ Low Temperature Corner: This corner represents the scenario where the chip is operating at the lowest expected temperature. Lower temperatures typically result in slower operation.
   	+ Temperature: The operating temperature is set to a typical or standard value, which is usually around room temperature (25°C or 298 K). 
  	+ High Temperature Corner: This corner represents the scenario where the chip is operating at the highest expected temperature. Higher temperatures can lead to faster operation but may also introduce reliability concerns.
-</details>
 
 **Static Timing Analysis:**
 
@@ -3045,6 +3044,10 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
 
 Refernces:
 + [https://www.synopsys.com/glossary/what-is-static-timing-analysis.html]
+
+
+</details>
+
 
 <details>
 <summary>Task</summary>
