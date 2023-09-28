@@ -3053,7 +3053,7 @@ Refernces:
 <summary>Task</summary>
 
 + **Synthesis for different corners:**
-   + To run generate the timing report for different pvt corners we need synthesize the design providing corner specific library file(.db).
+   + To generate the timing report for different pvt corners we need synthesize the design by providing corner specific library file(.db).
    + Following 13 are the corners provided:
         1) ff_100C_1v65
         2) ff_100C_1v95
@@ -3071,7 +3071,7 @@ Refernces:
    + Naming convention breakdown :
       1)  Process : 'ff', 'ss', 'sf' and 'fs'. S-> slow and F-> Fast
       2)  Voltage : Low, typical and high voltage. Varies from 1.28 v to 1.95 V in above case.
-      3)  Temperature : Low, typical and high temperature. Varies from -40<sub>o</sub>C to 100<sub>o</sub>C. 
+      3)  Temperature : Low, typical and high temperature. Varies from -40<sup>o</sup>C to 100<sup>o</sup>C. 
    + To run the synthesis using .db files corresponding to above corners following method can be used :
 
 ```
@@ -3106,9 +3106,9 @@ dc_shell >> report_qor >> QOR.txt
 </p>
 
    + In this script we have initaily appended every library(.db) in the directory into a list and save the name of library.
-   + Later using 'for' loop parse this list and every time we parse it will take the different library of the list.
+   + Later using 'for' loop,  parse this list and every time we parse it will take the different library of the list.
    + Each time design is linked and compiled for differnt libs(.db).
-   + And using commands `report_qor`, ``report_timing -delay_type min` and `report_timing -delay_type max` output is written into report file in the name of library.
+   + And using commands `report_qor`, `report_timing -delay_type min` and `report_timing -delay_type max` output is written into report file in the name of library.
 
  + Outputs for all the 13 corners are observed considering timing performance, area and cell count.
  + QoR and Timing reports are  provided below : 
@@ -3191,7 +3191,7 @@ dc_shell >> report_qor >> QOR.txt
   <img width="1080" alt="tt_025C_1v80.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/tt_025C_1v80.png"  >
 </p>
 
-+ Now the table of worst negative slack(WNS), worst hold slack(WHS), total negative slack(TNS) and total hold slack(THS) is created to ease the analysis and further plotting the graph. 
++ Now the table of worst negative slack(WNS), worst hold slack(WHS), total negative slack(TNS) and total hold slack(THS) for all the 13 corners is created to ease the analysis and  plotting the graph. 
 
 <p align="center">
   <img width="600" alt="PVT_VAL.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/PVT_VAL.png"  >
@@ -3223,8 +3223,8 @@ dc_shell >> report_qor >> QOR.txt
   <img width="700" alt="THS.PNG" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/THS.PNG"  >
 </p>
 
-+ As we can see in above graphs, set-up violations seems to be increasing hold violations are low  in fast corners.
-+ Low set-up violations and high hold violations in case of slow corners.
++ As we can see in above graphs, set-up violations seems to be high and hold violations are low  in fast corners.
++ There are low set-up violations and high hold violations in case of slow corners.
 + From the graph we can infer that ff_n40_1v65, ss_100c_1v40 and ss_100c_1v60 have optimum set-up and hold violations.
 
 </details>
