@@ -3005,7 +3005,7 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
 </details>
 
 
-## Day-14-Synopsys-DC-and-timing-analysis4
+## Day-14-Synopsys-DC-and-timing-analysis
 
 <details>
 
@@ -3035,6 +3035,16 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
  	+ High Temperature Corner: This corner represents the scenario where the chip is operating at the highest expected temperature. Higher temperatures can lead to faster operation but may also introduce reliability concerns.
 </details>
 
+**Static Timing Analysis:**
+
++ Static timing analysis  is a method of finding the timing performance of a design by checking all the paths for timing violations.
++ STA breaks a design down into timing paths, calculates the signal propagation delay along each path, and checks for violations of timing constraints inside the design and at the input/output interface.
++ STA then checks for violations of timing constraints like set-up and hold:
+    + Setup constraint specifies how much time is necessary for data to be available at the input of a sequential device before the clock edge that captures the data in the device. This constraint enforces a maximum delay on the data path relative to the clock edge.
+    + Hold constraint specifies how much time is necessary for data to be stable at the input of a sequential device after the clock edge that captures the data in the device. This constraint enforces a minimum delay on the data path relative to the clock edge.
+
+Refernces:
++ [https://www.synopsys.com/glossary/what-is-static-timing-analysis.html]
 
 <details>
 <summary>Task</summary>
@@ -3055,6 +3065,10 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
         11) ss_n40C_1v76
         12) ss_n40C_1v44
         13) tt_025C_1v80
+   + Naming convention breakdown :
+      1)  Process : 'ff', 'ss', 'sf' and 'fs'. S-> slow and F-> Fast
+      2)  Voltage : Low, typical and high voltage. Varies from 1.28 v to 1.95 V in above case.
+      3)  Temperature : Low, typical and high temperature. Varies from -40<sub>o</sub>C to 100<sub>o</sub>C. 
    + To run the synthesis using .db files corresponding to above corners following method can be used :
 
 ```
@@ -3206,5 +3220,8 @@ dc_shell >> report_qor >> QOR.txt
   <img width="700" alt="THS.PNG" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/THS.PNG"  >
 </p>
 
++ As we can see in above graphs, set-up violations seems to be increasing hold violations are low  in fast corners.
++ Low set-up violations and high hold violations in case of slow corners.
++ From the graph we can infer that ff_n40_1v65, ss_100c_1v40 and ss_100c_1v60 have optimum set-up and hold violations.
 
 </details>
