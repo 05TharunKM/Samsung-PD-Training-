@@ -3078,14 +3078,14 @@ dc_shell >> report_qor >> QOR.txt
    + Below is constraint file sourced before linking.
 
  <p align="center">
-  <img width="600" alt="" src=""  >
+  <img width="600" alt="constraints.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/7be874f05fccfaa31df3061100cddc15ebcf2a4f/docs/assets/DAY15_files/constraints.png"  >
 </p>
      
    + Now we have to run the synthesis by providing different library each time and report the timing .
    + Since this each step is time consuming it is possible to automate the process by a tcl script.
 
 <p align="center">
-  <img width="600" alt="" src=""  >
+  <img width="600" alt="autom.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/7be874f05fccfaa31df3061100cddc15ebcf2a4f/docs/assets/DAY15_files/autom.png"  >
 </p>
 
    + In this script we have initaily appended every library(.db) in the directory into a list and save the name of library.
