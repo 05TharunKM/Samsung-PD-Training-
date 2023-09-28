@@ -3009,7 +3009,7 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
 
 <details>
 
-<summary>PVT Concept</summary>
+<summary>PVT Concept and Timing analysis</summary>
 
 + In VLSI design and timing verification, PVT corners are a set of specific operating conditions or scenarios used to analyze and validate the performance and timing of a integrated circuit. PVT stands for Process, Voltage, and Temperature, which are three critical factors that can affect the behavior and performance of integrated chips.
 
@@ -3033,6 +3033,178 @@ dc_shell>> write -f verilog -o netlist_vsdbabysoc.v
  	+ Low Temperature Corner: This corner represents the scenario where the chip is operating at the lowest expected temperature. Lower temperatures typically result in slower operation.
   	+ Temperature: The operating temperature is set to a typical or standard value, which is usually around room temperature (25°C or 298 K). 
  	+ High Temperature Corner: This corner represents the scenario where the chip is operating at the highest expected temperature. Higher temperatures can lead to faster operation but may also introduce reliability concerns.
+</details>
 
+
+<details>
+<summary>Task</summary>
+
++ **Synthesis for different corners:**
+   + To run generate the timing report for different pvt corners we need synthesize the design providing corner specific library file(.db).
+   + Following 13 are the corners provided:
+        1) ff_100C_1v65
+        2) ff_100C_1v95
+        3) ff_n40C_1v56
+        4) ff_n40C_1v76
+        5) ff_n40C_1v65
+        6) ss_100C_1v40
+        7) ss_100C_1v60
+        8) ss_n40C_1v28
+        9) ss_n40C_1v35
+        10) ss_n40C_1v40
+        11) ss_n40C_1v76
+        12) ss_n40C_1v44
+        13) tt_025C_1v80
+   + To run the synthesis using .db files corresponding to above corners following method can be used :
+
+```
+# csh
+# dc_shell
+// Reading the vsdbabysoc file and mythcore file and set the vsdbabysoc as top module.
+dc_shell >> read_file {vsdbabysoc.v mythcore_test.v} -autoread -format verilog -top vsdbabysoc
+dc_shell >> set target_library {<corner_specific_db> avsddac.db avsdpll.db }
+dc_shell >> set link_library {*  <corner_specific_db>  avsddac.db avsdpll.db }
+// Source the constraints (provided below)
+dc_shell >> source cons.tcl
+// Now link and compile the design
+dc_shell >> link
+dc_shell >> compile_ultra
+// Check  the reports and save it in a file for further analysis
+dc_shell >> report_timing -delay_type min >> hold.txt
+dc_shell >> report_timing -delay_type max >> setup.txt
+dc_shell >> report_qor >> QOR.txt
+```
+
+   + Below is constraint file sourced before linking.
+
+ <p align="center">
+  <img width="600" alt="" src=""  >
+</p>
+     
+   + Now we have to run the synthesis by providing different library each time and report the timing .
+   + Since this each step is time consuming it is possible to automate the process by a tcl script.
+
+<p align="center">
+  <img width="600" alt="" src=""  >
+</p>
+
+   + In this script we have initaily appended every library(.db) in the directory into a list and save the name of library.
+   + Later using 'for' loop parse this list and every time we parse it will take the different library of the list.
+   + Each time design is linked and compiled for differnt libs(.db).
+   + And using commands `report_qor`, ``report_timing -delay_type min` and `report_timing -delay_type max` output is written into report file in the name of library.
+
+ + Outputs for all the 13 corners are observed considering timing performance, area and cell count.
+ + QoR and Timing reports are  provided below : 
+
+**ff_100C_1v65:**
+
+<p align="center">
+  <img width="1080" alt="ff_100C_1v65%20.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ff_100C_1v65%20.png"  >
+</p>
+
+**ff_100C_1v95:**
+
+<p align="center">
+  <img width="1080" alt="ff_100C_1v95.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ff_100C_1v95.png"  >
+</p>
+
+**ff_n40C_1v56:**
+
+<p align="center">
+  <img width="1080" alt="ff_n40C_1v56.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ff_n40C_1v56.png"  >
+</p>
+
+**ff_n40C_1v65:**
+
+<p align="center">
+  <img width="1080" alt="ff_n40C_1v65.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ff_n40C_1v65.png"  >
+</p>
+
+**ff_n40C_1v76:**
+
+<p align="center">
+  <img width="1080" alt="ff_n40C_1v76.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ff_n40C_1v76.png"  >
+</p>
+
+**ss_100C_1v40:**
+
+<p align="center">
+  <img width="1080" alt="ss_100C_1v40.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_100C_1v40.png"  >
+</p>
+
+**ss_100C_1v60:**
+
+<p align="center">
+  <img width="1080" alt="ss_100C_1v60.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_100C_1v60.png"  >
+</p>
+
+**ss_n40C_1v28:**
+
+<p align="center">
+  <img width="1080" alt="ss_n40C_1v28.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_n40C_1v28.png"  >
+</p>
+
+**ss_n40C_1v35:**
+
+<p align="center">
+  <img width="1080" alt="ss_n40C_1v35.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_n40C_1v35.png"  >
+</p>
+
+**ss_n40C_1v40:**
+
+<p align="center">
+  <img width="1080" alt="ss_n40C_1v40.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_n40C_1v40.png"  >
+</p>
+
+**ss_n40C_1v44:**
+
+<p align="center">
+  <img width="1080" alt="ss_n40C_1v44.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_n40C_1v44.png"  >
+</p>
+
+**ss_n40C_1v76:**
+
+<p align="center">
+  <img width="1080" alt="ss_n40C_1v76.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/ss_n40C_1v76.png"  >
+</p>
+
+**tt_025C_1v80:**
+
+<p align="center">
+  <img width="1080" alt="tt_025C_1v80.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_P2/tt_025C_1v80.png"  >
+</p>
+
++ Now the table of worst negative slack(WNS), worst hold slack(WHS), total negative slack(TNS) and total hold slack(THS) is created to ease the analysis and further plotting the graph. 
+
+<p align="center">
+  <img width="600" alt="PVT_VAL.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/PVT_VAL.png"  >
+</p>
+
+
++ To analyse the trend of this variations different graphs are plotted:
+   1) How Worst negative slack varries across different corners.
  
+<p align="center">
+  <img width="700" alt="WNS.PNG" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/WNS.PNG"  >
+</p>
+     
+   2) How Worst hold slack varries across different corners.
+
+<p align="center">
+  <img width="700" alt="WHS.PNG" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/WHS.PNG"  >
+</p>
+
+   3) How Total negative slack varries across different corners.
+
+<p align="center">
+  <img width="700" alt="TNS.PNG" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/TNS.PNG"  >
+</p>
+
+   4) How Total hold slack varries across different corners.
+
+<p align="center">
+  <img width="700" alt="THS.PNG" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/5829e1b3c0148be73e8510a6b03e49a479da5617/docs/assets/DAY15_files/THS.PNG"  >
+</p>
+
+
 </details>
