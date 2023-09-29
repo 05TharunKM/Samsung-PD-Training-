@@ -17,6 +17,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-12-BabySoC-Modelling](#Day-12-BabySoC-Modelling)
 - [Day-13-Post-synthesis-simulation](#Day-13-Post-synthesis-simulation)
 - [Day-14-Synopsys-DC-and-timing-analysis](#Day-14-Synopsys-DC-and-timing-analysis)
+- [Day-15-Inception-of-EDA-and-PDK](#Day-15-Inception-of-EDA-and-PDK)
 
 ## Day-0-Tool-Setup-Check
 
@@ -3228,4 +3229,82 @@ dc_shell >> report_qor >> QOR.txt
 + There are low set-up violations and high hold violations in case of slow corners.
 + From the graph we can infer that ff_n40_1v65, ss_100c_1v40 and ss_100c_1v60 have optimum set-up and hold violations.
 
+</details>
+
+
+
+
+## Day-15-Inception-of-EDA-and-PDK
+
+<details>
+<summary>Theory</summary>
+
+**Introduction to QFN-48 Package, chip, pads, core, die and IPs:**
+
++ Package : Package is the one device that has semiconductor components wire-bonded to a die. Die are housed in a package, which was wire-bonded to an external device to connect it to the outside world. Quadruple in-line packages (QIP) and dual in-line packages (DIP) are examples of packages.
++ QFN: The term "QFN" stands for "quad flat no lead package." It is a small, leadless package with a moderate capacity for heat dissipation. The purpose of a QFN packaging is to attach the IC's silicon die to the circuit board like an IC package.
++ Followings are the components inside the package:
+
+<p align="center">
+  <img alt="chip.png" src="" width="30%" >
+&nbsp;
+  <img alt="dpd.png" src="" width="30%">
+&nbsp;
+  <img alt="ip.png" src="" width="30%">	
+</p> 
+
+   + Pad: Surface-mount pins that connect the inner core to the outside (I/O). It provides good ESD protection by preventing charges from the outside from damaging the internal core.
+   + Core: The major logic gates (NMOS/PMOS) and cell blocks, such as macro cells and foundry IPs, make up the core.
+   + Die: The silicon chip (IC)  which  resides inside a packaging or chip.
+   + Foundry IPs: Cells with more particular functionality that are patent-protected or owned by a corporation, have a greater price than macros, and are not searchable online.
+   + Macros: A protocol for data transport employing basic features
+
+**RISC-V ISA:**
++ ISA : 
+   + The ISA serves as a interface between the hardware and the software, defining both the tasks the processor is able to perform and how they are carried out.
+   + The ISA is the only means for a user to communicate with the hardware. Because it is the part of the machine that is visible to the assembly language programmer, the compiler  and the application programmer.
+   + The ISA specifies the types of data and the registers  can be used, how your hardware stores main memory and the instructions your microprocessor can run. It is possible to  add more instructions or capabilities to the ISA, or add support for bigger addresses and more data values.
++ RISC-V :
+   + RISC (or RISC-V) is the name given to a computer architecture philosophy that was first proposed in the 1980’s.
+   + RISC-V is a non-proprietary instruction set architecture(ISA) you can use RISC-V CPUs in microprocessors or microcontrollers without paying royalties to anyone for their use.
+ 
+**SoC Design and OpenLane:**
++ Designing SoC in an automated way requires following tools:
+   + Hardware Description Language (HDL) which is Register Transfer Level (RTL) model of the design.
+   + Tool used for automation(EDA tools).
+   + Process Design Kit (PDK) data
+
+<p align="center">
+  <img alt="asic.png" src="" width="" >
+</p>
+
++ Process Design Kit(PDK): the interface between the fabrications and the designers.
+   + Collection of files used to model a fabrication process for EDA tools used to design an IC.
+   + Process Design Rules: DRC, LVS, PEX.
+   + Device models.
+   + Digital Standard Cell Libraries.
+   + I/O libraries
+
++ What is OpenLANE?
+   + Started as an Open-Surce Flow for a True Open Source Tape-Out Experiment.
+   + striVe is a family of open everything SoCs i.e. Open PDK, Open EDA, Open RTL
++ OpenLANE ASIC Flow: 
+   + Main goal: to produce a clean GDSII with no human intervention (no-human-in-the-loop) Here Clean refers to :
+	+ No LVS violations
+	+ No DRC violations
+	+ No timing violations
+   + Tuned for SkyWater 130 nm Open PDK, also supports XFAB180 and GF130G
+   + Containerized
+	+ Functional out of the box
+	+ Instructions to build and run natively will follow.
+	+ Can be used to harden Macros and Chips.
+   + Two modes of operation:
+	+ Autonomous
+	+ Interactive
+   + Design Space Exploration feature:
+	+ Finding the best set of flow configurations.
+   + Comes with large number of design examples.
+ 	+ 43 designs with their best configurations.
+
+ **ASIC Flow:**
 </details>
