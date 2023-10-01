@@ -3246,11 +3246,11 @@ dc_shell >> report_qor >> QOR.txt
 + Followings are the components inside the package:
 
 <p align="center">
-  <img alt="chip.png" src="" width="30%" >
+  <img alt="chip.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/chip.png" width="30%" >
 &nbsp;
-  <img alt="dpd.png" src="" width="30%">
+  <img alt="dpd.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/dpd.png" width="30%">
 &nbsp;
-  <img alt="ip.png" src="" width="30%">	
+  <img alt="ip.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/ip.png" width="30%">	
 </p> 
 
    + Pad: Surface-mount pins that connect the inner core to the outside (I/O). It provides good ESD protection by preventing charges from the outside from damaging the internal core.
@@ -3275,7 +3275,7 @@ dc_shell >> report_qor >> QOR.txt
    + Process Design Kit (PDK) data
 
 <p align="center">
-  <img alt="asic.png" src="" width="" >
+  <img alt="asic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/asic.png" width="500" >
 </p>
 
 + Process Design Kit(PDK): the interface between the fabrications and the designers.
@@ -3306,5 +3306,162 @@ dc_shell >> report_qor >> QOR.txt
    + Comes with large number of design examples.
  	 - 43 designs with their best configurations.
 
- **ASIC Flow:**
+ 
+ **Communication of Software and Hardware:**
+ 
+* Operating System (OS)
+  + Handle IO operations
+  + Allocate memory
+  + Low level system functions
+
+* Compiler
+  + Converting the programming language into the respective intructions 
+  + The syntax of the instruction is depending upon what kind of the hardware is, i.e. if the hardware belongs to RISc-V format, the syntax would have the syntax of RISc-V file format instructions
+
+* Assembler
+  + Take particular instructions and convert it into the respective binary number which is machine language program
+  + Consisting of logic 1 and logic 0 where the computer/hardware understands the language
+ 
+**RTL2GDS Flow:** 
+
+* The flow started from RTL design and ended with final layout in GDSII format by using the function of PDK.  
+* OpenLANE is based on several open source project i.e. OpenROAD, KLayout, Yosys, QFlow, ABC, Magic VLSI Layout Tool, Fault, and etc.
+
+*Synthesis:*
+  
+* The process of converting RTL to a circuit out of components from the standard cell library (SCL)
+* The result of the circuit is described in HDL and usually refered to as gate level netlist, also it is functional equivalent to RTL
+
+* "Standard Cells" have regular layout and each cell has different views/models:
+  + Electrical, HDL, SPICE
+  + Layout (Abstract and detailed)
+
+<p align="center">
+  <img alt="synth.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/synth.png" width="600" >
+</p>
+
+*Floor and Power Planning:*
+  
+* Chip Floor Planning: partition the chip die between different system building blocks and place the IO pads  
+* Macro Floor Planning: dimensions, pin locations, rows and definition
+* Power Planning: the power is provided  to the every macros, standard cells, and all other cells are present in the design. Typically, the power distribution network using upper metal layers since they are thicker than lower metal layers
+  
+<p align="center">
+  <img alt="plan.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/plan.png" width="600" >
+</p>
+
+*Placement:*
+  
+* The process of placing the cells on the floor plan rows, aligned with the sites. Also, the process of finding a suitable physical location for each cell in the block.
+* Macros would place the gate level netlist cells on the rows and the cells should be placed very close to each other to reduce an interconnect delays and enable successful routing 
+* Usually done in two steps: 
+  + Global: a very first stage of the placement where cells are placed inside the core area for the first time looking at the timing and congestion, it aims at generating a rough placement solution that may violate some placement constraints while maintaining a global view of the whole netlist
+  + Detailed: the position obtained from global placements are minimally altered 
+  
+<p align="center">
+  <img alt="place.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/place.png" width="600" >
+</p>
+
+**Clock tree synthesis (CTS)**
+  
+* The process of routing the clock by creating the clock before entering major routing process 
+  
+* Create clock distribution network
+  + To deliver the clock to all sequential elements i.e. Flip Flop
+  + With minimum skew (zero is hard to achieve) 
+  + Achieve a good shape
+  + Usually in a Tree (H, X, ...)
+
+<p align="center">
+  <img alt="cts.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/cts.png" width="600" >
+</p>
+
+**Routing**
+  
+* The process of implementing the interconnect using the available metal layers
+* Metal is tracks from a routing grid
+* As the routing grid is huge, it used divide and conquere approach:
+  + Global Routing: generating routing guides
+  + Detailed Routing: using routing guides to implement the actual wiring
+
+<p align="center">
+  <img alt="route.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/675c9815954bf9390c1159ab675b6762cd53eedd/docs/assets/DAY15_X/route.png" width="1080" >
+</p>
+
+**Sign-off**
+  
+* Final layout which undergoes verifications 
+* Physical verifications
+  + Design Rule Checking (DRC) -> ensuring the final layout obeys all the design rules
+  + Layout vs Schematic (LVS) -> ensuring the final layout matches the gate level netlist of the design
+* Timing verification
+  + Static Timing Analysis (STA) -> ensuring all the timing constraints are met and the circuit will run at designated clock frequencies
+
+*OpenLANE Flow:*
+
+**Synthesis exploration**
+  
+* Synthesis exploration utility is used to generate report that shows the design delay and area 
+* From the exploration, we can pick the best strategy to proceed with
+* Also, synthesis exploration utility can be used to sweep the design configurations and generate reports
+* The report is observed and ensuring the number of violations generated after generating the final layout 
+* The best configurations can be picked from the design
+
+**DFT**
+  
+* After synthesis, DFT is ready to be testing before fabrication (optional step) using open source project which is Fault
+* Performing several steps including:
+  + Scan Insertion 
+  + Automatic Test Pattern Generation (ATPG)
+  + Test Patterns Compaction 
+  + Fault Coverage
+  + Fault Simulation
+
+**Physical implementation**
+  
+* Also called automated PnR (Place and Route) 
+* Using OpenRoad open source to perform the implementation
+* Involves several steps including
+  + Floor/Power Planning
+  + End Decoupling Capacitors and Tap cells insertion
+  + Placement: Global and Detailed
+  + Post placement optimization
+  + Clock Tree Synthesis (CTS)
+  + Routing: Global and Detailed
+
+**Logic Equivalent Check (LEC)**
+  
+* Everytime the netlist is modified, verifications must be performed
+  + CTS modifies the netlist
+  + Post Placement optimization modifies the netlist  
+* LEC is used to formally confirm that the function did not change after modifying the netlist 
+* Open source application used: Yosys
+
+**Dealing with Antenna Rules Violations**
+  
+* A special step during physical implementation is called Antenna Diodes Insertion 
+* This step is required for antenna worst violations 
+* When a metal wire segment is fabricated and it is long enough, it can act as antenna
+  + Reactive ion etching causes charge to accumulate on the wire
+  + Transistor gates can be damaged during fabrication   
+* Solutions
+  + Bridging attaches a higher layer intermediary.
+  + Add antenna diode cell to leak away charges.
+* With OpenLANE, we took preventive approach by:
+  + Adding a fake antenna diode next to every cell input after placement
+  + Run the antenna checker (Magic) on the routed layout
+  + If the checker reports violations on the cell input pin, replace the fake diode cell by a real one 
+
+**Static Timing Analysis (STA)**
+  
+* RC Extraction: .def to  .spef.
+* STA: OpenSTA (using OpenROAD). 
+* Involving timing reports to check violations in timing paths. 
+  
+**Physical verification DRC & LVS**
+  
+* Magic is used for Design Rule Checking and SPICE Extraction from Layout
+* Magic and Netgen are used for LVS where extracted SPICE by Magic vs verilog netlist are used
+
+ 
 </details>
