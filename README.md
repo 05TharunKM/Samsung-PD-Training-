@@ -3285,26 +3285,26 @@ dc_shell >> report_qor >> QOR.txt
    + Digital Standard Cell Libraries.
    + I/O libraries
 
-+ What is OpenLANE?
+* What is OpenLANE?
    + Started as an Open-Surce Flow for a True Open Source Tape-Out Experiment.
    + striVe is a family of open everything SoCs i.e. Open PDK, Open EDA, Open RTL
-+ OpenLANE ASIC Flow: 
+* OpenLANE ASIC Flow: 
    + Main goal: to produce a clean GDSII with no human intervention (no-human-in-the-loop) Here Clean refers to :
-	+ No LVS violations
-	+ No DRC violations
-	+ No timing violations
+	- No LVS violations
+	- No DRC violations
+	- No timing violations
    + Tuned for SkyWater 130 nm Open PDK, also supports XFAB180 and GF130G
    + Containerized
-	+ Functional out of the box
-	+ Instructions to build and run natively will follow.
-	+ Can be used to harden Macros and Chips.
+	- Functional out of the box
+	- Instructions to build and run natively will follow.
+	- Can be used to harden Macros and Chips.
    + Two modes of operation:
-	+ Autonomous
-	+ Interactive
+	- Autonomous
+	- Interactive
    + Design Space Exploration feature:
-	+ Finding the best set of flow configurations.
+	- Finding the best set of flow configurations.
    + Comes with large number of design examples.
- 	+ 43 designs with their best configurations.
+ 	- 43 designs with their best configurations.
 
  **ASIC Flow:**
 </details>
