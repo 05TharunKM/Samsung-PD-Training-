@@ -63,3 +63,6 @@ Fix Docker Permission Denied Issue
 ./flow.tcl -design spm (the above flow.tcl command will run RTL2GDS flow for design named "spm". Same can be done for other designs which are present in ~/work/tools/openlane_working_dir/Openlane/designs)
 
 Refer to: https://github.com/efabless/openlane for detailed instructions.
+
+
+docker rumit siput/openLA flow SPOK ROOT SPOK HOOT e PD HOOT SPIK HOOT $idu USER) SEL SUSER) openlane:rc2
