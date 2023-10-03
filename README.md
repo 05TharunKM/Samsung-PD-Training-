@@ -3470,6 +3470,92 @@ dc_shell >> report_qor >> QOR.txt
 <details>
 <summary>Labs</summary>
 
+**Exploring directory structure:**
+
++ Basic commands that are used to explore the directory structure are:
+   - `cd` : change directory.
+   - `ls -ltr` : list files chronologically.
++ Output:
+
+<p align="center">
+  <img alt="dir_struct.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d7c7f1a2c38584ce3f13457b9a74e211248aa6fa/docs/assets/DAY15_X/dir_struct.png" width="1080" >
+</p>
+
++ To observe the directory structure easily use below command:
+   - `tree -d -L #` : this will create a tree of directory where -d is for list the files along directory and -L is depth of directory structure to print.
+
++ Output:
+
+<p align="center">
+  <img alt="dir_tree.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d7c7f1a2c38584ce3f13457b9a74e211248aa6fa/docs/assets/DAY15_X/dir_tree.png" width="1080" >
+</p>
+
+**Synthesis of Picorv32a:**
+
+*Step 1:*
+
++ Initially docker should be invoked using command `docker` to enter the openlane tools environment.
++ Then using flow.tcl file open interactive version of openalane environment. command to be used is `./flow.tcl -interactive`
++ Output:
+
+<p align="center">
+  <img alt="openlane_inter.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d7c7f1a2c38584ce3f13457b9a74e211248aa6fa/docs/assets/DAY15_X/openlane_inter.png" width="1080" >
+</p>
+
+
+*Step 2:*
+
++ Now to intialize the the package use command `package require openlane 0.9`.
++ And to prepare the design for synthesizing use command `prep -design picorv32a`.
++ Now run the synthesis using command `run_synthesis`
++ Output:
+   + After succesfully executing design preparation step.
+
+<p align="center">
+  <img alt="des_prep.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/0e4133f130c8870527e594fa2ddf22218e9d21df/docs/assets/DAY15_X/des_prep.png" width="1080" >
+</p>
 
  
+   + After Synthesis is done it will output message 'synthesis was successful'.
+
+<p align="center">
+  <img alt="synth_done.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/0e4133f130c8870527e594fa2ddf22218e9d21df/docs/assets/DAY15_X/synth_done.png" width="1080" >
+</p>
+
+*Step 3:*
+
++ Now to analyse the output open directory `openlane/designs/picorv32a/runs/run_name/`.
++ There are 4 important output directory to observe - tmp, results, reports and logs.
++ To open the generated netlist open results dirctory, select synthesis results and open the .v file.
++ For timing reports browse reports directory where timing report, cell counts and other reports are there.
++ Outputs:
+   + Netlist:
+
+<p align="center">
+  <img alt="netlist.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/52c5df2e8d101dcbb52569ecf4b315221a40b0f5/docs/assets/DAY15_X/netlist.png" width="1080" >
+</p>
+
+   + Timing Report:
+     
+<p align="center">
+  <img alt="timrep.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/52c5df2e8d101dcbb52569ecf4b315221a40b0f5/docs/assets/DAY15_X/timrep.png" width="1080" >
+</p>
+
+   + Cell Count:
+
+<p align="center">
+  <img alt="cell_count.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/52c5df2e8d101dcbb52569ecf4b315221a40b0f5/docs/assets/DAY15_X/cell_count.png" width="1080" >
+</p>
+
+   + Flop Ratio:
+
+<p align="center">
+  <img alt="flop_ratio.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/52c5df2e8d101dcbb52569ecf4b315221a40b0f5/docs/assets/DAY15_X/flop_ratio.png" width="1080" >
+</p>
+
+   +  Flop ratio = number of ff/ number of cell =  1613/14876 ~ 0.10 (10%)
+   +  Area =  147712.918400 
+
+
+
 </details>
