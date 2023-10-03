@@ -3463,6 +3463,7 @@ dc_shell >> report_qor >> QOR.txt
 * Magic is used for Design Rule Checking and SPICE Extraction from Layout
 * Magic and Netgen are used for LVS where extracted SPICE by Magic vs verilog netlist are used
 
+[Source](https://vsdiat.com/)
  
 </details>
 
