@@ -18,6 +18,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-13-Post-synthesis-simulation](#Day-13-Post-synthesis-simulation)
 - [Day-14-Synopsys-DC-and-timing-analysis](#Day-14-Synopsys-DC-and-timing-analysis)
 - [Day-15-Inception-of-EDA-and-PDK](#Day-15-Inception-of-EDA-and-PDK)
+- [Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells](#Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells)
 
 ## Day-0-Tool-Setup-Check
 
@@ -3557,6 +3558,140 @@ dc_shell >> report_qor >> QOR.txt
    +  Flop ratio = number of ff/ number of cell =  1613/14876 ~ 0.10 (10%)
    +  Area =  147712.918400 
 
+</details>
+
+## Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells
+
+<details>
+<summary>Chip Floor planning considerations</summary>
+
+**What is core and die section of a chip?** 
+
+<p align="center">
+  <img alt="coredie.png" src="" width="500" >
+</p>
+
++ Core:
+  + The core usually refers to the central or essential part of an integrated circuit. It is the portion of the chip that contains the primary functional blocks, such as the CPU core in a microprocessor or the logic gates in ASIC.
++ Die:
+  + A die is the individual silicon chip or wafer that is fabricated during the semiconductor manufacturing process.
+  + It contains the active components of the IC, including transistors, logic gates, memory cells, and other functional elements.
+  + The die is typically a square or rectangular piece of silicon wafer, and it represents the fundamental building block of an IC.
+
+**Floorplanning:**
++ Consider below simple design and floorplanning is explained below with corresponding examples.
+
+<p align="center">
+  <img alt="netlist.png" src="" width="500" >
+</p>
+   
+
+**1.Define Width and Height of Core and Die:** 
+
++ Convert these symbolic representation into physical cells with dimensions
+
+<p align="center">
+  <img alt="phys_netl.png" src="" width="500" >
+</p>
+
+ + Assume Height and Width of all the std cells as 1 units to simplfy the analysis.
+ + Area of each cells calculated is 1sq units
+ + Now arrange the cells in core like below :
+
+<p align="center">
+  <img alt="arrange.png" src="" width="500" >
+</p>
+
+ + Now total area of die is calculated.
+ + Below is the calculations for aspect ratio and core utilization factor.
+
+```
+                          Area Occupied by Core
+ >> Utilization Factor = ------------------------
+                          Area Occupied by Die
+                    Height
+>> Aspect Ratio  = ---------
+                    Width
+Example1:
+Core Area = area(FF) +area(FF) + area(A1) + area(O1) =  1 + 1 + 1 + 1 = 4 sq. units
+Die  Area = 8 sq. units
+Utilzation factor = 4/8 = 0.5 ~ 50%
+Aspect ratio = 4/4 =1 (Square)
+
+Example2:
+Core Area = area(FF) +area(FF) + area(A1) + area(O1) =  2 + 2 + 1 + 1 = 6 sq. units
+Die  Area = 8 sq. units
+Utilzation factor = 6/8 = 0.75 ~ 75%
+Aspect ratio = 4/4 =1 (Square)
+```  
+
+**2.Pre Placed Cells:**
+
++ Pre-placed cells refer to specific functional blocks or standard cells that are predetermined and fixed at specific locations on the chip's layout. These cells are typically essential components of the integrated circuit (IC) and include items like memory blocks, input/output pads, or other critical logic cells.
++ Now consider below combinational circuit :
+
+<p align="center">
+  <img alt="combo.png" src="" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="combo_split" src="" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p> 
+
++ Here whole combinational network is split into two parts block 1 and block 2.
++ Then nextend the IO pins of the two blocks and detach those blocks.
++ Now instead of implementing the whole block which would ahe taken more time now two blocks are given two diffent users to implement.
+
+<p align="center">
+  <img alt="ips.png" src="" width="500" >
+</p>
+
++ Since this combinmational sections is split into two different blocks we can use them multiple times in the circuit similar to IPs.
++ Similarly, there are any other blocks/IP's like
+   + Memory
+   + Clock-gating cell
+   + Comparator
+   + Mux
++ All of these IPs/Blocks can be implemented once and used multiple times in design.
++ This is  called as pre-placed cells since the cells are being just placed once in a chip where we have to define the locations of the blocks and it is done before the routing.
++ The locations of these blocks on top-level chip will be fixed.
++ The arrangement of these IP’s in a core is referred as Floorplanning
++ Automated PnR tools will places the remaining logical cells in the design.
+
+**Decoupling capacitors:**
++ Decoupling capacitors, often referred to decaps, are an essential component in physical design. They are used to stabilize and improve the performance of integrated circuits by mitigating voltage fluctuations or noise on the power supply lines.
+* Consider diagram below;
+
+<p align="center">
+  <img alt="nocap.png" src="" width="500" >
+</p>
+  
++ During switching  operation, if its '0' to '1' transition the circuit draws switching current  from sourceand if its '1' to '0' transition circuit will discharge into voltage source.
++ Now, because the resistance of wire length there will be a voltage drop across them and full Vdd Volts is not provided to circuit.
++ This will result in outputs signal fluctuating out of logical margins thus becoming noise. consider below graph to understand noise margin 
+
+<p align="center">
+  <img alt="nmargin.png" src="" width="500" >
+</p>
+  
+* If the voltage lies between Vol and Vll , it will be considered as logic '0'.
+* If the voltage lies between Vih and Voh , it will be considered as logic '1'.
+* Any voltage that lies between Vll and Vih will be considered as noise.
+* To ensure that the voltage don't enter noisy region uninterupted voltage source should be provided.
+
+<p align="center">
+  <img alt="dcap.png" src="" width="500" >
+</p>
+
+* To solve this issue, we have to add decoupling capacitors.
+* Decoupling capacitor would decouple the circuit from the main supply. 
+* Everytime the circuit switches, it draws current from Cap instead of main supply.
+* Below is the arrangements of decoupling capacitors along with other blocks.
+ 
+<p align="center">
+  <img alt="floored.png" src="" width="500" >
+</p>
 
 
+
+<details>
 </details>
