@@ -3848,6 +3848,9 @@ magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/s
 <details>
 <summary>Cell design and characterization flow</summary>
 
+*Inputs:* 
+*Design:*
+* u
 
 
  
