@@ -19,6 +19,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-14-Synopsys-DC-and-timing-analysis](#Day-14-Synopsys-DC-and-timing-analysis)
 - [Day-15-Inception-of-EDA-and-PDK](#Day-15-Inception-of-EDA-and-PDK)
 - [Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells](#Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells)
+- [Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator](Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator)
 
 ## Day-0-Tool-Setup-Check
 
@@ -3922,4 +3923,116 @@ magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/s
 </p>  
 
  
+</details>
+
+
+
+## Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator
+
+<details>
+<summary>Labs for CMOS inverter using ngspice</summary>
+
+**IO Placer Revision:**
+
++ Using commands below change the modes and observe the layout using magic:
+
+```
+set ::env(FP_IO_MODE) 2   // 0,1,2
+run_floorplan
+```
+
++ Below is Layout of three different modes generated after floorplanning:
+
+<p align="center">
+  <img alt="L0_modes.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ff9a8f97e81078d8beadebf28c01d2e6192a871f/docs/assets/DAY17_p1/L0_modes.png" width="500" >
+</p>  
+
+**SPICE deck creation for CMOS inverter:**
+
++ SPICE Deck : Similar to netlist contain component connectivity, tap connectivity etc.
++ Component connectivity:
+
+<p align="center">
+  <img alt="L1_inv.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ff9a8f97e81078d8beadebf28c01d2e6192a871f/docs/assets/DAY17_p1/L1_inv.png" width="500" >
+</p> 
+
++ Here both the drain of nmos and pmos is shorted and taken as output. Body terminal is pulled to 'Vdd' for pmos and 'gnd' for nmos.
++ Component  values:
+   - pmos - w/l = 0.375u/0.25u
+   - nmos - w/l = 0.375u/0.25u
+(Ideally W/L of pmos is bigger than W/L of nmos)
+   - Cload = 10fF
+   - Vin = 2.5v
+   - Vdd = 2.5v
++ Identifying nodes:
+   - Node 1 : Vin = in
+   - Node 2 : Vdd = vdd
+   - Node 3 : Vout= out
+   - Node 4 : Vss = 0
++ Writing the SPICE Deck :
+
+```
+*** Model Description   ***
+*** Netlist Description ***
+
+***<Name>  <Drain> <Gate> <Source> <Substrate>****
+M1 out in vdd vdd pmos  W=0.375u L=0.25u
+M2 out in 0 0 nmos W=0.375u L=0.25u
+
+***<Name> <Node1> <Node2> <value>***
+cload out 0 10f
+
+Vdd vdd 0 2.5
+Vin in 0 2.5
+
+***Simulation Commands***
+.op
+.dc Vin 0 2.5 0.05
+
+***.include tsmc_0.25um_model.mod***
+.LIB "tsmc_0.25um_mod" CMOS_MODELS
+.end
+```
+
++ Outputs:
+   -  (W/L)<sub>nmos</sub> = (W/L)<sub>pmos</sub> = 1.5
+   -  (W/L)<sub>nmos</sub> =  1.5 , (W/L)<sub>pmos</sub> = 3.75 
+
+<p align="center">
+  <img alt="L23_c1.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ff9a8f97e81078d8beadebf28c01d2e6192a871f/docs/assets/DAY17_p1/L23_c1.png" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="L23_c2.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ff9a8f97e81078d8beadebf28c01d2e6192a871f/docs/assets/DAY17_p1/L23_c2.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
++ Shapes of waveform is same. This implies that cmos inverter is a robust device.
++ Static behavior evaluation : CMOS inverter robustness
+   - Switching threshold(vm) : Vmm is the point where Vin = Vout.
+       * In first device vm is around 0.9v
+       * In second devive vm is around 1.2v
+   - At the point both pmos and nmos is turned and are in saturation.
+   - Idsp = Idsn
++ Calculating rise delay and fall delay.
++ Find the time at which input and output is 50% of the Vdd and take the difference.
++ For rise delay difference of time between points where ouput(rising) is 50% of Vdd and input(falling) is 50% of Vdd.
++ Similarly for fall delay difference of time between points where ouput(falling) is 50% of Vdd and input(rising) is 50% of Vdd.  
+
+**Lab steps to git clone vsdstdcelldesign:**
+
++ Commands used :
+
+```
+cd ~/Desktop/work/tools/openlane_working_dir/openlane
+git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+cd vsdstdcelldesign/
+// copy the sky130A.tech file to current working directory.
+magic -T sky130A.tech sky130_inv.mag
+```
+
++ Output :
+
+<p align="center">
+  <img alt="L5_inv.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ff9a8f97e81078d8beadebf28c01d2e6192a871f/docs/assets/DAY17_p1/L5_inv.png" width="500" >
+</p> 
+
 </details>
