@@ -3568,7 +3568,7 @@ dc_shell >> report_qor >> QOR.txt
 **What is core and die section of a chip?** 
 
 <p align="center">
-  <img alt="coredie.png" src="" width="500" >
+  <img alt="coredie.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/1e3547f2a2ecaff92ff93098ea26ec98b6ca50f1/docs/assets/Day16_theory/coredie.png" width="500" >
 </p>
 
 + Core:
@@ -3582,16 +3582,16 @@ dc_shell >> report_qor >> QOR.txt
 + Consider below simple design and floorplanning is explained below with corresponding examples.
 
 <p align="center">
-  <img alt="netlist.png" src="" width="500" >
+  <img alt="netlist.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/1e3547f2a2ecaff92ff93098ea26ec98b6ca50f1/docs/assets/Day16_theory/netlist.png" width="500" >
 </p>
    
 
-**1.Define Width and Height of Core and Die:** 
+**Define Width and Height of Core and Die:** 
 
 + Convert these symbolic representation into physical cells with dimensions
 
 <p align="center">
-  <img alt="phys_netl.png" src="" width="500" >
+  <img alt="phys_netl.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/1e3547f2a2ecaff92ff93098ea26ec98b6ca50f1/docs/assets/Day16_theory/phys_netl.png" width="500" >
 </p>
 
  + Assume Height and Width of all the std cells as 1 units to simplfy the analysis.
@@ -3599,7 +3599,7 @@ dc_shell >> report_qor >> QOR.txt
  + Now arrange the cells in core like below :
 
 <p align="center">
-  <img alt="arrange.png" src="" width="500" >
+  <img alt="arrange.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/arrange.png" width="500" >
 </p>
 
  + Now total area of die is calculated.
@@ -3625,15 +3625,15 @@ Utilzation factor = 6/8 = 0.75 ~ 75%
 Aspect ratio = 4/4 =1 (Square)
 ```  
 
-**2.Pre Placed Cells:**
+**Pre Placed Cells:**
 
 + Pre-placed cells refer to specific functional blocks or standard cells that are predetermined and fixed at specific locations on the chip's layout. These cells are typically essential components of the integrated circuit (IC) and include items like memory blocks, input/output pads, or other critical logic cells.
 + Now consider below combinational circuit :
 
 <p align="center">
-  <img alt="combo.png" src="" width="45%" >
+  <img alt="combo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/combo.png" width="45%" >
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="combo_split" src="" width="45%">
+  <img alt="combo_split" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/combo_split.png" width="45%">
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p> 
 
@@ -3642,7 +3642,7 @@ Aspect ratio = 4/4 =1 (Square)
 + Now instead of implementing the whole block which would ahe taken more time now two blocks are given two diffent users to implement.
 
 <p align="center">
-  <img alt="ips.png" src="" width="500" >
+  <img alt="ips.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/ips.png" width="500" >
 </p>
 
 + Since this combinmational sections is split into two different blocks we can use them multiple times in the circuit similar to IPs.
@@ -3662,7 +3662,7 @@ Aspect ratio = 4/4 =1 (Square)
 * Consider diagram below;
 
 <p align="center">
-  <img alt="nocap.png" src="" width="500" >
+  <img alt="nocap.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/nocap.png" width="500" >
 </p>
   
 + During switching  operation, if its '0' to '1' transition the circuit draws switching current  from sourceand if its '1' to '0' transition circuit will discharge into voltage source.
@@ -3670,7 +3670,7 @@ Aspect ratio = 4/4 =1 (Square)
 + This will result in outputs signal fluctuating out of logical margins thus becoming noise. consider below graph to understand noise margin 
 
 <p align="center">
-  <img alt="nmargin.png" src="" width="500" >
+  <img alt="nmargin.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/nmargin.png" width="500" >
 </p>
   
 * If the voltage lies between Vol and Vll , it will be considered as logic '0'.
@@ -3679,7 +3679,7 @@ Aspect ratio = 4/4 =1 (Square)
 * To ensure that the voltage don't enter noisy region uninterupted voltage source should be provided.
 
 <p align="center">
-  <img alt="dcap.png" src="" width="500" >
+  <img alt="dcap.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/dcap.png" width="500" >
 </p>
 
 * To solve this issue, we have to add decoupling capacitors.
@@ -3688,7 +3688,7 @@ Aspect ratio = 4/4 =1 (Square)
 * Below is the arrangements of decoupling capacitors along with other blocks.
  
 <p align="center">
-  <img alt="floored.png" src="" width="500" >
+  <img alt="floored.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/floored.png" width="500" >
 </p>
 
 **Power Planning:** 
@@ -3696,7 +3696,7 @@ Aspect ratio = 4/4 =1 (Square)
 + But consider case below: 
 
 <p align="center">
-  <img alt="pp1.png" src="" width="500" >
+  <img alt="pp1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/pp1.png" width="500" >
 </p> 
 
 + In above design there are multiple IPs in core and consider there's a load  being driven by driver cell.
@@ -3704,9 +3704,9 @@ Aspect ratio = 4/4 =1 (Square)
 + Now when there's switching between logics following effects are observed :
 
 <p align="center">
-  <img alt="pp2_1.png" src="" width="45%" >
+  <img alt="pp2_1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/pp2_1.png" width="45%" >
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="pp2_2.png" src="" width="45%">
+  <img alt="pp2_2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/pp2_2.png" width="45%">
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
@@ -3717,16 +3717,16 @@ Aspect ratio = 4/4 =1 (Square)
 + To avoid this power planning is done. Below is the picture of power planning for above example(left) and When whole die power planning is done(right):
 
 <p align="center">
-  <img alt="vddss.png" src="" width="45%" >
+  <img alt="vddss.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/vddss.png" width="45%" >
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="pp.png" src="" width="45%">
+  <img alt="pp.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/pp.png" width="45%">
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
 **Pin placement and logical cell placement blockage:**
 
 <p align="center">
-  <img alt="pinp1.png" src="" width="500" >
+  <img alt="pinp1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/pinp1.jpg" width="500" >
 </p> 
 
 + For the above design, the input port placed on left side of die and output ports on right side of die.
@@ -3736,7 +3736,7 @@ Aspect ratio = 4/4 =1 (Square)
 + Location where logical cell are placed is blocked for further placement process.
 
 <p align="center">
-  <img alt="pinp2.png" src="" width="500" >
+  <img alt="pinp2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/2de3ed205ff8a528fc6ae0a039333e92848f8082/docs/assets/Day16_theory/pinp2.jpg" width="500" >
 </p> 
 
 
@@ -3747,14 +3747,14 @@ Aspect ratio = 4/4 =1 (Square)
 + Following is different switches available: 
 
 <p align="center">
-  <img alt="readme.png" src="" width="500" >
+  <img alt="readme.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/readme.png" width="500" >
 </p> 
 
 + Using these switches in tcl files - 1) floorplan.tcl 2)config.tcl 3)sky130A_sky130_fd_sc_hd.tcl we can configure the  floorplanning process.
 + If same switches are being used multiple times and is setting it to different vaues, tool will consider the configuration file with highest priority.(sky130A_sky130_fd_sc_hd.tcl>config.tcl>floorplan.tcl). i.e tool defaults will be  overidden by design config files.
 
 <p align="center">
-  <img alt="tcls.png" src="" width="500" >
+  <img alt="tcls.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/tcl.png" width="500" >
 </p> 
 
 + Now to run the floorplanning use command `run_floorplan`.
@@ -3763,7 +3763,7 @@ Aspect ratio = 4/4 =1 (Square)
 + `magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &`
 
 <p align="center">
-  <img alt="magic.png" src="" width="500" >
+  <img alt="magic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16/magic.png" width="500" >
 </p> 
 
 + To explore the floor plan use below steps :
@@ -3773,9 +3773,9 @@ Aspect ratio = 4/4 =1 (Square)
     + In following example which metal  is used for  horizontal metal layer and vertical metal layer has been explored:
 
 <p align="center">
-  <img alt="mhorm3.png" src="" width="45%" >
+  <img alt="m_horm3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16/m_horm3.png" width="45%" >
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="mverm2.png" src="" width="45%">
+  <img alt="m_verm2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16/m_verm2.png" width="45%">
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
     
@@ -3798,10 +3798,10 @@ Aspect ratio = 4/4 =1 (Square)
    + Constraints: Constraints may be defined to guide the placement and routing tools during physical design.
 
 <p align="center">
-  <img alt="flavours.png" src="" width="500" >
+  <img alt="flavours.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/flavours.jpg" width="500" >
 </p> 
 
-**Floorplan:**
+**Placement:**
 
 + The physical view of logic gates will be placed into the floorplan.
 + These placed cells will have real dimensions.
@@ -3809,7 +3809,7 @@ Aspect ratio = 4/4 =1 (Square)
 + The location of cells in the floorplan is decided by taking into considerations of the connections of the cells to  inputs and outputs ports.
 
 <p align="center">
-  <img alt="floorplaneed.png" src="" width="500" >
+  <img alt="floorplaneed.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/floorplaneed.jpg" width="500" >
 </p> 
 
 + Optimizing is done based on wire length estimations.
@@ -3817,10 +3817,10 @@ Aspect ratio = 4/4 =1 (Square)
 + Before routing, based on  wire length and capacitance estimation buffers are added.
 + These buffers will act as repeaters that replicate the original signal.
 + Finally basic check is done to verify its timing performance.
-+ Below is final floorplan after optimization:
++ Below is final floorplan after optimized placement:
 
 <p align="center">
-  <img alt="optm_fp.png" src="" width="500" >
+  <img alt="optm_fp.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/optm_fp.png" width="500" >
 </p> 
 
 **Lab**
@@ -3840,7 +3840,7 @@ magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/s
 ```
 
 <p align="center">
-  <img alt="placement_magic.png" src="" width="500" >
+  <img alt="placement_magic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16/placement_magic.png" width="500" >
 </p>  
  
 </details>
@@ -3848,10 +3848,78 @@ magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/s
 <details>
 <summary>Cell design and characterization flow</summary>
 
-*Inputs:* 
-*Design:*
-* u
++ In this section, how the standard cells like inverter buffers etc are designed and implemented is discussed.
++ There are 3 steps in cell design flow: 
 
+<p align="center">
+  <img alt="cdflow.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/cdflow.jpg" width="500" >
+</p> 
+
+*Inputs:* 
+
++ PDK: Process Design Kits (PDKs) are an essential component of the VLSI design. They are sets of files, libraries, and documentation provided by semiconductor foundries to  designers to facilitate the design of integrated circuits (ICs) using their manufacturing processes.
++ DRC and LVS Rules:
+
+<p align="center">
+  <img alt="drclvs.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/drclvs.jpg" width="500" >
+</p> 
+
+   + DRC is a process used to check whether the layout of an IC adheres to the manufacturing design rules specified by the semiconductor foundry. These rules define constraints and limits on various aspects of the layout, such as minimum feature size, spacing between features, alignment, and more.
+   +  LVS is a process used to verify that the layout of an IC matches its schematic or logical representation. It ensures that the connections and devices in the layout accurately reflect the intended design.
+
++ SPICE Model: SPICE (Simulation Program with Integrated Circuit Emphasis) models are essential components for simulating and analyzing the behavior of designs. SPICE is a widely used simulation tool that allows designers to predict how circuit  will perform under various conditions. SPICE models provide a mathematical representation of electronic components and their behavior.
+
+ <p align="center">
+  <img alt="spice.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/spice.jpg" width="500" >
+</p>  
+
+
+*Design steps:*
+
++ Circuit design: 
+
+ <p align="center">
+  <img alt="cdes.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/cdes.png" width="500" >
+</p>  
+
+  + Euler's path is a concept from graph theory that has applications in circuit design. It refers to a path that visits every edge (connection) of a graph exactly once.
+  + A stick diagram is a simple, abstract representation of a circuit's layout. It uses lines and rectangles to represent wires and components without detailing their exact shapes or dimensions.
+  + In a complementary CMOS design, both PMOS and NMOS transistors are used together to implement various logic functions. The W/L ratio for PMOS and NMOS transistors can be different based on the specific requirements of the circuit. The W/L ratio determines the operating characteristics of these transistors, including their drive strength and speed. 
+
++ Layout design: Layout design in VLSI  refers to the process of physically designing the placement and interconnection of transistors, gates, and other components on a semiconductor chip. 
+   + Follwoing is simple example of layout design: 
+
+ <p align="center">
+  <img alt="lay.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/lay.jpg" width="500" >
+</p>  
+
++ Steps in characterizing the design.
+   1) Review model fileReview extracted SPICE netlist.
+   2) Define the behavior of the buffers.
+   3) Review sub-circuit of inverters.
+   4) Attach necessary power sources.
+   5) Apply the stimulus.
+   6) Provide necessary output capacitance.
+   7) Provide necessary command (using trans/dc simulations)
+
+*Outputs:*
+
++ Circuit Description Language (CDL), GDSII, LEF, extracted spice netlist (.cir) Timing noise, power .libs, function.
+
+**General timing characterization parameters:**
+
++ Propagation delay measures the time it takes for a signal to propagate through a logic gate or a combinational circuit.
+
+ <p align="center">
+  <img alt="slew.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/slew.jpg" width="500" >
+</p>  
+
++ Slew is defined as the time taken by signal to rise from 10 %( 20%) to the 90 %( 80%) of its maximum value. This is known as “rise time”.
++ Similarly Slew for “fall time” can be defined as the time taken by a signal to fall from 90 %( 80%) to the 10 %( 20%) of its maximum value.
+
+<p align="center">
+  <img alt="slew2.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/572fa620f8baec6fbd6eb4e17f2ea3ced15438ab/docs/assets/Day16_theory/slew2.png" width="500" >
+</p>  
 
  
 </details>
