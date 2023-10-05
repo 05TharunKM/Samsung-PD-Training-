@@ -3691,7 +3691,164 @@ Aspect ratio = 4/4 =1 (Square)
   <img alt="floored.png" src="" width="500" >
 </p>
 
+**Power Planning:** 
++ In above example, decoupling capacitors are added across the design to stabilize the supply voltage.
++ But consider case below: 
+
+<p align="center">
+  <img alt="pp1.png" src="" width="500" >
+</p> 
+
++ In above design there are multiple IPs in core and consider there's a load  being driven by driver cell.
++ The signals from the driver are 16bit signals.
++ Now when there's switching between logics following effects are observed :
+
+<p align="center">
+  <img alt="pp2_1.png" src="" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="pp2_2.png" src="" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
++ Here in 16 bit bus, whenever there's a switching we can assume each bits to have there own capacitance.
++ In image left there's inverting switch and most of the logic level were '0' and are pulled to logic '1'.This result in large amount of current being drawn from supply.
++ Similarly when there's a switch from '1' to '0' large amount of charge is discharged. 
++ Single voltage supply and decoupling capacitor can't sustain that much current and charges being discharged.
++ To avoid this power planning is done. Below is the picture of power planning for above example(left) and When whole die power planning is done(right):
+
+<p align="center">
+  <img alt="vddss.png" src="" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="pp.png" src="" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
+**Pin placement and logical cell placement blockage:**
+
+<p align="center">
+  <img alt="pinp1.png" src="" width="500" >
+</p> 
+
++ For the above design, the input port placed on left side of die and output ports on right side of die.
++ Input ports and output ports are placed randomly.
++ Clock ports which are CLK1, CLK2 and Clkout have bigger size pads  compared to data ports.(Bigger the size, least the resistance)
++ Area around the pins are reserved so that no cells are placed on that.
++ Location where logical cell are placed is blocked for further placement process.
+
+<p align="center">
+  <img alt="pinp2.png" src="" width="500" >
+</p> 
+
+
+**Labs:** 
+
+*Configuring floorplan process:*
++ Using switches we set the many constraints like which metal layer  to use and what should be utilization factor and many more .
++ Following is different switches available: 
+
+<p align="center">
+  <img alt="readme.png" src="" width="500" >
+</p> 
+
++ Using these switches in tcl files - 1) floorplan.tcl 2)config.tcl 3)sky130A_sky130_fd_sc_hd.tcl we can configure the  floorplanning process.
++ If same switches are being used multiple times and is setting it to different vaues, tool will consider the configuration file with highest priority.(sky130A_sky130_fd_sc_hd.tcl>config.tcl>floorplan.tcl). i.e tool defaults will be  overidden by design config files.
+
+<p align="center">
+  <img alt="tcls.png" src="" width="500" >
+</p> 
+
++ Now to run the floorplanning use command `run_floorplan`.
++ After running floorplan, reports, logs and results are stord in directory '/openlane/designs/picorv32a/runs/runname/()'.
++ To view the layout of floorplan with magic tool use below comand:
++ `magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &`
+
+<p align="center">
+  <img alt="magic.png" src="" width="500" >
+</p> 
+
++ To explore the floor plan use below steps :
+    + Select : hover on the cells and press `s`.
+    + Zooom : Press `z` and `z` + `shift` to zoom out.
+    + Use command what in commmand line to see the detail of selected item.
+    + In following example which metal  is used for  horizontal metal layer and vertical metal layer has been explored:
+
+<p align="center">
+  <img alt="mhorm3.png" src="" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="mverm2.png" src="" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+    
+</details>
 
 
 <details>
+<summary>Library Binding and Placement</summary>
+
+**Netlist binding and initial place design:**
+
++ A library file contains essential information about standard cell libraries.
++ Standard cell libraries consist of a collection of pre-designed and characterized logic gates and flip-flops.
++ These libraries are fundamental to the design and optimization of digital circuits.
++ Contents of a .lib File:
+   + Cell Definitions: Each logic gate or flip-flop in the library is defined with its logical functionality, pin descriptions, and timing information.
+   + Timing Information: This section provides data on the timing behavior of the library cells. It includes details like setup time, hold time, propagation delay, transition times, and more. Timing information is crucial for performing timing analysis and optimization during the physical design process.
+   + Power Consumption Data: .lib files often include power consumption information for each cell, which is essential for estimating and managing power consumption in the IC.
+   + Noise and Delay Models: Some .lib files may also include models for noise and signal delay, which are critical for accurate simulation and analysis.
+   + Constraints: Constraints may be defined to guide the placement and routing tools during physical design.
+
+<p align="center">
+  <img alt="flavours.png" src="" width="500" >
+</p> 
+
+**Floorplan:**
+
++ The physical view of logic gates will be placed into the floorplan.
++ These placed cells will have real dimensions.
++ As specified above cells with different flavours are provided in library and they are selected based the timing and power requirement.
++ The location of cells in the floorplan is decided by taking into considerations of the connections of the cells to  inputs and outputs ports.
+
+<p align="center">
+  <img alt="floorplaneed.png" src="" width="500" >
+</p> 
+
++ Optimizing is done based on wire length estimations.
++ If the distance between two cells is too long signal integrity will be lost due wire resistance and causes worse slew.
++ Before routing, based on  wire length and capacitance estimation buffers are added.
++ These buffers will act as repeaters that replicate the original signal.
++ Finally basic check is done to verify its timing performance.
++ Below is final floorplan after optimization:
+
+<p align="center">
+  <img alt="optm_fp.png" src="" width="500" >
+</p> 
+
+**Lab**
+
++ Placement is done two steps global and detailed.
+   + Global placement: assigns general locations to movable objects. It used to reduce wire length.
+   + Detailed placement: refines object locations to legal cell sites and enforces non-overlapping constraints.
++ The detailed locations enable more accurate estimations of the circuit delay for the purpose of timing optimization.
++ Legalization is an essential step where the overlaps between gates/macros must be removed.
++ To run the placement use command `run_placement`.
++ Half Parameter Wire Length (HPWL) is applied to reduce wire length
++ To view the layout after placemnt use command below : 
+
+```
+cd /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/<runName/results/placement
+magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+
+<p align="center">
+  <img alt="placement_magic.png" src="" width="500" >
+</p>  
+ 
+</details>
+
+<details>
+<summary>Cell design and characterization flow</summary>
+
+
+
+ 
 </details>
