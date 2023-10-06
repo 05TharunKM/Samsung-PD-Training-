@@ -4211,5 +4211,14 @@ magic -T sky130A.tech sky130_inv.mag
 
 **Lab:**
 
++ Commands used :
+
+```
+cd vsdstdcelldesign/
+// copy the sky130A.tech file to current working directory.
+magic -T sky130A.tech sky130_inv.mag
+```
+Outputs: 
+1
 
 </details>
