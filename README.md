@@ -4036,3 +4036,180 @@ magic -T sky130A.tech sky130_inv.mag
 </p> 
 
 </details>
+
+<details>
+<summary>Inception of Layout and CMOS Fabrication</summary>
+
+**16-mask CMOS process:**
+
+*Selecting a substrate:*
+
++ P-type, high resistivity of 5-50 ohms, doping level of 10<sup>15</sup> cm<sup>-3</sup> and orientation of 100.
++ Doping of substrate should be less than well doping level.
+
+<p align="center">
+  <img alt="psub" src="" width="500" >
+</p> 
+
+*Creating the active region for transistor:*
+
++ Create an isolation between buckets.
+   1) Grow a SiO<sub>2</sub> ~ 40nm
+   2) Grow a Si<sub>3</sub>N<sub>4</sub> ~ 80nm
+   3) Deposit a layer of photoresist ~ 1um.
+   4) Masking: washing out the patterns.(mask1)
+
+<p align="center">
+  <img alt="mask" src="" width="500" >
+</p> 
+
+   5) Remove Mask, etch out the Si<sub>3</sub>N<sub>4</sub> layer and remove photoresist layer.
+   6) Place in oxidation furnace for SiO<sub>2</sub> to grow 
+   7) Now two buckets are completely isolated from each other.
+   8) Etch out Si<sub>3</sub>N<sub>4</sub> using phoshoric acid. 
+
+ <p align="center">
+  <img alt="isolated" src="" width="500" >
+</p> 
+
+*N-Well and P-Well formation:*
+
++ Deposit a layer of photoresis and place mask2 and expose to UV light.
++ Dope with Boron using ion-implantation. (~200keV)
++ This will from the p-well.
++ Now remove photoresist layer.
++ Using the same process above(mask3) create an n-well using phosphorous ion-implantation.
++ Take the substrate to high temperature furnace for diffusion.
++ Difusion will create deeper wells(Twin tub process).
+
+ <p align="center">
+  <img alt="nwellpwell" src="" width="500" >
+</p> 
+
+*Gate formation:*
+
++ Using mask4 do ion-implantations with boron (~60keV)
++ This will create thin p type layer.
++ Using same prosess(mask5) create an thin n type layer.
++ Now remove oxide layer using HF and regrow the oxide layer for high quakity oxide(~10nm).
++ Grow thin polysilicon layer(~.4um).
++ To get low sheet resistance implant it with N-type material.
++ Now using mask6 etch out photoresist and polysilicon to create two gates.
++ And etch out polysilicon from gate terminal.
+
+ <p align="center">
+  <img alt="gate" src="" width="500" >
+</p> 
+
+*Lightly doped drain(LDD) formation:*
+
++ Two doping Profiles:
+    -  Hot electron effect: High energy carriers will break Si-Si bonds and crosses 3.2eV barrier between Si conduction band SiO2 conduction band, it will enter oxide layer.
+    -  Short channel effect: For short channels, drain field will penetrates channel (making the gate difficults to control the current- source and drain)
++ Start by adding Mask7 to protect the desired area and the rest steps of photolithography is same.
++ Then do the ion implantation process by doping it with Phosphorus (N-type material) which gives out lightly doped channel.
++ Repeat the same Mask8.
++ Ion implantation with Boron.
++ Create some spaces around gate to protect further source and drain formation using plasma anisotropic etching.
+
+ <p align="center">
+  <img alt="ldd" src="" width="500" >
+</p> 
+
+*Source and drain formation:*
+
++ Thin layer of screen oxide is added to avoid channel link entering the substrate.
++ Add Mask9 and repeat the same steps of photolithography.
++ Do ion-implantation with Arsenic(~75keV) which results in N+ N- P.
++ Add Mask10 and repea the same step as above.
++ Do ion implantation with Boron (~50oeV) which gives P+ P- N.
++ Place into high temperature furnace(high temperature annealing) to penetrate more into N-well and P-well.
+
+<p align="center">
+  <img alt="drainsource" src="" width="500" >
+</p> 
+
+*Local interconnect formation:*
+
++ Remove the thin screen oxide to expose  drain, source and gate region for contact formation.
++ Etch the thin oxide in Hydrofluoric acid.
++ Deposit Titanium(metal with low resistivity)  using sputtering.
++ Create a contact between Titanium that has been deposited by heating the wafer in N<sub>2</sub> ambient for 60sec at about  650-700<sup>o</sup>C.
++ This results in low resistance TiSi<sub>2</sub> that can be used for local interconnect.
++ Add Mask11 and repeat the photolithography process.
++ Etch the  extra TiN for RCA cleaning.
++ RCA is solution of
+    - De-ionized water (H<sub>2</sub>O), 5 parts.
+    - Ammonium hydroxide (NH<sub>4</sub>OH), 1 parts.
+    - Hydroxide peroxide (H<sub>2</sub>Osub>2</sub>), 1part
++ Local TiN interconnects were used to contact locally.
+
+<p align="center">
+  <img alt="interc" src="" width="500" >
+</p> 
+
+*Higher level metal formation:*
+
+<p align="center">
+  <img alt="hlmf1" src="" width="500" >
+</p> 
+
+
++ The surface topography is not suitable for metal contact since it is non-linear.
++ To fix that, thick layer of SiO<sub>2</sub>(borophosphosilicate glass).
++ Phosphorus will act as a barrier protection against mobile sodium ion and boron will reduce the temperature.
++ Polish the surface and get a flat surface using chemical mechanical polishing.
+
+<p align="center">
+  <img alt="hlmf2" src="" width="500" >
+</p> 
+
++ Add Mask12 and repeat the  lithography process.
+
+<p align="center">
+  <img alt="hlmf3" src="" width="500" >
+</p> 
+
++ Etch off the SiO<sub>2</sub>.
++ Remove the photoresist, deposit a thin layer of titanium nitrate and blanket tungsten layer.
++ Remove extra tungsten layer using chemical mechanical polishing.
++ Add Aluminium to allow contact hole to contact higher metal layer.
++ Now put Mask13 and do the same lithography process.
+
+<p align="center">
+  <img alt="hlmf4" src="" width="500" >
+</p> 
+
++ Plasma etch the aluminium and remove the photoresist.
++ Deposit SiO<sub>2</sub> and polish again
+
+<p align="center">
+  <img alt="hlmf5" src="" width="500" >
+</p> 
+
++ Add Mask14 and repeat the same process.
++ Deposit titanium nitrate that acts as barrier and deposit tungsten to make the contacts.
+
+<p align="center">
+  <img alt="hlmf6" src="" width="500" >
+</p> 
+
++ Add Mask15 as 3rd level interconnect using Aluminium (more thicker).
++ Give protection layer for the chip.
+
+<p align="center">
+  <img alt="hlmf7" src="" width="500" >
+</p> 
+
+
++ Add Mask16 to contact outside of the chip and repeat the same process.
+
+<p align="center">
+  <img alt="hlmf7" src="" width="500" >
+</p> 
+
+
+**Lab:**
+
+
+</details>
