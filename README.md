@@ -4218,7 +4218,58 @@ cd vsdstdcelldesign/
 // copy the sky130A.tech file to current working directory.
 magic -T sky130A.tech sky130_inv.mag
 ```
-Outputs: 
-1
++ Outputs: 
+
+<p align="center">
+  <img alt="layout.jpg" src="" width="500" >
+</p> 
+
+
++ Connection between gate,drain and source is given in below picture:
+
+<p align="center">
+  <img alt="allcon.jpg" src="" width="500" >
+</p> 
+
+
++ pmos and nmos :
+
+<p align="center">
+  <img alt="pmos.jpg" src="" width="45%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="nmos.jpg" src="" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
++ To check DRC errors select whole area and use command `what` in tkcon window.
+
+<p align="center">
+  <img alt="drc.jpg" src="" width="500" >
+</p> 
+
++ Observations: 
+   - To get the dimension of the layout use command `box`.
+   - First layer is locali(blue) where the 'Gnd' and 'Vdd' is placed.
+   - 'Gnd' and 'Vdd' is metal1(purple).
+   - Square checked blue box is an interconnect between locali and metal1.
+   - Crossed check box on nsub is a contact cut b/w nwell and local1 for pmos.
+   - Similarly another contact cut is placed for pwell and locali incase of nmos.
+
++ To simluate this layout we need to generate the netlist and below commands are used:
+
+```
+//tkcon
+% extract all
+% ext2spice cthresh 0 rthresh 0
+% ext2spice -o sky130_invtharun
+
+```
+
++ SPICE generated:
+
+<p align="center">
+  <img alt="spice.jpg" src="" width="500" >
+</p> 
+
 
 </details>
