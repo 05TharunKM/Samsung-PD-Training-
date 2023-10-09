@@ -4271,5 +4271,30 @@ magic -T sky130A.tech sky130_inv.mag
   <img alt="spice.jpg" src="" width="500" >
 </p> 
 
+</details>
 
+
+<details>
+<summary>Sky130 Tech file Labs</summary>
+
+
+**Creating SPICE Deck:**
+
+**Characterize inverter using sky130 model files:**
+
+**Introduction to Magic tool options and DRC rules:**
+
+**Introduction to Sky130 pdk's and steps to download labs:**
+
+**Introduction to Magic and steps to load Sky130 tech-rules:**
+
+**Lab exercise to fix poly.9 error in Sky130 tech-file:**
+
+**Lab exercise to implement poly resistor spacing to diff and tap:**
+
+**Lab challenge exercise to describe DRC error as geometrical construct:**
+
+**Lab challenge to find missing or incorrect rules and fix them:**
+
+ 
 </details>
