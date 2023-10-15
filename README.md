@@ -4048,8 +4048,9 @@ magic -T sky130A.tech sky130_inv.mag
 + Doping of substrate should be less than well doping level.
 
 <p align="center">
-  <img alt="psub" src="" width="500" >
+  <img alt="Screenshot%202023-10-16%20010515.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010515.png" width="500" >
 </p> 
+
 
 *Creating the active region for transistor:*
 
@@ -4058,18 +4059,13 @@ magic -T sky130A.tech sky130_inv.mag
    2) Grow a Si<sub>3</sub>N<sub>4</sub> ~ 80nm
    3) Deposit a layer of photoresist ~ 1um.
    4) Masking: washing out the patterns.(mask1)
-
-<p align="center">
-  <img alt="mask" src="" width="500" >
-</p> 
-
    5) Remove Mask, etch out the Si<sub>3</sub>N<sub>4</sub> layer and remove photoresist layer.
    6) Place in oxidation furnace for SiO<sub>2</sub> to grow 
    7) Now two buckets are completely isolated from each other.
    8) Etch out Si<sub>3</sub>N<sub>4</sub> using phoshoric acid. 
 
- <p align="center">
-  <img alt="isolated" src="" width="500" >
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20010515.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010515.png" width="500" >
 </p> 
 
 *N-Well and P-Well formation:*
@@ -4082,8 +4078,8 @@ magic -T sky130A.tech sky130_inv.mag
 + Take the substrate to high temperature furnace for diffusion.
 + Difusion will create deeper wells(Twin tub process).
 
- <p align="center">
-  <img alt="nwellpwell" src="" width="500" >
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20010556.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010556.png" width="500" >
 </p> 
 
 *Gate formation:*
@@ -4097,8 +4093,8 @@ magic -T sky130A.tech sky130_inv.mag
 + Now using mask6 etch out photoresist and polysilicon to create two gates.
 + And etch out polysilicon from gate terminal.
 
- <p align="center">
-  <img alt="gate" src="" width="500" >
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20010614.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010614.png" width="500" >
 </p> 
 
 *Lightly doped drain(LDD) formation:*
@@ -4113,7 +4109,7 @@ magic -T sky130A.tech sky130_inv.mag
 + Create some spaces around gate to protect further source and drain formation using plasma anisotropic etching.
 
  <p align="center">
-  <img alt="ldd" src="" width="500" >
+  <img alt="Screenshot%202023-10-16%20010636.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010636.png" width="500" >
 </p> 
 
 *Source and drain formation:*
@@ -4126,7 +4122,7 @@ magic -T sky130A.tech sky130_inv.mag
 + Place into high temperature furnace(high temperature annealing) to penetrate more into N-well and P-well.
 
 <p align="center">
-  <img alt="drainsource" src="" width="500" >
+  <img alt="Screenshot%202023-10-16%20010650.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010650.png" width="500" >
 </p> 
 
 *Local interconnect formation:*
@@ -4145,67 +4141,33 @@ magic -T sky130A.tech sky130_inv.mag
 + Local TiN interconnects were used to contact locally.
 
 <p align="center">
-  <img alt="interc" src="" width="500" >
+  <img alt="Screenshot%202023-10-16%20010707.pn" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010707.png" width="500" >
 </p> 
 
 *Higher level metal formation:*
-
-<p align="center">
-  <img alt="hlmf1" src="" width="500" >
-</p> 
-
 
 + The surface topography is not suitable for metal contact since it is non-linear.
 + To fix that, thick layer of SiO<sub>2</sub>(borophosphosilicate glass).
 + Phosphorus will act as a barrier protection against mobile sodium ion and boron will reduce the temperature.
 + Polish the surface and get a flat surface using chemical mechanical polishing.
-
-<p align="center">
-  <img alt="hlmf2" src="" width="500" >
-</p> 
-
 + Add Mask12 and repeat the  lithography process.
-
-<p align="center">
-  <img alt="hlmf3" src="" width="500" >
-</p> 
 
 + Etch off the SiO<sub>2</sub>.
 + Remove the photoresist, deposit a thin layer of titanium nitrate and blanket tungsten layer.
 + Remove extra tungsten layer using chemical mechanical polishing.
 + Add Aluminium to allow contact hole to contact higher metal layer.
 + Now put Mask13 and do the same lithography process.
-
-<p align="center">
-  <img alt="hlmf4" src="" width="500" >
-</p> 
-
 + Plasma etch the aluminium and remove the photoresist.
 + Deposit SiO<sub>2</sub> and polish again
 
-<p align="center">
-  <img alt="hlmf5" src="" width="500" >
-</p> 
-
 + Add Mask14 and repeat the same process.
 + Deposit titanium nitrate that acts as barrier and deposit tungsten to make the contacts.
-
-<p align="center">
-  <img alt="hlmf6" src="" width="500" >
-</p> 
-
 + Add Mask15 as 3rd level interconnect using Aluminium (more thicker).
 + Give protection layer for the chip.
-
-<p align="center">
-  <img alt="hlmf7" src="" width="500" >
-</p> 
-
-
 + Add Mask16 to contact outside of the chip and repeat the same process.
 
 <p align="center">
-  <img alt="hlmf7" src="" width="500" >
+  <img alt="Screenshot%202023-10-16%20010734.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/82bcf36ce748aea8b9466630db766b622c0a061d/docs/assets/DAY17_p1/Screenshot%202023-10-16%20010734.png" width="500" >
 </p> 
 
 
@@ -4277,24 +4239,39 @@ magic -T sky130A.tech sky130_inv.mag
 <details>
 <summary>Sky130 Tech file Labs</summary>
 
+<p align="center">
+  <img alt="Screenshot%202023-10-15%20234737.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-15%20234737.png" width="1080" >
+</p>
 
-**Creating SPICE Deck:**
+<p align="center">
+  <img alt="Screenshot%202023-10-15%20234856.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-15%20234856.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-15%20235654.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-15%20235654.png" width="1080" >
+</p>
 
-**Characterize inverter using sky130 model files:**
-
-**Introduction to Magic tool options and DRC rules:**
-
-**Introduction to Sky130 pdk's and steps to download labs:**
-
-**Introduction to Magic and steps to load Sky130 tech-rules:**
-
-**Lab exercise to fix poly.9 error in Sky130 tech-file:**
-
-**Lab exercise to implement poly resistor spacing to diff and tap:**
-
-**Lab challenge exercise to describe DRC error as geometrical construct:**
-
-**Lab challenge to find missing or incorrect rules and fix them:**
-
- 
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20000358.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20000358.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20000541.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20000541.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20002454.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20002454.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20002717.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20002717.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20003606.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20003606.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20003708.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20003708.png" width="1080" >
+</p>
+ <p align="center">
+  <img alt="Screenshot%202023-10-16%20004226.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20004226.png" width="1080" >
+</p>
+<p align="center">
+  <img alt="Screenshot%202023-10-16%20004903.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20004903.png" width="1080" >
+</p>
 </details>
