@@ -20,6 +20,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-15-Inception-of-EDA-and-PDK](#Day-15-Inception-of-EDA-and-PDK)
 - [Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells](#Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells)
 - [Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator](Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator)
+- [Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree](#Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 
 ## Day-0-Tool-Setup-Check
 
@@ -4274,4 +4275,386 @@ magic -T sky130A.tech sky130_inv.mag
 <p align="center">
   <img alt="Screenshot%202023-10-16%20004903.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/611690237fc6bddd232e5051054b75e2f1868586/docs/assets/Day17_p2/Screenshot%202023-10-16%20004903.png" width="1080" >
 </p>
+</details>
+
+
+
+## Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree
+
+<details>
+<summary>Timing Modelling using delay tables</summary>
+
+**Lab1:**
+
+- Library Exchange Format (LEF)
+  + A specification in which representing the physical layout of an integrated circuit in an ASCII format.
+  + It includes design rules and abstract information about the standard cells.
+  + LEF only has basic information required at that level to serve the purpose of the concerned CAD tool.
+  + Containing information on input, output, power and group port, does not consists logic path information.
+  +  Objective: extract LEF file from .mag file and then plug the file into the picorv32a flow.
+  +  Guidelines:
+        * The input and output ports must lie on the intersection of the vertical and horizontal tracks.
+        * The width of standard cell should be on the track pitch, and the height should be on the track vertical pitch
+
+- Go to directory   `/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd` and open tracks.info
+
+<p align="center">
+  <img alt="trackinfo.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/trackinfo.png" width="1080" >
+</p>
+
+- Set the grid based on the tracks.info.
+
+<p align="center">
+  <img alt="grid_tkcon.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/grid_tkcon.png" width="1080" >
+</p>
+
++ Ports are on the intersection of the horizontal and vertical tracks.
++ It ensures that the routes can reach the ports from x and y direction.
++ Verified that both input and output ports have fulfilled the guideline where input and output ports lies at the intersection of horizontal and vertical tracks
+
+<p align="center">
+  <img alt="grids.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/grids.png" width="1080" >
+</p>
+
+**Lab2:**
+
+- Define the  classes of ports using following commands i tkcon:
+
+<p align="center">
+  <img alt="portset.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/portset.png" width="1080" >
+</p>
+
+- Save sky130A_invtharun.mag
+
+<p align="center">
+  <img alt="saveinvtharun.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/saveinvtharun.png" width="1080" >
+</p>
+
+- Open the saved file using command `magic -T sky130A.tech sky130_invtharun.mag`.
+- In tkcon use cmmand `lef write`.
+
+<p align="center">
+  <img alt="lefwrite.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/lefwrite.png" width="1080" >
+</p>
+
+- Generated lef file:
+
+<p align="center">
+  <img alt="lefcontent.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/lefcontent.png" width="1080" >
+</p>
+
+ **Lab3:**
+
+- Commands used:
+
+```
+cd ~/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+cp sky130A_vsdinv.lef /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+cd ~/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign/libs
+cp sky130_fd_sc_hd__*  /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+cd ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/
+vim config.tcl
+``` 
+
+- run the  synthesis
+
+
+<p align="center">
+  <img alt="synthdone.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/synthdone.png" width="1080" >
+</p>
+
+ **Delay Tables:**
+
++ *In VLSI design, a delay table, often referred to as a delay model or delay characterization, is a critical component used to estimate the propagation delay of signals through various components of an integrated circuit (IC). The purpose of a delay table is to provide information about how long it takes for a signal to travel from one point to another within the IC.*
+
+  - Timing Analysis: Delay tables are primarily used in timing analysis. They help designers ensure that signals meet the required setup and hold times, and that the circuit operates within specified performance parameters.
+  - Input-to-Output Delay: A delay table typically provides information about the delay from the input of a component (like a logic gate or a flip-flop) to its output. This information helps designers understand how long it takes for a change at the input to affect the output.
+  - Variation with Process and Temperature: Delay tables may include information about how the delay varies with process technology and temperature, as these factors can significantly affect the performance of the IC.
+  - Rise and Fall Delays: The delay table often distinguishes between the rise and fall delays, as these can be different due to various reasons, including transistor characteristics and capacitance effects.
+  - Load Capacitance: The delay of a component is often dependent on the load capacitance it drives. Therefore, delay tables may provide information for different load capacitance values.
+  - Library Cells: Delay tables are associated with library cells, which are predefined logic functions with known delay characteristics. These libraries are used extensively in digital VLSI design.
+  - Slew Rate: Some delay tables also provide information about the slew rate of signals, which is the rate of change of voltage with respect to time.
+  - Path Delay: In addition to individual component delay, delay tables can also be used to estimate the delay of signal paths, helping designers understand the critical paths in their design.
+
++ Each type of cell will be having its own individual delay table, as the internal pmos and nmos width/length ratio gets varied, the resistance changes, then RC constant gets varied as well, meaning the delay of each cell gets varied.
++ The values of delay which are not available in the table are extrapolated based on the given data.
++ Similarly, we will also have a characterization table for input transition.
++ The latency at the endpoints will be the sum of the delays of each individual cell in that path.
++ The total skew value between two endpoints will be non-zero if the output load driven for a cell is varied, meaning different delay numbers are seen between endpoints, this is why it is preferred to have the nodes at each level driving the same load.
++ Another case in which we can retain the skew to be zero in the presence of varied load, is by using a different buffer size at the same level that can achieve the same level of delay as the other buffer in same level based on its delay table.
++ These are factors which should be looked into in the early stages of the clock tree design stage.
++ Now we must look into power aware CTS, where we have to consider endpoints which are only active under certain conditions.
++ In this case, we do not need to propagate the clock into those cells during the period of inactivity.
+
+**Lab4:**
+
++ Use following switches from readme file to control the opetimization and other factors in synthesis.
+  - SYNTH_STRATEGY: control the area and timing.
+  - SYNTH_BUFFERING: control if we want to buffer high fanout net.
+  - SYNTH_SIZING: control in cell sizing instead of buffering.
+  - SYNTH_DRIVING_CELL: ensure more drive strength cell to drive input.
++ Use below commands in bash to set the switches:
+
+```
+echo $::env(SYNTH_STRATEGY)
+set ::env(SYNTH_STRATEGY) "DELAY 0"
+echo $::env(SYNTH_STRATEGY)
+echo $::env(SYNTH_BUFFERING)
+echo $::env(SYNTH_SIZING)
+set ::env(SYNTH_SIZING) 1
+echo $::env(SYNTH_SIZING)
+echo $::env(SYNTH_DRIVING_CELL)
+```
+
++ Delete the old neltist `rm -rf picorv32a.synthesis.v` and re run the synthesis `run_synthesis`
++ `run_floorplan`
+
+<p align="center">
+  <img alt="fpdone.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/fpdone.png" width="1080" >
+</p>
+
++ and `run_placement`.
+
+<p align="center">
+  <img alt="placedone.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/placedone.png" width="1080" >
+</p>
+
++ Now got to directory `/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/13-01_14-09/results/placement` and use command `magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def`
+
+<p align="center">
+  <img alt="magicdone.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/magicdone.png" width="1080" >
+</p>
+ 
+</details>
+
+
+<details>
+<summary>Timing analysis with ideal clocks using openSTA</summary>
+
+**Thoery:**
+
+*Set-up and Hold Analysis:*
+
+<img width="1080" alt="ff_diagram.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/ff_diagram.png">
+
+- Set-up time refers to the minimum amount of time a data must be stable and valid before the clock edge  arrives for that data to be reliably latched  by a flip-flop or a latch.
+- Hold time refers to the minimum amount of time a data  must remain stable and valid after the clock edge has arrived for that data to be reliably  captured by a flip-flop or latch.
+
+<img width="1080" alt="setuphold.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bace6dab435173dde12e4499589550346fe56649/docs/assets/images7/setuphold.png">
+
+- As we can see in above schematic, at edge of launch clock edge data is latched into launch flop(FF1) and it assumed that it will take around one clock cycle to reach capture flop(FF2) because to Clock-Q delay and combinational delay.
+- Setup check is checked in next cycle and hold check is done in present cycle.
+- From the waveform we can observe the setup and hold time marked in red and blue region of the waveform repsectively.
+- Two equations that are used to calculate min and max delay :
+	- Max Delay   :  T<sub>clk</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>        ...(1)
+	- Min Delay   :  T<sub>hold</sub>< T<sub>c-q</sub> + T<sub>comb</sub>				 ...(2)
+
+*Clock Jitter and skew:*
+
+- Skew: Clock skew is the variation in the time it takes for a clock signal to reach different flip-flops, registers, or other sequential elements within a digital design. In other words, it is the difference in the arrival times of the clock signal at various points in the circuit.
+
+<p align="center">
+ <img width="480" alt="ff_diagram.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a7734602619d308663950ccedead55ef03643aec/docs/assets/images7/ff_diagram.png">
+ </p>
+  
+- As we can see in the picture, even though both the launch flop and capture flop are connected to same clock source there will be difference in clock arrival due to wire length and other PVT varitaion. This difference in arrival time between launch clock and arrival clock is called skew.
+- This skew and jitter can be incorporated into design using following equation:
+     - Max Delay   :  T<sub>clk</sub>  + T<sub>skew</sub> > T<sub>c-q</sub> + T<sub>comb</sub> + T<sub>setup</sub>        
+     - Min Delay   :  T<sub>hold</sub> + T<sub>skew</sub> < T<sub>c-q</sub> + T<sub>comb</sub>				
+- Based on positive and negative skew is added or subtracted.
+- While doing synthesis both jitter and skew is present while post CTS jitter is present.
+- Types of jitter :
+   - Duty Cycle Jitter: Duty cycle jitter, also known as pulse width jitter, occurs when there are variations in the width of the clock signal's high (logic 1) or low (logic 0) states. This can lead to variations in the time a signal spends in each logic state.
+   - Period Jitter: Period jitter, also called cycle-to-cycle jitter, refers to variations in the time it takes for successive clock cycles to occur. It is typically measured as the difference between the periods of consecutive clock cycles.
+     
+ *Clock Latency and Uncertainity:*
+- Clock Latency: Clock latency refers to the delay or time it takes for a clock signal to propagate from its source (e.g., a clock generator) to its destination (e.g., a flip-flop or register) within a digital circuit.
+- Source Latency: Source latency, also known as data source latency or producer latency, refers to the delay or time it takes for data to be generated or produced at the source before it is transmitted to the network or system.
+- Network Latency:  Network latency, also known as communication latency or transmission latency, refers to the delay or time it takes for data to travel through a network or communication channel from the source to its destination.
+- Clock Uncertainty: Clock uncertainty, also known as clock jitter or clock skew, represents the variation or uncertainty in the arrival time of a clock signal at different sequential elements (e.g., flip-flops) within a digital circuit.
+- While doing synthesis both jitter and skew is present while post CTS jitter is present.
+
+**Labs:**
+
+ + First we need to write a pre_sta.conf file: 
+   
+<p align="center">
+ <img width="1080" alt="presta_tcl.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/presta_tcl.png">
+ </p>
+
++ Then write the sdc file to setup constraints: 
+<p align="center">
+ <img width="1080" alt="presta_sdc.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/presta_sdc.png">
+ </p>
+
++ Now go to specified directory `cd ~/Desktop/work/tools/openlane_working_dir/openlane` and use command sta pre_sta.conf to run the sta.
++ Timing report of max delay path type:
+
+<p align="center">
+ <img width="1080" alt="presta_rep1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/presta_rep1.png">
+ </p>
+
++ Timing report for min delay:
+
+<p align="center">
+ <img width="1080" alt="presta_rep2_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/presta_rep2_min.png">
+ </p>
+
++ Getting connections of a nets:
+
+<p align="center">
+ <img width="1080" alt="presta_repnet.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/presta_repnet.png">
+ </p> 
+
++ `report_checks -fields {net cap dlew input pins} -digits 4` :
+
+<p align="center">
+ <img width="1080" alt="presta_repchecks.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/presta_repchecks.png">
+ </p> 
+
+</details>
+
+
+<details>
+<summary>Clock tree synthesis TritonCTS and signal integrity</summary>
+
+**Theory:**
+
++ Clock tree routing and buffering using an H-tree algorithm is a common technique in VLSI design to efficiently distribute clock signals throughout an integrated circuit (IC).
+   + Clock Tree Synthesis: Clock tree synthesis is a crucial step in digital VLSI design to ensure that clock signals are distributed uniformly and with minimal skew to all sequential elements (like flip-flops) within the IC.
+   + H-Tree Algorithm: The H-tree algorithm is a well-known method for clock tree routing and buffering. It is named after the tree's shape, which resembles the letter "H." This algorithm helps in achieving a balanced and symmetrical clock distribution network, reducing clock skew.
+        - Clock Source: The clock signal originates from a central source, typically an on-chip oscillator or phase-locked loop (PLL).
+        - Buffer Insertion: Buffers (usually inverters) are inserted at strategic locations along the clock path to ensure a consistent and stable clock signal. Buffer insertion helps in managing clock skew and signal integrity.
+        - Clock Routing: The H-tree structure is created by routing clock lines in a hierarchical fashion. The tree starts with a central trunk (the base of the "H") and branches out in a symmetrical manner.
+        - Balanced Tree: The H-tree is designed to be balanced, meaning that the path lengths from the central source to any destination (flip-flop) are nearly identical. This minimizes clock skew.
+        - Buffer Sizing: The size of the buffers (inverters) placed in the clock tree is carefully chosen to control the clock signal's rise and fall times and to optimize for power and performance. The buffer sizing should consider the load capacitance and delay requirements.
+        - Tree Depth: The depth of the H-tree can be adjusted to match the clock distribution network's specific requirements and the IC's physical layout.
+        - Tree Optimization: Advanced VLSI design tools often use optimization algorithms to minimize power consumption, minimize clock skew, and meet performance targets while adhering to the constraints of the H-tree structure.
+        - Clock Gating: In some cases, clock gating cells may be inserted along the clock tree to enable the selective disabling of clock domains, reducing dynamic power consumption.
+        - Final Verification: After clock tree routing and buffering, extensive verification and timing analysis are performed to ensure that the clock distribution meets the required timing constraints and that clock skew is within acceptable limits.
++ By employing the H-tree algorithm, designers can achieve a balanced and efficient clock distribution network, which is essential for reliable and high-performance operation in complex VLSI circuits, particularly in microprocessors and other digital systems where precise synchronization is critical.
+
+**Labs on CTS:**
+
++ Use command `write_verilog ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/<nameofyourrun>/results/synthesis/picorv32a.synthesis.v` to reflect the changes made on previous run.
++ Then perform `run_floorplan`, `run_placement` and `run_cts`.
+
+<p align="center">
+ <img width="1080" alt="cts_done.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/cts_done.png">
+ </p>
+
++ CTS output files are generated in `~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/<nameofyourrun>/results/cts/`.
+
+<p align="center">
+ <img width="1080" alt="cts_ls.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/cts_ls.png">
+ </p>
+
+<p align="center">
+ <img width="1080" alt="cts_pic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/cts_pic.png">
+ </p>
++ To verify the CTS design use below commands
+  
+```
+echo $::env(LIB_TYPICAL)
+echo $::env(CURRENT_DEF)
+echo $::env(CTS_MAX_CAP)
+echo $::env(CTS_CLK_BUFFER_LIST)
+echo $::env(CTS_ROOT_BUFFER)
+```
+
+<p align="center">
+ <img width="1080" alt="cts_verif.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/cts_verif.png">
+ </p>
+
+</details>
+
+
+<details>
+<summary>Timing analysis with real clocks using openSTA</summary>
+
++  Commands used: 
+
+```
+openroad                                                                                                       
+read_lef designs/picorv32a/runs/16-10_08-16/tmp/merged.lef
+read_def designs/picorv32a/runs/6-10_08-16/results/cts/picorv32a.cts.def
+write_db pico_cts.db
+read_db pico_cts.db
+read_verilog designs/picorv32a/runs/crct2/results/synthesis/picorv32a.synthesis_cts.v
+read_liberty -max $::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
+read_liberty -min $::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
+set_propagated_clock [all_clocks]
+read_sdc designs/picorv32a/src/base.sdc
+report_checks -path_delay min_max -format full_clock_expanded -digits 4
+```
++ Max is Violating
+<p align="center">
+ <img width="1080" alt="timrep1_max.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/timrep1_max.png">
+ </p>
+
++ Min is Met
+
+<p align="center">
+ <img width="1080" alt="timrep1_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/timrep1_min.png">
+ </p>
+
++ To minimize the slack execute the STA with right timing library.
++ Commands used:
+
+```
+exit        (Exit openroad)
+openroad
+read_db pico_cts.db
+read_verilog /openLANE_flow/designs/picorv32a/runs/16-10_08-16/results/synthesis/picorv32a.synthesis_cts.v
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+link_design picorv32a
+read_sdc designs/picorv32a/src/my_base.sdc
+set_propagated_clock [all_clocks]
+report_checks -path_delay min_max -fields {slew trans net cap input pin} -format full_clock_expanded
+echo $::env(CTS_CLK_BUFFER_LIST)
+```
+
+<p align="center">
+ <img width="1080" alt="timrep2_met.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/timrep2_met.png">
+ </p>
+
++ To see the bufferlist:
+
+<p align="center">
+ <img width="1080" alt="bufferlist.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/bufferlist.png">
+ </p>
+
++ To observe impact of  CTS buffers on setup and hold timing  we nee to run these in openlane using  placement def file.
++ Commands used:
+
+```
+exit 
+echo $::env(CTS_CLK_BUFFER_LIST)
+set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0]
+echo $::env(CURRENT_DEF)
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/13-01_14-09/results/placement/picorv32a.placement.def
+run_cts
+openroad
+read_lef /openLANE_flow/designs/picorv32a/runs/13-01_14-09/tmp/merged.lef
+read_def /openLANE_flow/designs/picorv32a/runs/13-01_14-09/results/cts/picorv32a.cts.def
+write_db pico_cts1.db
+read_db pico_cts1.db
+read_verilog /openLANE_flow/designs/picorv32a/runs/13-01_14-09/results/synthesis/picorv32a.synthesis_cts.v
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+link_design picorv32a
+read_sdc designs/picorv32a/src/my_base.sdc
+set_propagated_clock [all_clocks]
+report_checks -path_delay min_max -fields {slew trans net cap input pin} -format full_clock_expanded
+```
+
++ Max Slack
+<p align="center">
+ <img width="1080" alt="timrep_last1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/timrep_last1.png">
+</p>
+
++ Min Slack
+<p align="center">
+ <img width="1080" alt="timrep_last_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/timrep_last_min.png">
+</p>
+
 </details>
