@@ -21,6 +21,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells](#Day-16-Understand-importance-of-good-floorplan-vs-bad-floor-plan-and-introduction-to-library-cells)
 - [Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator](Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator)
 - [Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree](#Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+- [Day-19 Final Step RTL to GDSII](Day-19 Final Step RTL to GDSII)
 
 ## Day-0-Tool-Setup-Check
 
@@ -4656,5 +4657,100 @@ report_checks -path_delay min_max -fields {slew trans net cap input pin} -format
 <p align="center">
  <img width="1080" alt="timrep_last_min.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f730a87514ad10be31329a3a606b62d96e10ea45/docs/assets/Day18/timrep_last_min.png">
 </p>
+
+</details>
+
+
+## Day-19 Final Step RTL to GDSII
+
+<details>
+<summary>Maze Routing</summary>
+
++ Maze routinng using lees algorithm:  
+   - Lee's algorithm, also known as Lee's maze solving algorithm, is a simple and effective approach for routing in a maze-like grid. It's often used to find the shortest path from a start point to a goal point in a two-dimensional grid. Here's a basic explanation of how Lee's algorithm works for maze routing:
+   - Grid Representation: The maze is represented as a 2D grid. Each cell in the grid is either an obstacle (representing walls) or open space through which the path can be routed.
+   - Initialization:
+       *  Create a grid of the same size as the maze, called a "routing grid."
+       *  Initialize all cells to a special value (usually a large number) to represent unexplored cells.
+       *  Mark the goal cell with a value of 0 to indicate the destination.
+   - Wavefront Propagation:
+       * Start from the goal cell (with a value of 0) and work outward.
+       * For each cell, consider its unexplored neighbors (up, down, left, right), excluding obstacles and cells that have already been assigned a value.
+       * Assign each unexplored neighboring cell a value one greater than the value of the current cell.
+       * Repeat this process, incrementing the values as you move away from the goal, until the start cell is reached. This effectively "spreads" a wavefront from the goal to the start.
+   - Path Construction:
+       * Begin at the start cell.
+       * Examine the neighboring cells, and move to the neighboring cell with the lowest value. This will guide you along the shortest path.
+       * Repeat this process, moving from cell to cell, until you reach the goal cell.
+   - Path Extraction:
+       * The path from the start to the goal is now determined by following the cells with decreasing values.
++ Lee's algorithm is simple to implement and guarantees that the shortest path will be found because it explores cells in increasing order of distance from the goal. It can be applied in various scenarios, including maze solving and maze routing in VLSI design. However, it's essential to ensure that the grid doesn't have multiple equally short paths, as the algorithm does not differentiate between them and also  Lee's algorithm is a basic pathfinding algorithm and may not be the most efficient choice for very large and complex routing problems. For more advanced and optimized routing in VLSI design, dedicated tools and algorithms are often used.
+ 
+</details>
+
+<details>
+<summary>Design Rule Checks</summary>
+
+- Design Rule Checks (DRC) are a critical part of the VLSI design process. They are automated checks used to ensure that the physical layout of an integrated circuit adheres to the manufacturing and design rules.
+- Design Rules: Design rules are a set of constraints and guidelines provided by the semiconductor fabrication process. These rules specify the minimum feature sizes, spacing requirements, layer stack configurations, and other parameters that must be followed to ensure manufacturability and functionality of the chip.
+- Types of DRCs:
+   + Geometry Checks: These checks ensure that the shapes, dimensions, and spacing of different layout elements (transistors, wires, contacts, etc.) conform to the specified design rules.
+   + Spacing Rules: Checks for minimum spacing requirements between adjacent features to prevent short circuits or manufacturing defects.
+   + Width Rules: Verifies that the width of conductors and other elements meets the minimum requirements.
+   + Enclosure Rules: Ensures that one feature properly encloses or surrounds another, following specified rules.
+   + Overlap Rules: Checks for any unauthorized overlaps between features.
+   + Clearance Rules: Ensures that there is sufficient clearance between features to prevent electrical shorts.
+   + Notch and Corner Rules: Checks for notches and corners in polygons to ensure they conform to design rules.
+   + Layer-to-Layer Alignment: Verifies that different layers (metal, polysilicon, etc.) are correctly aligned.
+   + Via and Contact Checks: Ensures the proper alignment and dimensions of vias and contacts.
+   + Rule Decks: Design rule checks are performed based on rule decks, which contain detailed information about the design rules, layers, and specific checks required for a particular semiconductor process technology. Rule decks are often provided by semiconductor foundries.
+- Automated Tools: DRCs are carried out using specialized software tools. These tools compare the layout against the rule deck and generate reports highlighting any violations. Commonly used DRC tools include Calibre, Hercules, and IC Validator.
+- Fixing Violations: When DRC violations are identified, designers need to address them by modifying the layout. This may involve resizing, moving, or adjusting various layout elements to comply with the design rules.
+- Iterative Process: The design rule checking process is typically iterative. Designers may perform DRCs at various stages of the design process to catch and fix issues as early as possible.
+- Compliance and Sign-Off: Successful DRC compliance is a prerequisite for chip tape-out, where the final design is sent for manufacturing. The design must pass all DRC checks to ensure a high likelihood of manufacturing success.
+ 
+</details>
+
+<details>
+<summary>Labs:</summary>
+
++ Commands to be used in openlane : 
+
+```
+echo $::env(CURRENT_DEF)   
+gen_pdn                     
+```
+
++ Error is thrown after `gen_pdn` command.
+
+<p align="center">
+ <img width="1080" alt="error_afterpdn.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/00af10918fa77a31d6922c8024d01b35ba190e1e/docs/assets/Day19/error_afterpdn.png">
+</p>
+
++ Now use below commands : 
+
+```
+echo $::env(CURRENT_DEF)            (Ensure the def file of pdn has been created)
+echo $::env(ROUTING_STRATEGY)
+set ::env(CURRENT_DEF) <path_of_cts.def>
+run_routing
+```
++ Succesful completion of routing:
+  
+<p align="center">
+ <img width="1080" alt="routedone.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/00af10918fa77a31d6922c8024d01b35ba190e1e/docs/assets/Day19/routedone.png">
+</p>
+
++ Output  Files:
+
+<p align="center">
+ <img width="1080" alt="outputfile_routing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/00af10918fa77a31d6922c8024d01b35ba190e1e/docs/assets/Day19/outputfile_routing.png">
+</p>
+
+
+<p align="center">
+ <img width="1080" alt="routedone1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/00af10918fa77a31d6922c8024d01b35ba190e1e/docs/assets/Day19/routedone1.png">
+</p>
+
 
 </details>
