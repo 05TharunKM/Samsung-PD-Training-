@@ -4660,6 +4660,19 @@ report_checks -path_delay min_max -fields {slew trans net cap input pin} -format
 
 </details>
 
+<details>
+<summary>Missing Screenshot</summary>
+
+
+ <p align="center">
+ <img width="1080" alt="cell_in_synth.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9f92c13f4b88a35d770c0a25e41150cdd4d9b9f3/docs/assets/Day18/cell_in_synth.png">
+</p>
+
+<p align="center">
+ <img width="1080" alt="cell_in_magic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/9f92c13f4b88a35d770c0a25e41150cdd4d9b9f3/docs/assets/Day18/cell_in_magic.png">
+</p>
+ 
+</details>
 
 ## Day-19 Final Step RTL to GDSII
 
