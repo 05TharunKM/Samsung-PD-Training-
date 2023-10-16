@@ -26,3 +26,13 @@ Library Cells: Delay tables are associated with library cells, which are predefi
 Slew Rate: Some delay tables also provide information about the slew rate of signals, which is the rate of change of voltage with respect to time.
 
 Path Delay: In addition to individual component delay, delay tables can also be used to estimate the delay of signal paths, helping designers understand the critical paths in their design.
+
+
+echo $::env(SYNTH_STRATEGY)
+set ::env(SYNTH_STRATEGY) "DELAY 0"
+echo $::env(SYNTH_STRATEGY)
+echo $::env(SYNTH_BUFFERING)
+echo $::env(SYNTH_SIZING)
+set ::env(SYNTH_SIZING) 1
+echo $::env(SYNTH_SIZING)
+echo $::env(SYNTH_DRIVING_CELL)
