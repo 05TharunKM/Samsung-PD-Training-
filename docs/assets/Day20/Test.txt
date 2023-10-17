@@ -1,0 +1,47 @@
+@channel
+Some Hints for Floorplanning and powerplanning labs
+
+ git clone https://github.com/manili/VSDBabySoC.git
+ git clone https://github.com/Devipriya1921/VSDBabySoC_ICC2.git
+ git clone https://github.com/bharath19-gs/synopsys_ICC2flow_130nm.git
+ git clone https://github.com/kunalg123/icc2_workshop_collaterals.git
+ git clone https://github.com/google/skywater-pdk-libs-sky130_fd_sc_hd.git
+ git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
+
+vsdbabysoc.tcl
+ Modifying the contents to your path, remove -lib in read_lib commands, and replace MYCLK to clk since the clock used in the design is {clk}
+ All of the commands have been inserted in gvim and the tool will run it once at a time
+avsdpll.lib
+ Remove the unwanted pins
+
+Synthesize
+ dc_shell
+ source vsdbabysoc.tcl
+
+Generate reports
+Reports
+Report area
+Report power
+Report timing
+
+Performing physical design
+Edit below files to point to your files location
+ gvim top.tcl
+ gvim icc2_common_setup.tcl
+ gvim icc2_dp_setup.tcl
+ gvim init_design.read_parasitic_tech_example.tcl
+ gvim init_design.mcmm_example.auto_expanded.tcl
+ gvim pns_example.tcl
+
+ icc2_shell
+ source top.tcl
+
+Then start_gui and you should see below images
+
+In icc2_shell
+ set_propagated_clock [all_clocks]             (Converting clock object from ideal clock to propagated clock)
+ report_timing
+ estimate_timing
+ report_constraints -all_violators -nosplit -verbose -significant_digits 4 > violators.rpt
+
+Observing for 40% of utilization - run all above steps
