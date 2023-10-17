@@ -4796,13 +4796,14 @@ dc_shell>> source vsdbabysoc.tcl
 + Schematic of vsdbabysoc:
 
 <p align="center">
- <img width="1080" alt="schematic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/schematic.png">
+ <img width="1080" alt="schematic1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/schematic1.png">
 </p>
+
   
 + Schematic of core:
 
 <p align="center">
- <img width="1080" alt="schematic1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/schematic1.png">
+ <img width="1080" alt="schematic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/schematic.png">
 </p>
 
 + Report_area:
