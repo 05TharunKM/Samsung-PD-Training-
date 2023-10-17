@@ -22,6 +22,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator](#Day-17-Design-and-characterise-one-library-cell-using-Layout-tool-and-spice-simulator)
 - [Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree](#Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 - [Day-19-Final-Step-RTL-to-GDSII](#Day-19-Final-Step-RTL-to-GDSII)
+- [Day-20-Floorplanning-and-power-planning-labs](#Day-20-Floorplanning-and-power-planning-labs)
 
 ## Day-0-Tool-Setup-Check
 
@@ -4760,10 +4761,167 @@ run_routing
  <img width="1080" alt="outputfile_routing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/00af10918fa77a31d6922c8024d01b35ba190e1e/docs/assets/Day19/outputfile_routing.png">
 </p>
 
-
 <p align="center">
  <img width="1080" alt="routedone1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/00af10918fa77a31d6922c8024d01b35ba190e1e/docs/assets/Day19/routedone1.png">
 </p>
 
-
 </details>
+
+
+## Day-20-Floorplanning-and-power-planning-labs
+
+<Details>
+<summary>Labs</summary>
+
++ Git clone following repositaries:
+
+```
+git clone https://github.com/manili/VSDBabySoC.git
+git clone https://github.com/Devipriya1921/VSDBabySoC_ICC2.git
+git clone https://github.com/bharath19-gs/synopsys_ICC2flow_130nm.git
+git clone https://github.com/kunalg123/icc2_workshop_collaterals.git
+git clone https://github.com/google/skywater-pdk-libs-sky130_fd_sc_hd.git
+git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
+``` 
+
+**Synthesis:**
+
+```
+//Modify vsdbabysoc.tcl as per our directory path
+# csh
+# dc_shell
+dc_shell>> source vsdbabysoc.tcl
+```
+**Outputs:**
++ Schematic of vsdbabysoc:
+
+<p align="center">
+ <img width="1080" alt="schematic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/schematic.png">
+</p>
+  
++ Schematic of core:
+
+<p align="center">
+ <img width="1080" alt="schematic1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/schematic1.png">
+</p>
+
++ Report_area:
+
+<p align="center">
+ <img width="1080" alt="rep_area.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/rep_area.png">
+</p>
+
++ Report_timing:
+
+<p align="center">
+ <img width="1080" alt="rep_time.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/rep_time.png">
+</p>
+
++ Report_power:
+
+<p align="center">
+ <img width="1080" alt="rep_power.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/rep_power.png">
+</p>
+
+**ICC2:**
+
++ Modify following files for your path
+   - top.tcl
+   - icc2_common_setup.tcl
+   - icc2_dp_setup.tcl
+   - init_design.read_parasitic_tech_example.tcl
+   - init_design.mcmm_example.auto_expanded.tcl
+   - pns_example.tcl
+
++ Invoke icc2_shell 
+
+```
+//Modify top.tcl as per our directory path
+# csh
+# icc2_shell
+icc2_shell>> source top.tcl
+icc2_shell>> start_gui
+```
+**Ouputs:**
+
++ Floorplanning done
+  
+<p align="center">
+ <img width="1080" alt="icc2_done.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icc2_done.png">
+</p>
+
++ Full schematic:
+  
+<p align="center">
+ <img width="1080" alt="icc3_top1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icc3_top1.png">
+</p>
+
++ Schematic2:
+  
+<p align="center">
+ <img width="1080" alt="icc3_top2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icc3_top2.png">
+</p>
+
++ Schematic3:
+  
+<p align="center">
+ <img width="1080" alt="icc3_top3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icc3_top3.png">
+</p>
+
++ Timing report:
+  
+<p align="center">
+ <img width="1080" alt="icc3_timrep1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icc3_timrep1.png">
+</p>
+
+
++ Observing for 40% of utilization: modify the  constraints and  rerun the script in dc_shell and generate reports and sdc.
+
+<p align="center">
+ <img width="1080" alt="icmod_40.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_40.png">
+</p>
+
++ Generated vsdbabysoc.sdc before and after modification:
+
+<p align="center">
+ <img width="1080" alt="sdcs.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/sdcs.png">
+</p>
+
+
++ Schematic1 :
+
+<p align="center">
+ <img width="1080" alt="icmod_top.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_top.png">
+</p>
+
++ Schematic2:
+  
+<p align="center">
+ <img width="1080" alt="icmod_top1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_top1.png">
+</p>
+
++ Report_constraints:
+  
+<p align="center">
+ <img width="1080" alt="icmod_reptim.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_reptim.png">
+</p>
+
++ Max slack:
+  
+<p align="center">
+ <img width="1080" alt="icmod_repmax.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_repmax.png">
+</p>
+
++ Min Slack:
+  
+<p align="center">
+ <img width="1080" alt="icmod_repmin.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_repmin.png">
+</p>
+
++ Report_qor:
+
+<p align="center">
+ <img width="1080" alt="icmod_repqor.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/icmod_repqor.png">
+</p>
+
+</Details>
