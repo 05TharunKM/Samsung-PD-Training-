@@ -2,3 +2,6 @@ iorlerjtgulnh4o6
 jfgotjgh5n6
 g'oojgpjg
 redirect -file ${REPORTS_DIR_INIT_DP}/check_design.pre_floorplan     {check_design -ems_database check_design.pre_floorplan.ems -checks dp_pre_floorplan}
+
+LIC_INFO :: Queue 14:03:23 Waiting for feature: ICCompilerII-8
+LIC_INFO :: Queue 14:04:46 Still waiting for feature: ICCompilerII-8
