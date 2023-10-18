@@ -4860,7 +4860,7 @@ dc_shell>> source vsdbabysoc.tcl
 + Report_area:
 
 <p align="center">
- <img width="1080" alt="rep_area.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/rep_area.png">
+ <img width="1080" alt="report_areaZ.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a6248d5db8bd3e3b8ca417d18f1b3a8dfaafd701/docs/assets/Day21/report_areaZ.png">
 </p>
 
 + Report_timing:
@@ -4872,7 +4872,7 @@ dc_shell>> source vsdbabysoc.tcl
 + Report_power:
 
 <p align="center">
- <img width="1080" alt="rep_power.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/11e11bf26854626c3d6b675283ca62d038b8e7b5/docs/assets/Day20/rep_power.png">
+ <img width="1080" alt="report_powerZ.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a6248d5db8bd3e3b8ca417d18f1b3a8dfaafd701/docs/assets/Day21/report_powerZ.png">
 </p>
 
 **ICC2:**
@@ -5010,10 +5010,6 @@ icc2_shell>> start_gui
 + Script top.tcl was modified as per our need:
 
 <p align="center">
- <img width="1080" alt="toptcl.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/toptcl.png">
-</p>
-
-<p align="center">
  <img width="1080" alt="topcts.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/topcts.png">
 </p>
 
@@ -5022,13 +5018,13 @@ icc2_shell>> start_gui
 +  check_design.pre_pin_placement
 
 <p align="center">
- <img width="1080" alt="check_desing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/check_desing.png">
+ <img width="1080" alt="check_designZ.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a6248d5db8bd3e3b8ca417d18f1b3a8dfaafd701/docs/assets/Day21/check_designZ.png">
 </p>
 
 +  report_port_placement.rpt
 
 <p align="center">
- <img width="1080" alt="report_pinplace.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/report_pinplace.png">
+ <img width="1080" alt="report_port_placmtZ.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a6248d5db8bd3e3b8ca417d18f1b3a8dfaafd701/docs/assets/Day21/report_port_placmtZ.png">
 </p>
 
 + report_placement
@@ -5056,7 +5052,7 @@ icc2_shell>> start_gui
 + CTS Window showing {clk} connections:
 
 <p align="center">
- <img width="1080" alt="clockpic3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/clockpic3.png">
+ <img width="1080" alt="clockpicZ.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/a6248d5db8bd3e3b8ca417d18f1b3a8dfaafd701/docs/assets/Day21/clockpicZ.png">
 </p>
 
 + Clock tree(Util ratio : 0.07)
