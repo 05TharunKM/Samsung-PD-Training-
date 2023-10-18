@@ -23,6 +23,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree](#Day-18-Pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 - [Day-19-Final-Step-RTL-to-GDSII](#Day-19-Final-Step-RTL-to-GDSII)
 - [Day-20-Floorplanning-and-power-planning-labs](#Day-20-Floorplanning-and-power-planning-labs)
+- [Day-21-Placement-and-CTS-labs](#Day-21-Placement-and-CTS-labs)
 
 ## Day-0-Tool-Setup-Check
 
@@ -4976,3 +4977,17 @@ icc2_shell>> start_gui
 </p>
 
 </Details>
+
+
+## Day-21-Placement-and-CTS-labs
+
+<details>
+<summary>Labs:</summary>
+
++ Previously floorplanning was run at  40% of utilization ratio and placement reports are analysed below:
+
+  
+
+ 
+</details>
+
