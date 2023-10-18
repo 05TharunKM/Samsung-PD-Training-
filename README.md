@@ -4770,7 +4770,57 @@ run_routing
 
 ## Day-20-Floorplanning-and-power-planning-labs
 
-<Details>
+<details>
+<summary>Thoery</summary>
+
++ Physical design is a process of transforming a logical design  into a physical layout that can be fabricated as an integrated circuit (IC). It involves defining the placement of various components and routing the connections between them while considering factors like timing, power, and area.
+  - Floorplanning:
+     * Block Placement: Deciding where different functional blocks, such as logic gates, memory cells, and other components, will be located on the chip.
+     * Aspect Ratio: Determining the chip's aspect ratio (width-to-height ratio) based on design constraints and manufacturing requirements.
+     * Floorplanning in ICC2 involves defining the chip's top-level organization, specifying the locations of different functional blocks, and optimizing the placement for factors like area, power, and timing.
+  - Placement:
+     * Standard Cell Placement: Placing standard cells (basic logic gates and flip-flops) within the chip area, optimizing for area, power, and timing.
+     * Macro Placement: Positioning larger blocks or macros, such as memory arrays, processor cores, or analog components.
+     * ICC2 provides advanced placement capabilities, allowing designers to place standard cells, macros, and custom components in the desired locations on the chip. It optimizes placement to meet various design goals.
+  - Clock Tree Synthesis:
+     * Designing and routing the clock distribution network to ensure clock signals reach all sequential elements with minimal skew and low power consumption.
+     * The tool includes clock tree synthesis capabilities to create and optimize clock distribution networks, ensuring clock signals reach sequential elements with minimal skew.
+  - Routing:
+     * Global Routing: Determining the general paths for interconnections between components or blocks, considering factors like wirelength, congestion, and timing.
+     * Detailed Routing: Performing a layer-by-layer routing of wires, including signal and power/ground nets, while adhering to design rules and avoiding crossovers.
+     * ICC2 facilitates detailed routing, which involves creating wire connections between components, including both signal and power/ground routing. The tool optimizes the routing while adhering to design rules.
+  - Power Distribution:
+     * Creating a power distribution network to ensure all components receive adequate power and ground connections, while minimizing voltage drop and power dissipation.
+     * Designers can define and optimize the power distribution network, ensuring power and ground are delivered efficiently while minimizing voltage drop and power dissipation.
+  - Clock Tree Routing:
+     * Routing clock signals to sequential elements while maintaining low skew and balancing the clock tree.
+  - Design for Manufacturability:
+     * Implementing design rules, such as design rule checks (DRCs) and layout vs. schematic (LVS) checks, to ensure the design can be accurately manufactured.
+     * ICC2 integrates design rule checks (DRC) and layout vs. schematic (LVS) checks to ensure the design adheres to foundry-specific rules and is manufacturable.
+  - Timing Closure:
+     * Iteratively optimizing the design to meet the required timing constraints. This may involve adjusting buffer sizes, rerouting critical paths, and considering clock gating.
+     * The tool provides timing analysis and optimization features to help designers achieve the required timing constraints. This may involve buffer sizing, clock tree optimization, and critical path analysis.
+  - Power Optimization:
+     * Implementing power-saving techniques like clock gating, voltage scaling, and power gating to minimize power consumption.
+     * Designers can implement various power-saving techniques using ICC2, such as clock gating, power gating, and voltage scaling.
+  - Signal Integrity:
+     * Ensuring that signals are delivered without degradation and minimizing the impact of noise, crosstalk, and parasitic effects.
+     * ICC2 includes features to address signal integrity issues, such as noise, crosstalk, and parasitic effects that can impact circuit performance.
+  - Physical Verification:
+     * Performing checks to ensure that the layout adheres to foundry-specific design rules, including DRC (Design Rule Check), LVS (Layout vs. Schematic), and ERC (Electrical Rule Check).
+     * The tool performs physical verification checks to ensure the layout is compliant with foundry-specific rules and guidelines.
+  - Extraction and Simulation:
+     * Performing parasitic extraction to account for the effect of passive components (e.g., resistance and capacitance) on circuit performance.
+     * Running simulations to validate the physical design's functionality and performance.
+     * ICC2 enables parasitic extraction to account for passive components' effects and provides simulation capabilities for validation.
+  - Tape-Out:
+     * Preparing the final design for manufacturing by generating GDSII files, which are used to create photomasks for the fabrication process.
+     * Once the physical design is complete, ICC2 assists in generating the necessary output files for the manufacturing process, such as GDSII files for photomask creation
+       
+</details>
+
+
+<details>
 <summary>Labs</summary>
 
 + Git clone following repositaries:
