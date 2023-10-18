@@ -4772,7 +4772,7 @@ run_routing
 ## Day-20-Floorplanning-and-power-planning-labs
 
 <details>
-<summary>Thoery</summary>
+<summary>Theory</summary>
 
 + Physical design is a process of transforming a logical design  into a physical layout that can be fabricated as an integrated circuit (IC). It involves defining the placement of various components and routing the connections between them while considering factors like timing, power, and area.
   - Floorplanning:
@@ -4982,12 +4982,99 @@ icc2_shell>> start_gui
 ## Day-21-Placement-and-CTS-labs
 
 <details>
+<summary>Theory</summary>
+
++ Placement in ICC2: Placement refers to the process of determining the physical locations of various components, such as standard cells, macros, and custom blocks, on the IC layout. ICC2 provides a range of features and capabilities for effective placement:
+  - Global Placement: ICC2 performs initial global placement, which involves roughly positioning cells to optimize for area, timing, and power.
+  - Incremental Placement: After global placement, incremental placement is performed to refine cell positions, reduce congestion, and optimize further for performance.
+  - Congestion-Aware Placement: ICC2 takes into account congestion information to minimize the impact of high-density areas on the placement. It redistributes cells to balance congestion and optimize the design.
+  - User Constraints: Designers can specify constraints, such as keep-out areas, blockages, and preferred locations for specific cells or macros.
+  - Clock Domain Awareness: ICC2 considers clock domain relationships during placement to minimize clock tree skew and optimize clock distribution.
+  - Soft Macros and Hard Macros: ICC2 can place both soft macros (which can be placed and sized by the tool) and hard macros (which are pre-defined and placed as-is) within the layout.
+
++ Clock Tree Synthesis (CTS) in ICC2: Clock Tree Synthesis is the process of designing and optimizing the clock distribution network in an IC layout, ensuring clock signals reach sequential elements with minimal skew. ICC2 offers comprehensive CTS capabilities:
+  - Clock Planning: Designers can define clock domains, set clock frequency constraints, and specify the clock source. ICC2 uses this information to create an optimal clock tree.
+  - Clock Tree Building: ICC2 generates the clock tree structure, including the clock buffers and clock distribution network, to deliver clock signals to all sequential elements.
+  - Clock Skew Minimization: The tool optimizes the placement and sizing of clock buffers to minimize clock skew, ensuring that flip-flops across the chip are clocked at the same time.
+  - Balancing Clock Trees: ICC2 balances the clock tree by considering variations in path lengths to minimize clock skew.
+  - Clock Gating: The tool provides options for inserting clock gating cells when necessary to reduce power consumption.
+  - Clock Tree Delay Optimization: ICC2 optimizes the clock tree for minimum delay while meeting setup and hold time requirements.
+
+</details>
+
+
+<details>
 <summary>Labs:</summary>
 
-+ Previously floorplanning was run at  40% of utilization ratio and placement reports are analysed below:
++ Floorplanning was run for utilization ratio of 0.07 and 0.4 and placement reports are analysed below:
++ Script top.tcl was modified as per our need:
 
-  
+<p align="center">
+ <img width="1080" alt="toptcl.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/toptcl.png">
+</p>
 
- 
+<p align="center">
+ <img width="1080" alt="topcts.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/topcts.png">
+</p>
+
+**Outputs:**
+
++  check_design.pre_pin_placement
+
+<p align="center">
+ <img width="1080" alt="check_desing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/check_desing.png">
+</p>
+
++  report_port_placement.rpt
+
+<p align="center">
+ <img width="1080" alt="report_pinplace.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/report_pinplace.png">
+</p>
+
++ report_placement
+
+<p align="center">
+ <img width="1080" alt="report_place.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/report_place.png">
+</p>
+
++ vsdbabysoc.post_estimated_timing.rpt
+
+<p align="center">
+ <img width="1080" alt="post_estimated_timrep.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/post_estimated_timrep.png">
+</p>
+
++ post_estimated_qor:
+
+<p align="center">
+ <img width="1080" alt="post_estimated_qor.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/post_estimated_qor.png">
+</p>
+
+<p align="center">
+ <img width="1080" alt="post_estimated_qor1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/post_estimated_qor1.png">
+</p>
+
++ CTS Window showing {clk} connections:
+
+<p align="center">
+ <img width="1080" alt="clockpic3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/clockpic3.png">
+</p>
+
++ Clock tree(Util ratio : 0.07)
+
+<p align="center">
+ <img width="1080" alt="ctspic.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/ctspic.png">
+</p>
+
+<p align="center">
+ <img width="1080" alt="ctspic1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/ctspic1.png">
+</p>
+
++ Clock tree(Util ratio : 0.4)
+
+<p align="center">
+ <img width="1080" alt="ctsoic_40m.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/ctsoic_40m.png">
+</p>
+
+
 </details>
 
