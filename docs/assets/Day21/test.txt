@@ -5,3 +5,21 @@ redirect -file ${REPORTS_DIR_INIT_DP}/check_design.pre_floorplan     {check_desi
 
 LIC_INFO :: Queue 14:03:23 Waiting for feature: ICCompilerII-8
 LIC_INFO :: Queue 14:04:46 Still waiting for feature: ICCompilerII-8
+
+
+<pre>  prakhar.g2 ssirlab03 /dev/pts/47 J3_746bb9d0_10937_1 (v2022.03) (srilc01/27020 42226), start Tue 10/17 12:01
+  tharun.m ssirlab03 /dev/pts/57 J3_746bb9d0_19910_1 (v2022.03) (srilc01/27020 37759), start Tue 10/17 15:58
+  a.chinchani ssirlab03 /dev/pts/39 J3_746bb9d0_15619_1 (v2022.03) (srilc01/27020 32538), start Wed 10/18 10:39
+  j.thakur ssirlab03 /dev/pts/33 J3_746bb9d0_22040_1 (v2022.03) (srilc01/27020 28609), start Wed 10/18 10:47
+  tharun.m ssirlab03 /dev/pts/23 J3_746bb9d0_26812_1 (v2022.03) (srilc01/27020 27003), start Wed 10/18 10:54
+  tharun.m ssirlab03 /dev/pts/41 J3_746bb9d0_7355_1 (v2022.03) (srilc01/27020 3404), start Wed 10/18 11:28
+  siddhant.v ssirlab03 /dev/pts/44 J3_746bb9d0_26163_1 (v2022.03) (srilc01/27020 43926), start Wed 10/18 12:06
+  tharun.m ssirlab03 /dev/pts/64 J3_746bb9d0_3346_1 (v2022.03) (srilc01/27020 50720), start Wed 10/18 12:28
+  pavday.s ssirlab03 /dev/pts/20 J3_746bb9d0_17909_1 (v2022.03) (srilc01/27020 35329), start Wed 10/18 15:11
+  j.thakur ssirlab03 /dev/pts/72 J3_746bb9d0_21448_1 (v2022.03) (srilc01/27020 41867), start Wed 10/18 15:11
+  vishaka.p ssirlab03 /dev/pts/3 J3_746bb9d0_25349_1 (v2022.03) (srilc01/27020 33266), start Wed 10/18 15:12
+  nk.vaishnav ssirlab03 /dev/pts/52 J3_746bb9d0_30628_1 (v2022.03) (srilc01/27020 49332), start Wed 10/18 15:16
+  sakshith.v ssirlab03 /dev/pts/50 J3_746bb9d0_9045_1 (v2022.03) (srilc01/27020 9112) queued for 1 license
+  tharun.m ssirlab03 /dev/pts/59 J3_746bb9d0_11927_1 (v2022.03) (srilc01/27020 27610) queued for 1 license
+
+</pre>
