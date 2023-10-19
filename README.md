@@ -24,6 +24,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-19-Final-Step-RTL-to-GDSII](#Day-19-Final-Step-RTL-to-GDSII)
 - [Day-20-Floorplanning-and-power-planning-labs](#Day-20-Floorplanning-and-power-planning-labs)
 - [Day-21-Placement-and-CTS-labs](#Day-21-Placement-and-CTS-labs)
+- [Day-22-CTS-Analysis-Labs](#Day-22-CTS-Analysis-Labs)
 
 ## Day-0-Tool-Setup-Check
 
@@ -5004,7 +5005,7 @@ icc2_shell>> start_gui
 
 
 <details>
-<summary>Labs:</summary>
+<summary>Labs</summary>
 
 + Floorplanning was run for utilization ratio of 0.07 and 0.4 and placement reports are analysed below:
 + Script top.tcl was modified as per our need:
@@ -5071,6 +5072,161 @@ icc2_shell>> start_gui
  <img width="1080" alt="ctsoic_40m.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/f2e2404bc2391a81b5df9141acf36f9e38895f89/docs/assets/Day21/ctsoic_40m.png">
 </p>
 
+</details>
+
+## Day-22-CTS-Analysis-Labs
+
+<details>
+<summary>Theory</summary>
+
+**What is CTS?**
+
++ CTS(Clock Tree Synthesis)  is a crucial step in the physical design . Clock Tree Synthesis is the process of designing and optimizing the clock distribution network within an IC layout to ensure that clock signals are delivered to all the sequential elements, such as flip-flops or latches, with minimal skew and high integrity. 
+   * Clock Distribution Network: In a digital IC, clock signals are critical for synchronization and proper operation. The clock distribution network consists of a hierarchy of buffers and wires that carry the clock signal from the clock source (often a clock generator) to all the flip-flops and other clocked elements across the chip.
+   * Clock Skew: Clock skew refers to the difference in arrival times of the clock signal at different sequential elements. Excessive clock skew can lead to timing violations, and it needs to be minimized to ensure that all flip-flops are clocked simultaneously.
+   * Clock Buffers: Clock buffers are used to amplify and distribute the clock signal. They help in reducing skew by driving the clock signal through multiple branches of the tree, ensuring that the clock signal reaches its destination with minimal delay.
+   * Balancing Clock Paths: An essential goal of CTS is to balance the lengths of clock paths. This means that the clock signal should take approximately the same amount of time to reach all the flip-flops. Achieving balanced clock paths reduces clock skew and helps in meeting timing requirements.
+   * Clock Gating: In some cases, clock gating cells may be inserted in the clock tree. These cells allow for selective disabling of clock domains to save power when certain parts of the circuit are not in use.
+   * H-Tree or Other Structures: Depending on the design, clock trees can be organized in different structures. The H-tree structure is a common choice for balanced clock distribution. It resembles the letter "H" and ensures that clock signals travel symmetrically from a central point.
+   * Clock Tree Optimization: CTS tools aim to optimize the clock tree for various objectives, including minimum skew, low power consumption, and meeting setup and hold time requirements.
+   * Clock Domain Management: CTS also involves managing clock domains. Clock domains are regions of the chip that share a common clock source and timing constraints. It's important to ensure that clock domains are correctly defined and that clock signals are delivered to the appropriate domains.
+
+
+**Various algorith used in CTS:**
+
+1. Conventional tree based CTS.
+    + Conventional CTS typically involves constructing a clock tree using simpler and more straightforward techniques compared to advanced and complex CTS methodologies.
+    + Conventional CTS is a simpler and more traditional approach compared to advanced CTS techniques, which incorporate sophisticated algorithms for clock network optimization. It is often suitable for less complex designs or where specific optimizations are not required. However, in more advanced and high-performance ICs, or designs with multiple clock domains, advanced CTS techniques may be preferred to achieve better results in terms of clock skew, power consumption, and overall performance
+2. Multisource CTS.
+    +  Multi-source Clock Tree Synthesis (CTS) is a clock distribution technique used in the physical design especially in complex designs with multiple clock domains. In multi-source CTS, there are multiple clock sources, each serving a specific clock domain, and the clock tree synthesis process ensures that clock signals are distributed with low skew within each domain. Multi-source CTS is a complex and advanced technique, primarily used in modern IC designs with multiple clock domains to ensure synchronization, minimize clock skew, and manage power effectively. It is crucial for high-performance ICs where various functional blocks operate at different clock frequencies or require asynchronous clocking. Effective multi-source CTS requires sophisticated algorithms and tools to address the unique challenges posed by multiple clock domains in a single design.
+3. H-tree CTS.
+    + H-tree Clock Tree Synthesis (CTS) is a clock distribution technique used in the physical design. The H-tree structure, which resembles the letter "H," is employed to efficiently distribute clock signals to various regions of the chip while minimizing clock skew and maintaining signal integrity.
+    + H-tree CTS is particularly useful in IC designs where synchronization and low clock skew are essential, and the design includes multiple clock domains or large on-chip areas. The hierarchical nature of the H-tree structure allows for efficient and uniform clock distribution, which is crucial for high-performance and reliable operation of the IC. It is one of several clock distribution network topologies used in VLSI design, alongside conventional tree-based structures and mesh-based networks, among others.
+4. Mesh tree.
+    + Mesh Clock Tree Synthesis (CTS) is a clock distribution technique used in the physical design. In mesh CTS, the clock distribution network is designed as a mesh-like grid, allowing for efficient and uniform clock signal distribution throughout the chip.
+    + Mesh CTS is often used in IC designs where uniform clock distribution and low clock skew are crucial, particularly in complex designs with large chip areas. The mesh structure is known for its scalability and adaptability to different chip sizes and shapes. Mesh CTS is one of the several clock distribution network topologies used in VLSI design, alongside H-tree structures, conventional trees, and other techniques, depending on the specific design requirements and constraints.
+
+**CTS Checks done:**
+
++ Skew
++ Pulse width
++ Duty cycle
++ Latency
++ Clock tree power
++ Signal integrity and Crosstalk
++ Timing analysis and fixing
+
 
 </details>
 
+<details>
+<summary>Labs</summary>
+
++ Command: `check_clock_tree`
+   - Checks the clock trees of current design for possible problems with netlist, timing constraints, clock constraints, routing constraints, or other tool configurations that can adversely impact clock tree synthesis.
+
+<p align="center">
+ <img width="1080" alt="check_clock_tree.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/check_clock_tree.png">
+</p>
+
+   - As we can see in above image there is no errors but only one warning under refence cells section.
+   - CTS-904 means some clock refernce have no LEQ cell specified fo resizing.
+   - This warning arise because tool cannot find cell of different size to replace with while performing optimization and this warning can be ignored as it wont affect further flow.
+
++ Command: `check_legality`
+   -  This command checks he legality of current placement and output a report ofviolations statistics.
+ 
+  <p align="center">
+ <img width="1080" alt="check_legality.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/check_legality.png">
+</p>
+   
+   - reported violations above can be classified as:
+
+```
+Two objects overlap.
+A cell violates a pnet.
+A cell is illegal at a site.
+A cell is not aligned with a site.
+A cell has an illegal orientation.
+A cell spacing rule is violated.
+A layer rule is violated.
+A cell is in the wrong region.
+Two cells violate cts margins.
+Two cells violate coloring.
+```
+
++ Command: `clock_opt`
+   - The default behavior of this command is as follows:
+        1. Synthesizes and optimizes the clock trees.
+        2. Completes the detail routing of the clock trees.
+        3. Further optimizes the design for timing,electrical  DRC  violations,
+  area, power, and routability, based on actual propagated clock laten-
+  cies, and legalizes the design placement.
+   - Adjusts the I/O timing
+   - Performs RC extraction of the clock nets and computes accurate clock arrival times
+   - Performs placement and timing optimization.
+
+<p align="center">
+ <img width="1080" alt="clock_opt.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/clock_opt.png">
+</p>
+
+    - In above image we can see the clock_opt command being invoked in icc2_shell when top.tcl is sourced.
+
++ There are some default constraints that CTS used, refer to values  below
+
+```
+max_trans  - 0.5ns
+max_cap    - 0.6pF
+max_fanout - 2000
+```
++ To modify these default constraints, use commands below
+  - `set_clock_tree_options` : Specifies settings like target skew or latency  for  clocks,  exception
+duplication across modes or fanout-based nondefault routing rule limit.
++ IC Compiler uses the CTS design rule constraints for all optimization phases, as well as for CTS
+
++ Command : `set cts_use_debug_mode true`
+   - We can use ICC2 with debug mode with above command. 
+
++ Command : `report_clock_timing -type summary`
+
+<p align="center">
+ <img width="1080" alt="rep_ctim_summary.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_summary.png">
+</p>
+
++ Command : `report_clock_timing -type skew`
+
+<p align="center">
+ <img width="1080" alt="rep_ctim_skew.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_skew.png">
+</p>
+
++ Command : `report_clock_timing -type latency`
+
+<p align="center">
+ <img width="1080" alt="rep_ctim_latency.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_latency.png">
+</p>
+
++ Command : `report_global_timing`
+
+<p align="center">
+ <img width="1080" alt="rep_glob_timing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_glob_timing.png">
+</p>
+
++ Command : `report_clock_tree_option`
+
+<p align="center">
+ <img width="1080" alt="rep_clock_tree_option.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bef0a716dcee9700c05b81f103ccd3b49cea4299/docs/assets/Day22/rep_clock_tree_option.png">
+</p>
+
+   + This  command  reports  all  existing  settings   like   clock   target skew/latency  constraints, fanout-based ndr, etc, previously defined by set_clock_tree_options commands.
+   + Since none of the options are set its showing none. To set these options use command:
+        - ` set_clock_tree_options -target_latency 3`
+        - ` set_clock_tree_options -target_skew 0`
+        - `set_clock_tree_options -root_ndr_fanout_limit 2000`
+   + Now use the same command to report and below is the results
+
+<p align="center">
+ <img width="1080" alt="rep_clock_tree_option2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bef0a716dcee9700c05b81f103ccd3b49cea4299/docs/assets/Day22/rep_clock_tree_option2.png">
+</p>
+
+ 
+</details>
