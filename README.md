@@ -5171,7 +5171,7 @@ Two cells violate coloring.
  <img width="1080" alt="clock_opt.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/clock_opt.png">
 </p>
 
-    - In above image we can see the clock_opt command being invoked in icc2_shell when top.tcl is sourced.
++ In above image we can see the clock_opt command being invoked in icc2_shell when top.tcl is sourced.
 
 + There are some default constraints that CTS used, refer to values  below
 
