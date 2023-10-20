@@ -76,3 +76,11 @@ Routing in the context of integrated circuit (IC) design refers to the process o
 12. **Routing Optimization**: Routing algorithms and tools aim to optimize for various factors, such as wirelength, congestion, timing, and power, while adhering to design constraints.
 
 Routing in IC design is a complex and highly critical step that directly impacts the functionality and performance of the final chip. Advanced computer-aided design (CAD) tools are used to assist designers in efficiently routing signals, power, and ground connections on modern ICs.
+
+
+
+- Before place,CTS and route:
+
+<p align="center">
+ <img width="1080" alt="step1" src="">
+</p>
