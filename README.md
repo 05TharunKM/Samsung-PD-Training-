@@ -25,6 +25,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-20-Floorplanning-and-power-planning-labs](#Day-20-Floorplanning-and-power-planning-labs)
 - [Day-21-Placement-and-CTS-labs](#Day-21-Placement-and-CTS-labs)
 - [Day-22-CTS-Analysis-Labs](#Day-22-CTS-Analysis-Labs)
+- [Day-23-Clock-gating-technique](#Day-23-Clock-gating-technique)
 
 ## Day-0-Tool-Setup-Check
 
@@ -5189,13 +5190,14 @@ duplication across modes or fanout-based nondefault routing rule limit.
    - We can use ICC2 with debug mode with above command. 
 
 + Command : `report_clock_timing -type summary`
+   - Specify  a  summary  report,  which  shows  the  worst instances  of transition time, latency and skew over the clock  networks or subnetworks of interest.
 
 <p align="center">
  <img width="1080" alt="rep_ctim_summary.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_summary.png">
 </p>
 
 + Command : `report_clock_timing -type skew`
-
+    - Specify a skew report.
 <p align="center">
  <img width="1080" alt="rep_ctim_skew.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_skew.png">
 </p>
@@ -5207,7 +5209,9 @@ duplication across modes or fanout-based nondefault routing rule limit.
 </p>
 
 + Command : `report_global_timing`
-
+     -  The  report_global_timing  command generates a top-level summary of the  timing for the design. The report shows the worst  negative  slack  per endpoint, the sum of all worst negative slacks per endpoint, and a number of violating endpoints. By default, each violating endpoint is onlycounted  one  time  and only one worst slack at each violating endpointcontributes to TNS and WNS. With the -groups option, each endpoint con-tributes  to  the worst negative slack and total negative slack of each group in which it has a violating slack.
+     -  In below we can observe 132 set-up violations and 326 hold violations in reg to reg path.
+ 
 <p align="center">
  <img width="1080" alt="rep_glob_timing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_glob_timing.png">
 </p>
@@ -5228,6 +5232,98 @@ duplication across modes or fanout-based nondefault routing rule limit.
 <p align="center">
  <img width="1080" alt="rep_clock_tree_option2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bef0a716dcee9700c05b81f103ccd3b49cea4299/docs/assets/Day22/rep_clock_tree_option2.png">
 </p>
+
+ 
+</details>
+
+
+## Day-23-Clock-gating-technique
+<details>
+<summary>Theory</summary>
+
+**Clock Gating Technique:**
+
+<p align="center">
+ <img width="1080" alt="cts.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/534a766f6419324c6f9b3435c47761b698043bc1/docs/assets/Day23/cts.jpg">
+</p>
+
++ When the design is big and CTS is performed, large power usage will be reported. TO fix this issue whole chip is made into smaller section and each section will have it's own clock tree.
++ To address this problem clock gating technique can be used.
+
+<p align="center">
+ <img width="1080" alt="cgt.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/534a766f6419324c6f9b3435c47761b698043bc1/docs/assets/Day23/cgt.jpg">
+</p>
+  
++ Clock gating is a power-saving technique that can be applied as part of CTS in the physical design. When used in CTS, clock gating is primarily aimed at optimizing the clock distribution network to reduce dynamic power consumption. Here's how clock gating can be integrated into CTS:
+    - Identifying Clock Domains: In the CTS process, clock gating is applied to specific clock domains within the IC design. These domains are identified based on functional requirements and usage patterns. For example, you may have a clock domain that can be gated when the corresponding block is in an idle state.
+    - Clock Gating Cells: Clock gating cells, which are essentially logic gates, are inserted in the clock path of the clock domain. These cells control whether the clock signal is allowed to pass through to the sequential elements (e.g., flip-flops) within that domain.
+    - Control Signals: Each clock gating cell has an associated control signal. When the control signal is active (e.g., logic high), the clock gating cell allows the clock to pass through. When the control signal is inactive (e.g., logic low), the clock is effectively blocked from reaching the sequential elements.
+    - Timing Considerations: Careful consideration of timing constraints is essential when inserting clock gating cells. Timing analysis must ensure that gating the clock signal does not introduce setup and hold time violations for the sequential elements within the clock domain.
+    - Activity-Based Gating: The control signals for the clock gating cells can be generated based on activity or specific conditions within the clock domain. For example, if the logic in the domain is idle or waiting for an event, the control signal can be set to block the clock.
+    - Verification: Extensive simulation and verification are crucial to ensure that clock gating does not introduce functional issues, such as glitches or race conditions. Verification must validate the correct operation of the gating cells and their control logic.
++ By integrating clock gating into the CTS process, we  can achieve power savings by selectively disabling the clock signals to specific blocks or regions of the chip during idle or low-activity periods. This helps in meeting power efficiency and thermal management goals, which are critical in modern IC design. However, it's important to balance the benefits of power reduction with the added complexity and potential timing challenges introduced by clock gating.
++ Clock gating is introduced in synthesis stage and optimized when physical design starts.
++ Types of clock gating include AND Gate, OR Gate and Universal AND gate.
+
+
+**Routing:**
+
+<p align="center">
+ <img width="1080" alt="routing.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/534a766f6419324c6f9b3435c47761b698043bc1/docs/assets/Day23/routing.jpg">
+</p>
+
++ Routing  refers to the process of establishing interconnections between various components and modules on the chip to create a functional layout. It involves the design and creation of physical pathways for signals, power, and ground lines to ensure proper communication between components. 
+
+  1. *Routing Grid*: The chip's surface is typically divided into a grid, and routing tracks or channels are defined within this grid. The grid structure simplifies the routing process, making it easier to manage.
+  2. *Nets*: In IC design, a "net" is a set of connections that need to be routed together, such as a bus or a group of related signals. Each net has a source (driver) and one or more sinks (receivers) that must be connected.
+  3. *Global Routing*: This is the initial phase of routing where major connections are established. Global routing identifies the general paths for signal, power, and ground distribution and minimizes congestion. It determines which layers of the chip will be used for routing.
+  4. *Detailed Routing*: After global routing, detailed routing is performed. It involves the layer-by-layer routing of wires and the establishment of connections between components, often utilizing different metal layers to avoid congestion and interference.
+  5. *Obstacle Avoidance*: Routing algorithms and tools must consider physical obstacles on the chip, such as macros, standard cells, and other fixed components, to avoid conflicts and ensure manufacturability.
+  6. *Multi-Layer Routing: ICs often use multiple metal or poly layers for routing. Designers need to determine which layers to use and the order in which to route signals, taking into account considerations like signal integrity and power distribution.
+  7. *Minimizing Crosstalk*: Care must be taken to minimize crosstalk between adjacent signal lines, which can lead to signal degradation. Techniques like spacing, shielding, and differential signaling can help reduce crosstalk
+  8. *Routing Quality*: The quality of routing affects the chip's performance, power consumption, and manufacturability. Routing must meet design rule constraints and adhere to timing, signal integrity, and electromigration requirements.
+  9. *Via Insertion*: Vias are used to transition between different metal layers. Via insertion is an important part of routing to ensure proper connections between layers. Via count and placement can significantly impact routing efficiency and performance.
+  10. *Clock Routing*: Clock signals require special attention to ensure low skew and reliable distribution. Clock trees are constructed during routing to deliver clock signals to all sequential elements evenly.
+  11. *Power Distribution*: Routing includes the creation of power distribution networks to deliver power and ground connections to all components, minimizing voltage drop and power dissipation.
+  12. *Routing Optimization*: Routing algorithms and tools aim to optimize for various factors, such as wirelength, congestion, timing, and power, while adhering to design constraints.
+
+</details>
+
+
+<details>
+<summary>Labs</summary>
++ P/G routing
+
+<p align="center">
+ <img width="1080" alt="pns.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/4f9efdc0cd75a11ed387bcc6dccdfacf00f6ae0b/docs/assets/Day23/pns.png">
+</p>
+
+  + `place_opt` is used to place and optimize the current design.
+    
+    - To perform coarse placement, physical optimization, and legalization with a single command, use the place_opt command.
+    - This command supports multithreading and uses the number of threads specified by the set_host_options -max_cores command.
+    - The place_opt command consists of the following stages:
+         * Initial placement (initial_place): During this stage, the tool merges the clock-gating logic and performs coarse placement. If a block contains scan chains that are annotated by reading a SCANDEF file, the tool also performs scan chain optimization.
+         * Initial DRC violation fixing (initial_drc): During this stage, the tool removes existing buffer trees and performs high-fanout-net synthesis and electrical DRC violation fixing.
+         * Initial optimization (initial_opto): During this stage, the tool performs timing, area, congestion, and leakage-power optimization.
+         * Final placement (final_place): During this stage, the tool performs incremental placement to improve timing and congestion, and legalizes the design.
+         * Final optimization (final_opto):During this stage, the tool performs further optimization and legalization to improve timing and congestion.
+    - When you run the place_opt command, by default, the tool runs all stages of placement and optimization.
+    - To run these stages individually use command like `icc2_shell> place_opt -from initial_drc`
+  + `clock_opt` is used to synthesize and route the clocks, and then further optimize the design based on the propagated clock latencies
+  + `route_auto` is used to run global routing, trace assignment, and detailed routing at once/automatically
+
+<p align="center">
+ <img width="1080" alt="toptcl.jpg" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/4f9efdc0cd75a11ed387bcc6dccdfacf00f6ae0b/docs/assets/Day23/toptcl.png">
+</p>
+
++ Routing and other reports:
+   - Command  `report_pr_rules` : This command reports information about the cell row  spacing  rules in the specified technology object.
+
+<p align="center">
+ <img width="1080" alt="report_pr_rules.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/4f9efdc0cd75a11ed387bcc6dccdfacf00f6ae0b/docs/assets/Day23/report_pr_rules.png">
+</p>
+      
 
  
 </details>
