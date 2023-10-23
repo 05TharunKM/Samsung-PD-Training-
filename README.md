@@ -5292,6 +5292,7 @@ duplication across modes or fanout-based nondefault routing rule limit.
 
 <details>
 <summary>Labs</summary>
+
 + P/G routing
 
 <p align="center">
@@ -5324,6 +5325,61 @@ duplication across modes or fanout-based nondefault routing rule limit.
  <img width="1080" alt="report_pr_rules.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/4f9efdc0cd75a11ed387bcc6dccdfacf00f6ae0b/docs/assets/Day23/report_pr_rules.png">
 </p>
       
-
++ Previously there was an error while running placement to adress this issue use following solution:
+   - Add below commands between `place_opt` and `clock_opt`.
  
+```
+set_lib_cell_purpose -include cts {sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_*}
+synthesize_clock_tree
+set_propagated_clock [all_clocks]
+```
+   - And change the volage value in `init_design.mcmm_example.auto_expanded.tcl` as follows: 
+
+<p align="center">
+ <img width="1080" alt="mcmmchanges.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/mcmmchanges.png">
+</p>
+
+   - Below are the images of layout in each stage:
+         1) Floorplan:
+
+<p align="center">
+ <img width="1080" alt="floorpllane.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/floorpllane.png">
+</p>  
+
+ 	 2)  After Placement: 
+
+<p align="center">
+ <img width="1080" alt="floorpllane.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/floorpllane.png">
+</p>  
+
+         3) CTS: We can observe the CTS Buffer inserted in 'visual_mode' window on right side.
+
+<p align="center">
+ <img width="1080" alt="cts_done.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ec869e6859974187c46ed610c1806195ac9f6d67/docs/assets/Day23/cts_done.png">
+</p>  
+
+         4) Post Routing: 
+
+ <p align="center">
+ <img width="1080" alt="routing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/routing.png">
+</p> 
+
+
++ Timing Reports:
+
+<p align="center">
+  <img alt="remax.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/remax.png" width="60%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="remin.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/remin.png" width="40%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
+   - After proper running of place_opt clock_opt and route_auto, optimization is done properly.
+   - Set-up  violations has reduced and slack got improved from '-2.91' to '0.00975'.
+   - Similarly hold slack has improved from '-0.19' to '0.00798'.
+
+
+
+
+
 </details>
