@@ -1,0 +1,386 @@
+****************************************
+Report : List of Attribute Definitions
+Version: T-2022.03-SP3-VAL
+Date   : Wed Oct 25 15:39:52 2023
+****************************************
+
+Properties:
+    A - Application-defined
+    U - User-defined
+    I - Importable from design/library (for user-defined)
+    S - Settable
+    B - Subscripted
+
+Attribute Name            Object     Type       Properties  Constraints
+--------------------------------------------------------------------------------
+UPF_clamp_value           pin        string     A           
+UPF_driver_supply         pin        collection A           
+UPF_feedthrough           pin        collection A           
+UPF_is_analog             pin        boolean    A           
+UPF_literal_supply        pin        collection A           
+UPF_receiver_supply       pin        collection A           
+UPF_related_supply_set    pin        collection A           
+UPF_unconnected           pin        boolean    A           
+activity_type             pin        string     A           
+actual_fall_transition_max
+                          pin        float      A           
+actual_fall_transition_min
+                          pin        float      A           
+actual_related_clock      pin        string     A           
+actual_rise_transition_max
+                          pin        float      A           
+actual_rise_transition_min
+                          pin        float      A           
+allow_diode_insertion     pin        boolean    A,S         
+antenna_area              pin        string     A,S         
+antenna_side_area         pin        string     A,S         
+arrival_window            pin        string     A           
+average_effective_voltage_drop_in_tw
+                          pin        double     A           
+bbox                      pin        rect       A           
+boundary_optimization     pin        string     A           
+bounding_box              pin        collection A           
+bump_access_dir           pin        bump_access_dir
+                                                A,S         
+bus                       pin        collection A           
+busplan_fanin_subbus_id   pin        int        A,S         
+case_value                pin        string     A           
+ccd_max_postpone          pin        float      A,S         
+ccd_max_prepone           pin        float      A,S         
+cell                      pin        collection A           
+cg_cell_te_pin_connection pin        string     A           
+clock_arrival_window      pin        string     A           
+clock_latency_fall_max    pin        float      A           
+clock_latency_fall_min    pin        float      A           
+clock_latency_rise_max    pin        float      A           
+clock_latency_rise_min    pin        float      A           
+clock_source_latency_early_fall_max
+                          pin        float      A           
+clock_source_latency_early_fall_min
+                          pin        float      A           
+clock_source_latency_early_rise_max
+                          pin        float      A           
+clock_source_latency_early_rise_min
+                          pin        float      A           
+clock_source_latency_late_fall_max
+                          pin        float      A           
+clock_source_latency_late_fall_min
+                          pin        float      A           
+clock_source_latency_late_rise_max
+                          pin        float      A           
+clock_source_latency_late_rise_min
+                          pin        float      A           
+clocks                    pin        collection A           
+clocks_to_balance         pin        collection A           
+clocks_with_sense         pin        string     A           
+cnx                       pin        string     A           
+constant_propagation      pin        boolean    A           
+constant_value            pin        string     A           
+constraining_max_transition
+                          pin        float      A           
+constraint_groups         pin        collection A,B         
+created_during_dft        pin        boolean    A           
+created_during_dft_eco    pin        boolean    A,S         
+cts_fixed_balance_pin     pin        boolean    A,S         
+dft_isolation             pin        string     A           
+dft_occ_seq_type          pin        string     A,S         
+dft_scan_through_pin      pin        string     A,S         
+dft_signal_type           pin        string     A           
+diode_protection          pin        string     A,S         
+direction                 pin        string     A           
+disable_timing            pin        boolean    A           
+dont_estimate_clock_latency
+                          pin        boolean    A,S         
+dont_touch_network        pin        boolean    A           
+dont_touch_network_no_propagate
+                          pin        boolean    A           
+dw_or_retime_reg          pin        int        A,S         
+early_fall_input_cap      pin        float      A           
+early_fall_load_cap       pin        float      A           
+early_fall_transition     pin        float      A           
+early_rise_input_cap      pin        float      A           
+early_rise_load_cap       pin        float      A           
+early_rise_transition     pin        float      A           
+eco_fl_status             pin        string     A           
+effective_process_label_early
+                          pin        string     A           
+effective_process_label_late
+                          pin        string     A           
+effective_process_number_early
+                          pin        float      A           
+effective_process_number_late
+                          pin        float      A           
+effective_resistance      pin        double     A           
+effective_temperature_early
+                          pin        float      A           
+effective_temperature_late
+                          pin        float      A           
+effective_voltage_drop    pin        double     A           
+effective_voltage_early   pin        float      A           
+effective_voltage_late    pin        float      A           
+equal_opposite_propagation
+                          pin        boolean    A           
+escaped_full_name         pin        string     A           
+essential_activity_group  pin        string     A           
+estimated_analysis        pin        string     A           
+full_name                 pin        string     A           
+function                  pin        string     A           
+gate_area                 pin        string     A,S         
+gate_diffusion_length     pin        string     A,S         
+glitch_rate               pin        double     A           
+groups                    pin        collection A           
+hdl_file                  pin        string     A           
+hdl_hier                  pin        string     A           
+hdl_line                  pin        string     A           
+hdl_origin                pin        string     A           
+hier_elab_name            pin        string     A,S         
+hold_uncertainty          pin        float      A           
+ignore_ndr                pin        boolean    A,S         
+implemented_strategy      pin        collection A           
+inertial_glitch_equivalent
+                          pin        double     A           
+internal_power            pin        double     A           
+is_async_pin              pin        boolean    A           
+is_bus_bit                pin        boolean    A           
+is_clear_pin              pin        boolean    A           
+is_clock_exclusivity      pin        boolean    A           
+is_clock_gating_clock     pin        boolean    A           
+is_clock_gating_enable    pin        boolean    A           
+is_clock_gating_pin       pin        boolean    A           
+is_clock_pin              pin        boolean    A           
+is_clock_used_as_clock    pin        boolean    A           
+is_clock_used_as_data     pin        boolean    A           
+is_data_pin               pin        boolean    A           
+is_et_delay_clipped       pin        boolean    A           
+is_fall_edge_triggered_clock_pin
+                          pin        boolean    A           
+is_fall_edge_triggered_data_pin
+                          pin        boolean    A           
+is_feedthrough_port       pin        boolean    A           
+is_fixed                  pin        boolean    A           
+is_hierarchical           pin        boolean    A           
+is_ideal                  pin        boolean    A           
+is_latch_loop_breaker     pin        boolean    A           
+is_negative_level_sensitive_clock_pin
+                          pin        boolean    A           
+is_negative_level_sensitive_data_pin
+                          pin        boolean    A           
+is_net_driver             pin        boolean    A           
+is_net_load               pin        boolean    A           
+is_positive_level_sensitive_clock_pin
+                          pin        boolean    A           
+is_positive_level_sensitive_data_pin
+                          pin        boolean    A           
+is_preset_pin             pin        boolean    A           
+is_rise_edge_triggered_clock_pin
+                          pin        boolean    A           
+is_rise_edge_triggered_data_pin
+                          pin        boolean    A           
+is_scan                   pin        boolean    A           
+is_three_state            pin        boolean    A           
+is_three_state_enable_pin pin        boolean    A           
+is_three_state_output_pin pin        boolean    A           
+is_user_latch_loop_breaker
+                          pin        boolean    A           
+is_user_pg                pin        boolean    A,S         
+late_fall_input_cap       pin        float      A           
+late_fall_load_cap        pin        float      A           
+late_fall_transition      pin        float      A           
+late_rise_input_cap       pin        float      A           
+late_rise_load_cap        pin        float      A           
+late_rise_transition      pin        float      A           
+layer                     pin        collection A           
+layer_name                pin        string     A           
+leakage_power             pin        double     A           
+lft_inv_guide_load        pin        boolean    A           
+lib_pin                   pin        collection A           
+lib_pin_name              pin        string     A           
+major_activity_type       pin        string     A           
+matching_type             pin        collection A           
+max_balance_delay         pin        float      A           
+max_capacitance           pin        float      A           
+max_capacitance_constraint
+                          pin        float      A           
+max_effective_voltage_drop
+                          pin        double     A           
+max_effective_voltage_drop_in_tw
+                          pin        double     A           
+max_fall_input_cap        pin        float      A           
+max_fall_load_cap         pin        float      A           
+max_fall_local_slack      pin        float      A           
+max_fall_slack            pin        float      A           
+max_fall_transition       pin        float      A           
+max_rise_input_cap        pin        float      A           
+max_rise_load_cap         pin        float      A           
+max_rise_local_slack      pin        float      A           
+max_rise_slack            pin        float      A           
+max_rise_transition       pin        float      A           
+max_slack                 pin        float      A           
+max_time_borrow           pin        float      A           
+max_transition            pin        float      A           
+max_transition_constraint pin        float      A           
+metrics_tim_logic_levels_viol
+                          pin        int        A           
+metrics_tim_logic_levels_viol_local
+                          pin        int        A           
+metrics_tim_logic_levels_viol_pg
+                          pin        string     A           
+metrics_tim_net_length_viol
+                          pin        string     A           
+metrics_tim_path_length_viol
+                          pin        string     A           
+metrics_tim_repeater_levels_viol
+                          pin        int        A           
+metrics_tim_repeater_levels_viol_local
+                          pin        int        A           
+min_balance_delay         pin        float      A           
+min_capacitance           pin        float      A           
+min_capacitance_constraint
+                          pin        float      A           
+min_effective_voltage_drop_in_tw
+                          pin        double     A           
+min_fall_input_cap        pin        float      A           
+min_fall_load_cap         pin        float      A           
+min_fall_slack            pin        float      A           
+min_fall_transition       pin        float      A           
+min_path_resistance       pin        double     A           
+min_rise_input_cap        pin        float      A           
+min_rise_load_cap         pin        float      A           
+min_rise_slack            pin        float      A           
+min_rise_transition       pin        float      A           
+min_slack                 pin        float      A           
+minor_activity_type       pin        string     A           
+mismatched_process_label_max
+                          pin        boolean    A           
+mismatched_process_label_min
+                          pin        boolean    A           
+mismatched_process_number_max
+                          pin        boolean    A           
+mismatched_process_number_min
+                          pin        boolean    A           
+mismatched_pvt_max        pin        boolean    A           
+mismatched_pvt_min        pin        boolean    A           
+mismatched_temperature_max
+                          pin        boolean    A           
+mismatched_temperature_min
+                          pin        boolean    A           
+mismatched_voltage_max    pin        boolean    A           
+mismatched_voltage_min    pin        boolean    A           
+mpn_no_prop_10            pin        boolean    A,S         
+n_gate_area               pin        string     A,S         
+n_gate_diffusion_length   pin        string     A,S         
+name                      pin        string     A           
+net                       pin        collection A           
+net_name                  pin        string     A           
+nw_area                   pin        string     A,S         
+object_class              pin        string     A           
+object_id                 pin        string     A           
+p_gate_area               pin        string     A,S         
+p_gate_diffusion_length   pin        string     A,S         
+pa_input_pin_fall_transition
+                          pin        float      A           
+pa_input_pin_rise_transition
+                          pin        float      A           
+pa_output_pin_cap         pin        float      A           
+pa_pin_voltage            pin        float      A           
+pane_early                pin        int        A           
+pane_late                 pin        int        A           
+parent_block              pin        collection A           
+parent_block_cell         pin        collection A           
+parent_cell               pin        collection A           
+peak_current              pin        double     A           
+peak_voltage_drop         pin        double     A           
+pg_pin_weight             pin        float      A,S         
+pg_type                   pin        string     A           
+phase_inversion           pin        boolean    A           
+physical_hierarchy_level  pin        int        A           
+physical_status           pin        string     A           fixed, locked, placed, unplaced
+pin_alignment_matching_id pin        int        A,S         
+pin_direction             pin        string     A           
+pin_has_async_check       pin        boolean    A           
+port                      pin        collection A           
+port_type                 pin        string     A,S         analog_ground, analog_power, analog_signal, clock, deep_nwell, deep_pwell, ground, nwell, power, pwell, reset, scan, signal, tie_high, tie_low, unset
+power_domain              pin        string     A           
+power_rail_voltage_max    pin        float      A           
+power_rail_voltage_min    pin        float      A           
+process_label_early       pin        string     A           
+process_label_early_file_line_info
+                          pin        string     A           
+process_label_early_source
+                          pin        string     A           
+process_label_late        pin        string     A           
+process_label_late_file_line_info
+                          pin        string     A           
+process_label_late_source pin        string     A           
+process_number_early      pin        float      A           
+process_number_early_file_line_info
+                          pin        string     A           
+process_number_early_source
+                          pin        string     A           
+process_number_late       pin        float      A           
+process_number_late_file_line_info
+                          pin        string     A           
+process_number_late_source
+                          pin        string     A           
+propagated_clock          pin        boolean    A           
+q_gated_connection        pin        boolean    A           
+register_initial_state    pin        boolean    A,S         
+related_clock             pin        string     A           
+related_ground_pin        pin        collection A           
+related_power_pin         pin        collection A           
+remove_constant_register  pin        boolean    A           
+remove_constant_register_inherited
+                          pin        boolean    A           
+remove_unloaded_register  pin        boolean    A           
+remove_unloaded_register_inherited
+                          pin        boolean    A           
+route_connection          pin        string     A,S         connect, skip
+safety_correction_signal  pin        collection A           
+safety_error_signal       pin        collection A           
+safety_requirement_id     pin        string     A           
+scan_chains               pin        collection A           
+scan_signals              pin        collection A           
+setup_uncertainty         pin        float      A           
+shift_register_bit_position
+                          pin        int        A           
+signal_type               pin        string     A           
+single_connection         pin        boolean    A,S         
+skew_groups               pin        collection A           
+skip_via_ladder_insertion pin        boolean    A,S         
+spfm_loss                 pin        float      A,S         
+static_current            pin        double     A           
+static_power              pin        double     A           
+static_probability        pin        double     A           
+supply_connection_type    pin        string     A           
+switching_power           pin        double     A           
+temperature_early         pin        float      A           
+temperature_early_file_line_info
+                          pin        string     A           
+temperature_early_source  pin        string     A           
+temperature_late          pin        float      A           
+temperature_late_file_line_info
+                          pin        string     A           
+temperature_late_source   pin        string     A           
+testdb_clock_name_and_edge_for_pin
+                          pin        string     A           
+toggle_rate               pin        double     A           
+top_block                 pin        collection A           
+transport_glitch_rate     pin        double     A           
+unloaded_propagation      pin        boolean    A           
+user_case_value           pin        string     A           
+user_clock_sense          pin        string     A           
+voltage_drop              pin        double     A           
+voltage_early             pin        float      A           
+voltage_early_file_line_info
+                          pin        string     A           
+voltage_early_source      pin        string     A           
+voltage_late              pin        float      A           
+voltage_late_file_line_info
+                          pin        string     A           
+voltage_late_source       pin        string     A           
+worst_max_fall_slack      pin        float      A           
+worst_max_rise_slack      pin        float      A           
+worst_max_slack           pin        float      A           
+worst_min_fall_slack      pin        float      A           
+worst_min_rise_slack      pin        float      A           
+worst_min_slack           pin        float      A           

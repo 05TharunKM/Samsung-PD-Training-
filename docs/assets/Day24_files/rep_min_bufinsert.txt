@@ -1,0 +1,51 @@
+****************************************
+Report : timing
+        -path_type full
+        -delay_type min
+        -max_paths 1
+        -report_by design
+        -transition_time
+        -capacitance
+Design : vsdbabysoc
+Version: T-2022.03-SP3-VAL
+Date   : Wed Oct 25 16:29:11 2023
+****************************************
+  Startpoint: core/CPU_br_tgt_pc_a3_reg[2] (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: core/CPU_imem_rd_addr_a1_reg[0] (rising edge-triggered flip-flop clocked by clk)
+  Mode: func1
+  Corner: func1
+  Scenario: func1
+  Path Group: clk
+  Path Type: min
+
+  Point                                             Cap        Trans        Incr        Path  
+  ----------------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                    0.0000      0.0000
+  clock network delay (propagated)                                         2.2246      2.2246
+
+  core/CPU_br_tgt_pc_a3_reg[2]/CLK (sky130_fd_sc_hd__dfxtp_1)
+                                                               0.2398      0.0000      2.2246 r
+  core/CPU_br_tgt_pc_a3_reg[2]/Q (sky130_fd_sc_hd__dfxtp_1)
+                                                   0.0049      0.0603      0.3778      2.6025 r
+  core/U1935/B2 (sky130_fd_sc_hd__a22o_1) <-                   0.0603      0.0012      2.6037 r
+  core/U1935/X (sky130_fd_sc_hd__a22o_1)           0.0025      0.0431      0.1166      2.7203 r
+  core/eco_cell/X (sky130_fd_sc_hd__buf_1)         0.0025      0.0422      0.0774      2.7977 r
+  core/CPU_imem_rd_addr_a1_reg[0]/D (sky130_fd_sc_hd__dfxtp_1)
+                                                               0.0422      0.0006      2.7984 r
+  data arrival time                                                                    2.7984
+
+  clock clk (rise edge)                                                    0.0000      0.0000
+  clock network delay (propagated)                                         2.2246      2.2246
+  core/CPU_imem_rd_addr_a1_reg[0]/CLK (sky130_fd_sc_hd__dfxtp_1)
+                                                               0.2398      0.0000      2.2246 r
+  clock uncertainty                                                        0.5000      2.7246
+  library hold time                                                       -0.0050      2.7196
+  data required time                                                                   2.7196
+  ----------------------------------------------------------------------------------------------------
+  data required time                                                                   2.7196
+  data arrival time                                                                   -2.7984
+  ----------------------------------------------------------------------------------------------------
+  slack (MET)                                                                          0.0787
+
+
+1

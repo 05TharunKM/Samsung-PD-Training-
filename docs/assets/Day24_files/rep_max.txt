@@ -1,0 +1,101 @@
+****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+        -transition_time
+        -capacitance
+Design : vsdbabysoc
+Version: T-2022.03-SP3-VAL
+Date   : Wed Oct 25 15:28:55 2023
+****************************************
+
+  Startpoint: core/CPU_is_addi_a3_reg (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: core/CPU_Xreg_value_a4_reg[1][31] (rising edge-triggered flip-flop clocked by clk)
+  Mode: func1
+  Corner: func1
+  Scenario: func1
+  Path Group: clk
+  Path Type: max
+
+  Point                                             Cap        Trans        Incr        Path  
+  ----------------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                    0.0000      0.0000
+  clock network delay (propagated)                                         2.2249      2.2249
+
+  core/CPU_is_addi_a3_reg/CLK (sky130_fd_sc_hd__dfxtp_1)       0.2397      0.0000      2.2249 r
+  core/CPU_is_addi_a3_reg/Q (sky130_fd_sc_hd__dfxtp_1)
+                                                   0.0121      0.1257      0.4236      2.6485 r
+  core/U465/Y (sky130_fd_sc_hd__nor2_1)            0.0076      0.0554      0.0811      2.7297 f
+  core/U468/Y (sky130_fd_sc_hd__nand2_1)           0.0196      0.1904      0.1638      2.8935 r
+  core/U470/Y (sky130_fd_sc_hd__nand2_4)           0.1207      0.2764      0.2466      3.1401 f
+  core/U471/X (sky130_fd_sc_hd__a22o_1)            0.0092      0.0711      0.3018      3.4419 f
+  core/U559/X (sky130_fd_sc_hd__xor2_1)            0.0057      0.1269      0.1615      3.6034 f
+  core/ctmTdsLR_1_748/X (sky130_fd_sc_hd__o21a_1)
+                                                   0.0030      0.0377      0.1977      3.8011 f
+  core/U560/Y (sky130_fd_sc_hd__a21oi_1)           0.0089      0.2277      0.1952      3.9962 r
+  core/U562/Y (sky130_fd_sc_hd__o21ai_1)           0.0104      0.1035      0.1418      4.1380 f
+  core/ctmTdsLR_1_761/Y (sky130_fd_sc_hd__a21boi_2)
+                                                   0.0084      0.1385      0.1785      4.3165 r
+  core/U567/Y (sky130_fd_sc_hd__o21ai_1)           0.0098      0.0979      0.1168      4.4333 f
+  core/ctmTdsLR_1_765/Y (sky130_fd_sc_hd__a21boi_1)
+                                                   0.0083      0.2105      0.2136      4.6469 r
+  core/U573/Y (sky130_fd_sc_hd__o21ai_1)           0.0100      0.0997      0.1351      4.7820 f
+  core/ctmTdsLR_1_766/Y (sky130_fd_sc_hd__a21boi_1)
+                                                   0.0092      0.2271      0.2262      5.0082 r
+  core/U579/Y (sky130_fd_sc_hd__o21ai_1)           0.0155      0.1404      0.1709      5.1791 f
+  core/ctmTdsLR_1_770/Y (sky130_fd_sc_hd__a21boi_2)
+                                                   0.0087      0.1422      0.1964      5.3755 r
+  core/U585/Y (sky130_fd_sc_hd__o21ai_1)           0.0099      0.0972      0.1182      5.4937 f
+  core/ctmTdsLR_1_771/Y (sky130_fd_sc_hd__a21boi_2)
+                                                   0.0083      0.1377      0.1752      5.6689 r
+  core/U591/Y (sky130_fd_sc_hd__o21ai_1)           0.0103      0.1008      0.1193      5.7883 f
+  core/U595/Y (sky130_fd_sc_hd__a21oi_2)           0.0088      0.1447      0.1808      5.9691 r
+  core/U597/Y (sky130_fd_sc_hd__o21ai_1)           0.0101      0.0991      0.1201      6.0892 f
+  core/ctmTdsLR_1_772/Y (sky130_fd_sc_hd__a21boi_2)
+                                                   0.0081      0.1361      0.1748      6.2640 r
+  core/U603/Y (sky130_fd_sc_hd__o21ai_1)           0.0103      0.1015      0.1187      6.3827 f
+  core/ctmTdsLR_1_773/Y (sky130_fd_sc_hd__a21boi_2)
+                                                   0.0090      0.1447      0.1825      6.5652 r
+  core/U609/Y (sky130_fd_sc_hd__o21ai_1)           0.0075      0.0799      0.1057      6.6709 f
+  core/ctmTdsLR_1_774/Y (sky130_fd_sc_hd__nand2_1)
+                                                   0.0032      0.0509      0.0723      6.7432 r
+  core/ctmTdsLR_2_775/Y (sky130_fd_sc_hd__nand2_1)
+                                                   0.0057      0.0521      0.0621      6.8053 f
+  core/U346/COUT (sky130_fd_sc_hd__fa_1)           0.0049      0.0823      0.3745      7.1798 f
+  core/U345/COUT (sky130_fd_sc_hd__fa_1)           0.0087      0.1038      0.4162      7.5961 f
+  core/U214/Y (sky130_fd_sc_hd__clkinv_1)          0.0031      0.0395      0.0655      7.6615 r
+  core/U614/Y (sky130_fd_sc_hd__o21ai_1)           0.0052      0.0654      0.0638      7.7253 f
+  core/U88/COUT (sky130_fd_sc_hd__fa_1)            0.0056      0.0864      0.3851      8.1104 f
+  core/U86/COUT (sky130_fd_sc_hd__fa_1)            0.0054      0.0853      0.3910      8.5015 f
+  core/U348/COUT (sky130_fd_sc_hd__fa_1)           0.0052      0.0843      0.3891      8.8906 f
+  core/U344/COUT (sky130_fd_sc_hd__fa_1)           0.0053      0.0848      0.3894      9.2800 f
+  core/U83/COUT (sky130_fd_sc_hd__fa_1)            0.0095      0.1073      0.4218      9.7019 f
+  core/U80/Y (sky130_fd_sc_hd__clkinv_1)           0.0028      0.0389      0.0647      9.7666 r
+  core/U616/Y (sky130_fd_sc_hd__o21ai_0)           0.0051      0.0887      0.0856      9.8522 f
+  core/U4/COUT (sky130_fd_sc_hd__fa_1)             0.0048      0.0821      0.3871     10.2393 f
+  core/U343/COUT (sky130_fd_sc_hd__fa_1)           0.0065      0.0912      0.3980     10.6373 f
+  core/U347/COUT (sky130_fd_sc_hd__fa_1)           0.0046      0.0812      0.3869     11.0241 f
+  core/U617/X (sky130_fd_sc_hd__xor2_1)            0.0060      0.1730      0.1822     11.2063 r
+  core/U315/Y (sky130_fd_sc_hd__nand2_1)           0.0627      0.5616      0.3852     11.5916 f
+  core/U623/Y (sky130_fd_sc_hd__o22ai_1)           0.0039      0.2974      0.3097     11.9013 r
+  core/CPU_Xreg_value_a4_reg[1][31]/D (sky130_fd_sc_hd__dfxtp_4)
+                                                               0.2974      0.0009     11.9022 r
+  data arrival time                                                                   11.9022
+
+  clock clk (rise edge)                                                   10.0000     10.0000
+  clock network delay (propagated)                                         2.3765     12.3765
+  core/CPU_Xreg_value_a4_reg[1][31]/CLK (sky130_fd_sc_hd__dfxtp_4)
+                                                               0.4056      0.0000     12.3765 r
+  clock uncertainty                                                       -0.5000     11.8765
+  library setup time                                                      -0.0614     11.8150
+  data required time                                                                  11.8150
+  ----------------------------------------------------------------------------------------------------
+  data required time                                                                  11.8150
+  data arrival time                                                                  -11.9022
+  ----------------------------------------------------------------------------------------------------
+  slack (VIOLATED)                                                                    -0.0871
+
+
+1

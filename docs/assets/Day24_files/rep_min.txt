@@ -1,0 +1,49 @@
+****************************************
+Report : timing
+        -path_type full
+        -delay_type min
+        -max_paths 1
+        -report_by design
+        -transition_time
+        -capacitance
+Design : vsdbabysoc
+Version: T-2022.03-SP3-VAL
+Date   : Wed Oct 25 15:29:11 2023
+****************************************
+  Startpoint: core/CPU_br_tgt_pc_a3_reg[2] (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: core/CPU_imem_rd_addr_a1_reg[0] (rising edge-triggered flip-flop clocked by clk)
+  Mode: func1
+  Corner: func1
+  Scenario: func1
+  Path Group: clk
+  Path Type: min
+
+  Point                                             Cap        Trans        Incr        Path  
+  ----------------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                    0.0000      0.0000
+  clock network delay (propagated)                                         2.2246      2.2246
+
+  core/CPU_br_tgt_pc_a3_reg[2]/CLK (sky130_fd_sc_hd__dfxtp_1)
+                                                               0.2397      0.0000      2.2246 r
+  core/CPU_br_tgt_pc_a3_reg[2]/Q (sky130_fd_sc_hd__dfxtp_1)
+                                                   0.0049      0.0601      0.3777      2.6022 r
+  core/U1935/X (sky130_fd_sc_hd__a22o_1)           0.0025      0.0432      0.1179      2.7202 r
+  core/CPU_imem_rd_addr_a1_reg[0]/D (sky130_fd_sc_hd__dfxtp_1)
+                                                               0.0432      0.0006      2.7208 r
+  data arrival time                                                                    2.7208
+
+  clock clk (rise edge)                                                    0.0000      0.0000
+  clock network delay (propagated)                                         2.2246      2.2246
+  core/CPU_imem_rd_addr_a1_reg[0]/CLK (sky130_fd_sc_hd__dfxtp_1)
+                                                               0.2397      0.0000      2.2246 r
+  clock uncertainty                                                        0.5000      2.7246
+  library hold time                                                       -0.0052      2.7193
+  data required time                                                                   2.7193
+  ----------------------------------------------------------------------------------------------------
+  data required time                                                                   2.7193
+  data arrival time                                                                   -2.7208
+  ----------------------------------------------------------------------------------------------------
+  slack (MET)                                                                          0.0015
+
+
+1

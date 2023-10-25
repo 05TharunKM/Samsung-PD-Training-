@@ -1,0 +1,67 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Information: Activity for scenario func1 was cached, no propagation required. (POW-005)
+Mode: func1
+Corner: func1
+Scenario: func1
+Voltage: 1.8000
+Temperature: 25.0000
+
+Voltage Unit         : 1V
+Capacitance Unit     : 1pF
+Time Unit            : 1ns
+Temperature Unit     : 1C
+Dynamic Power Unit   : 1nW
+Leakage Power Unit   : 1nW
+
+Switched supply net power scaling:
+scaling for leakage power
+
+Supply nets:
+VDD (power) probability 1.0000 (default)
+VSS (ground) probability 1.0000 (default)
+
+
+
+  Attributes
+  ----------
+      h  -  Hierarchical cell
+
+                                                 Cell                    Driven Net         Total Dynamic                       Cell
+Cell Name                                        Internal Power        Switching Power      Power (% Internal/Dynamic)          Leakage Power    Attrs
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+core/U617                                            5.9102e+01             6.9356e+01             1.2846e+02 ( 46.0%)             8.9240e-03       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Total (    1 cells)                                  5.9102e+01 nW          6.9356e+01 nW          1.2846e+02 nW ( 46.0%)          8.9240e-03 nW
+1

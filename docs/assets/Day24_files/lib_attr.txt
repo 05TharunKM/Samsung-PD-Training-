@@ -1,0 +1,446 @@
+****************************************
+Report : List of Attribute Definitions
+Version: T-2022.03-SP3-VAL
+Date   : Wed Oct 25 15:47:03 2023
+****************************************
+
+Properties:
+    A - Application-defined
+    U - User-defined
+    I - Importable from design/library (for user-defined)
+    S - Settable
+    B - Subscripted
+
+Attribute Name            Object     Type       Properties  Constraints
+--------------------------------------------------------------------------------
+allowable_orientation     lib_cell   orientations
+                                                A,S         
+always_on                 lib_cell   boolean    A           
+analysis_area             lib_cell   double     A,B         
+analysis_avg_fall_delay   lib_cell   double     A,B         
+analysis_avg_fall_drive   lib_cell   double     A,B         
+analysis_avg_fall_hold    lib_cell   double     A,B         
+analysis_avg_fall_setup   lib_cell   double     A,B         
+analysis_avg_internal_power
+                          lib_cell   double     A,B         
+analysis_avg_pin_cap      lib_cell   double     A,B         
+analysis_avg_rise_delay   lib_cell   double     A,B         
+analysis_avg_rise_drive   lib_cell   double     A,B         
+analysis_avg_rise_hold    lib_cell   double     A,B         
+analysis_avg_rise_setup   lib_cell   double     A,B         
+analysis_avg_switch_power lib_cell   double     A,B         
+analysis_avgsl_fall_delay lib_cell   float      A,B         
+analysis_avgsl_fall_drive lib_cell   float      A,B         
+analysis_avgsl_fall_hold  lib_cell   float      A,B         
+analysis_avgsl_fall_setup lib_cell   float      A,B         
+analysis_avgsl_fall_transition
+                          lib_cell   float      A,B         
+analysis_avgsl_rise_delay lib_cell   float      A,B         
+analysis_avgsl_rise_drive lib_cell   float      A,B         
+analysis_avgsl_rise_hold  lib_cell   float      A,B         
+analysis_avgsl_rise_setup lib_cell   float      A,B         
+analysis_avgsl_rise_transition
+                          lib_cell   float      A,B         
+analysis_internal_power   lib_cell   double     A,B         
+analysis_is_lib_cell_analyzed
+                          lib_cell   boolean    A,B         
+analysis_leakage          lib_cell   double     A,B         
+analysis_load_count       lib_cell   int        A           
+analysis_max_fall_delay   lib_cell   float      A,B         
+analysis_max_fall_drive   lib_cell   float      A,B         
+analysis_max_fall_hold    lib_cell   float      A,B         
+analysis_max_fall_setup   lib_cell   float      A,B         
+analysis_max_fall_transition
+                          lib_cell   float      A,B         
+analysis_max_internal_power
+                          lib_cell   double     A,B         
+analysis_max_rise_delay   lib_cell   float      A,B         
+analysis_max_rise_drive   lib_cell   float      A,B         
+analysis_max_rise_hold    lib_cell   float      A,B         
+analysis_max_rise_setup   lib_cell   float      A,B         
+analysis_max_rise_transition
+                          lib_cell   float      A,B         
+analysis_max_switch_power lib_cell   double     A,B         
+analysis_min_fall_delay   lib_cell   float      A,B         
+analysis_min_fall_drive   lib_cell   float      A,B         
+analysis_min_fall_hold    lib_cell   float      A,B         
+analysis_min_fall_setup   lib_cell   float      A,B         
+analysis_min_fall_transition
+                          lib_cell   float      A,B         
+analysis_min_internal_power
+                          lib_cell   double     A,B         
+analysis_min_rise_delay   lib_cell   float      A,B         
+analysis_min_rise_drive   lib_cell   float      A,B         
+analysis_min_rise_hold    lib_cell   float      A,B         
+analysis_min_rise_setup   lib_cell   float      A,B         
+analysis_min_rise_transition
+                          lib_cell   float      A,B         
+analysis_min_switch_power lib_cell   double     A,B         
+analysis_nonmonotonic_area
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_delay
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_delay_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_drive
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_drive_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_hold
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_hold_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_setup
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_fall_setup_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_internal_power
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_internal_power_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_leakage
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_delay
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_delay_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_drive
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_drive_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_hold
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_hold_slew_load
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_setup
+                          lib_cell   boolean    A,B         
+analysis_nonmonotonic_rise_setup_slew_load
+                          lib_cell   boolean    A,B         
+analysis_norm_area        lib_cell   double     A,B         
+analysis_norm_avg_fall_delay
+                          lib_cell   double     A,B         
+analysis_norm_avg_fall_drive
+                          lib_cell   double     A,B         
+analysis_norm_avg_fall_hold
+                          lib_cell   double     A,B         
+analysis_norm_avg_fall_setup
+                          lib_cell   double     A,B         
+analysis_norm_avg_rise_delay
+                          lib_cell   double     A,B         
+analysis_norm_avg_rise_drive
+                          lib_cell   double     A,B         
+analysis_norm_avg_rise_hold
+                          lib_cell   double     A,B         
+analysis_norm_avg_rise_setup
+                          lib_cell   double     A,B         
+analysis_norm_leakage     lib_cell   double     A,B         
+analysis_norm_max_fall_delay
+                          lib_cell   double     A,B         
+analysis_norm_max_fall_drive
+                          lib_cell   double     A,B         
+analysis_norm_max_fall_hold
+                          lib_cell   double     A,B         
+analysis_norm_max_fall_setup
+                          lib_cell   double     A,B         
+analysis_norm_max_internal_power
+                          lib_cell   double     A,B         
+analysis_norm_max_rise_delay
+                          lib_cell   double     A,B         
+analysis_norm_max_rise_drive
+                          lib_cell   double     A,B         
+analysis_norm_max_rise_hold
+                          lib_cell   double     A,B         
+analysis_norm_max_rise_setup
+                          lib_cell   double     A,B         
+analysis_norm_max_switch_power
+                          lib_cell   double     A,B         
+analysis_norm_min_fall_delay
+                          lib_cell   double     A,B         
+analysis_norm_min_fall_drive
+                          lib_cell   double     A,B         
+analysis_norm_min_fall_hold
+                          lib_cell   double     A,B         
+analysis_norm_min_fall_setup
+                          lib_cell   double     A,B         
+analysis_norm_min_internal_power
+                          lib_cell   double     A,B         
+analysis_norm_min_rise_delay
+                          lib_cell   double     A,B         
+analysis_norm_min_rise_drive
+                          lib_cell   double     A,B         
+analysis_norm_min_rise_hold
+                          lib_cell   double     A,B         
+analysis_norm_min_rise_setup
+                          lib_cell   double     A,B         
+analysis_norm_min_switch_power
+                          lib_cell   double     A,B         
+analysis_slew_count       lib_cell   int        A           
+analysis_switch_power     lib_cell   double     A,B         
+antenna_diode_type        lib_cell   string     A           
+area                      lib_cell   area       A           
+async_force_00            lib_cell   boolean    A,S         
+async_force_01            lib_cell   boolean    A,S         
+async_force_10            lib_cell   boolean    A,S         
+base_name                 lib_cell   string     A           
+basic_ff_function_id      lib_cell   string     A,S         
+bbox                      lib_cell   rect       A           
+block                     lib_cell   collection A           
+block_name                lib_cell   string     A           
+boundary                  lib_cell   coord_list A,S         
+boundary_bbox             lib_cell   rect       A           
+boundary_bounding_box     lib_cell   collection A           
+bounding_box              lib_cell   collection A           
+cell_footprint            lib_cell   string     A,S         
+cell_leakage_power        lib_cell   float      A,S         
+clock_gating_integrated_cell
+                          lib_cell   string     A           
+cmog_class                lib_cell   string     A           
+core_area_area            lib_cell   double     A           
+core_area_bbox            lib_cell   rect       A           
+core_area_boundary        lib_cell   coord_list A           
+core_area_bounding_box    lib_cell   collection A           
+design                    lib_cell   collection A           
+design_name               lib_cell   string     A           
+design_type               lib_cell   string     A,S         3dic, abstract, analog, analysis, black_box, bridge, corner, cover, die, diode, end_cap, feedthrough, fill, filler, flip_chip_driver, flip_chip_pad, interposer, lib_cell, macro, module, package, pad, pad_spacer, rtl, substrate, tsv, vib, well_tap
+device_group              lib_cell   string     A,S         
+device_group_type         lib_cell   string     A,S         
+disable_timing            lib_cell   boolean    A           
+dont_touch                lib_cell   boolean    A,S         
+dont_use                  lib_cell   boolean    A,S         
+ebst_processed            lib_cell   int        A,S         
+ebst_valid                lib_cell   boolean    A,S         
+excluded_purposes         lib_cell   string     A           
+extended_name             lib_cell   string     A           
+extended_series_parallel  lib_cell   boolean    A,S         
+flip_flop_type            lib_cell   string     A,S         
+frame_update              lib_cell   boolean    A,S         
+full_name                 lib_cell   string     A           
+function_class            lib_cell   string     A           
+has_multi_power_rails     lib_cell   boolean    A           
+has_pin_internal_power    lib_cell   boolean    A,S         
+has_timing_model          lib_cell   boolean    A           
+has_tristate_outputs      lib_cell   boolean    A,S         
+height                    lib_cell   distance   A           
+ignore_dont_use           lib_cell   string     A,S         
+included_purposes         lib_cell   string     A           
+initial_family_name       lib_cell   string     A           
+inner_keepout_margin_clock
+                          lib_cell   margin_list
+                                                A,S         
+inner_keepout_margin_hard lib_cell   margin_list
+                                                A,S         
+inner_keepout_margin_hard_macro
+                          lib_cell   margin_list
+                                                A,S         
+inner_keepout_margin_route_blockage
+                          lib_cell   margin_list
+                                                A,S         
+inner_keepout_margin_route_blockage_layers
+                          lib_cell   collection A           
+inner_keepout_margin_soft lib_cell   margin_list
+                                                A,S         
+input_voltage_range       lib_cell   string     A           
+internal_power_derate_factor
+                          lib_cell   float      A           
+is_a_flip_flop            lib_cell   boolean    A,S         
+is_a_flip_flop_bank       lib_cell   boolean    A,S         
+is_a_latch                lib_cell   boolean    A,S         
+is_a_test_cell            lib_cell   boolean    A,S         
+is_ao_cell_without_primary_pg_pin
+                          lib_cell   boolean    A           
+is_backside               lib_cell   boolean    A           
+is_black_box              lib_cell   boolean    A           
+is_buffer                 lib_cell   boolean    A           
+is_combinational          lib_cell   boolean    A           
+is_compressed             lib_cell   boolean    A,S         
+is_current                lib_cell   boolean    A           
+is_diff_level_shifter     lib_cell   boolean    A           
+is_diode_cell             lib_cell   boolean    A           
+is_enable_level_shifter   lib_cell   boolean    A           
+is_etm_moded_cell         lib_cell   boolean    A           
+is_extractable            lib_cell   boolean    A,S         
+is_fall_edge_triggered    lib_cell   boolean    A           
+is_hierarchical           lib_cell   boolean    A           
+is_implicit               lib_cell   boolean    A           
+is_integrated_clock_gating_cell
+                          lib_cell   boolean    A           
+is_inverter               lib_cell   boolean    A           
+is_isolation              lib_cell   boolean    A           
+is_level_shifter          lib_cell   boolean    A           
+is_linked                 lib_cell   boolean    A           
+is_lssd_cell              lib_cell   boolean    A,S         
+is_mask_shiftable         lib_cell   boolean    A,S         
+is_memory_cell            lib_cell   boolean    A           
+is_modified               lib_cell   boolean    A           
+is_multibit               lib_cell   boolean    A,S         
+is_mux                    lib_cell   boolean    A           
+is_negative_level_sensitive
+                          lib_cell   boolean    A           
+is_new_function           lib_cell   boolean    A           
+is_no_enable              lib_cell   boolean    A,S         
+is_open                   lib_cell   boolean    A           
+is_port_punching_ok       lib_cell   boolean    A,S         
+is_positive_level_sensitive
+                          lib_cell   boolean    A           
+is_power_switch           lib_cell   boolean    A           
+is_remote                 lib_cell   boolean    A           
+is_repeater               lib_cell   boolean    A           
+is_retention              lib_cell   boolean    A           
+is_rise_edge_triggered    lib_cell   boolean    A           
+is_sequential             lib_cell   boolean    A           
+is_shared_timing_model    lib_cell   boolean    A           
+is_soi                    lib_cell   boolean    A           
+is_suggestion             lib_cell   boolean    A           
+is_three_state            lib_cell   boolean    A           
+is_use_for_analysis       lib_cell   boolean    A           
+is_virtual                lib_cell   boolean    A           
+keepouts                  lib_cell   collection A           
+label_name                lib_cell   string     A           
+last_modified             lib_cell   string     A           
+last_saved                lib_cell   string     A           
+leakage_power_derate_factor
+                          lib_cell   float      A           
+level_shifter_type        lib_cell   string     A           
+lexical_cell_height       lib_cell   string     A           
+lexical_cell_name         lib_cell   string     A           
+lexical_cell_prefix_name  lib_cell   string     A           
+lexical_cell_tile_width   lib_cell   string     A           
+lexical_circuit_clockgate lib_cell   string     A           
+lexical_circuit_device_sizing_variant
+                          lib_cell   string     A           
+lexical_circuit_eco       lib_cell   string     A           
+lexical_circuit_layout_density_variant
+                          lib_cell   string     A           
+lexical_circuit_layout_variant_1
+                          lib_cell   string     A           
+lexical_circuit_layout_variant_2
+                          lib_cell   string     A           
+lexical_circuit_multibit  lib_cell   string     A           
+lexical_circuit_topology_variant
+                          lib_cell   string     A           
+lexical_device_channel_length
+                          lib_cell   string     A           
+lexical_device_threshold_voltage
+                          lib_cell   string     A           
+lexical_device_type       lib_cell   string     A           
+lexical_drive1_name       lib_cell   string     A           
+lexical_drive2_name       lib_cell   string     A           
+lexical_electrical_delay_opt_variant
+                          lib_cell   string     A           
+lexical_electrical_hold_opt_variant
+                          lib_cell   string     A           
+lexical_electrical_property_variant
+                          lib_cell   string     A           
+lexical_electrical_setup_opt_variant
+                          lib_cell   string     A           
+lexical_electrical_slew_opt_variant
+                          lib_cell   string     A           
+lexical_electrical_symmetry_variant
+                          lib_cell   string     A           
+lexical_electrical_timing_arc_variant
+                          lib_cell   string     A           
+lexical_is_classified     lib_cell   boolean    A           
+lexical_is_ignored        lib_cell   boolean    A           
+lexical_library_name      lib_cell   string     A           
+lexical_library_prefix_name
+                          lib_cell   string     A           
+lexical_userdef_property_1_name
+                          lib_cell   string     A           
+lexical_userdef_property_1_value
+                          lib_cell   string     A           
+lexical_userdef_property_2_name
+                          lib_cell   string     A           
+lexical_userdef_property_2_value
+                          lib_cell   string     A           
+lexical_userdef_property_3_name
+                          lib_cell   string     A           
+lexical_userdef_property_3_value
+                          lib_cell   string     A           
+lexical_well_substrate_bias_architecture
+                          lib_cell   string     A           
+lib                       lib_cell   collection A           
+lib_name                  lib_cell   string     A           
+libgen_usage_class        lib_cell   string     A,S         
+libra_sugg_ref_lib_cell_name
+                          lib_cell   string     A           
+libra_vhn_string          lib_cell   string     A           
+macro_density             lib_cell   density_list
+                                                A           
+mask_shift_layers         lib_cell   collection A           
+master_timing_model       lib_cell   collection A           
+mb_bussed_ports           lib_cell   string     A           
+mb_pin_map                lib_cell   string     A           
+mb_scan_chain_ports       lib_cell   string     A           
+multibit_width            lib_cell   int        A           
+name                      lib_cell   string     A           
+new_pg_pin_syntax         lib_cell   boolean    A,S         
+no_substrate              lib_cell   boolean    A,S         
+number_of_pins            lib_cell   int        A           
+object_class              lib_cell   string     A           
+object_id                 lib_cell   string     A           
+off_state_leakage         lib_cell   double     A,S         
+on_state_resistance       lib_cell   double     A,S         
+open_count                lib_cell   int        A           
+open_mode                 lib_cell   string     A           
+outer_keepout_boundary    lib_cell   coord_list A           
+outer_keepout_margin_clock
+                          lib_cell   margin_list
+                                                A,S         
+outer_keepout_margin_hard lib_cell   margin_list
+                                                A,S         
+outer_keepout_margin_hard_macro
+                          lib_cell   margin_list
+                                                A,S         
+outer_keepout_margin_route_blockage
+                          lib_cell   margin_list
+                                                A,S         
+outer_keepout_margin_route_blockage_layers
+                          lib_cell   collection A           
+outer_keepout_margin_soft lib_cell   margin_list
+                                                A,S         
+output_voltage_range      lib_cell   string     A           
+pad_cell                  lib_cell   boolean    A           
+pass_rate                 lib_cell   double     A           -1 to 1
+power_switch_type         lib_cell   string     A           
+psc_type_id               lib_cell   int        A,S         
+read_in_by                lib_cell   string     A,S         
+reference_orientation     lib_cell   string     A,S         R0, R90, R180, R270, MX, MXR90, MY, MYR90
+retention_cell_style      lib_cell   string     A           
+sb_degen_fid              lib_cell   string     A           
+sb_port_cnt               lib_cell   int        A           
+scan_element              lib_cell   boolean    A           
+shared_timing_models      lib_cell   collection A           
+single_bit_degenerate     lib_cell   string     A           
+site_def                  lib_cell   collection A           
+site_name                 lib_cell   string     A           
+sub_design_type           lib_cell   string     A,S         
+subset_name               lib_cell   string     A,S         
+switch_list               lib_cell   string     A           
+switching_power_derate_factor
+                          lib_cell   float      A           
+syn_library               lib_cell   boolean    A,S         
+target_boundary_area      lib_cell   area       A,S         
+target_utilization        lib_cell   float      A,S         
+test_normal_func_id       lib_cell   string     A           
+thickness                 lib_cell   double     A,S         
+threshold_voltage_group   lib_cell   string     A,S         
+threshold_voltage_group_type
+                          lib_cell   string     A           
+top_module                lib_cell   collection A           
+top_module_name           lib_cell   string     A,S         
+type                      lib_cell   int        A,S         
+unique_cell_number        lib_cell   int        A,S         
+unique_cell_prefix        lib_cell   string     A,S         
+unique_net_number         lib_cell   int        A,S         
+unique_net_prefix         lib_cell   string     A,S         
+use_for_size_only         lib_cell   boolean    A           
+use_frame_blockage        lib_cell   boolean    A,S         
+user_function_class       lib_cell   string     A,S         
+user_power_group          lib_cell   string     A           
+valid_purposes            lib_cell   string     A           
+vhdl_name                 lib_cell   string     A,S         
+via0_alignment            lib_cell   boolean    A,S         
+via_ladder_pin_order      lib_cell   collection A,S         
+via_regions               lib_cell   collection A           
+view_name                 lib_cell   string     A           , abstract, conn, design, frame, layout, outline, rtl, timing
+width                     lib_cell   distance   A           
