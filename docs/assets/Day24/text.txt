@@ -1,1 +1,252 @@
 qwertyuiop[asdfghjklzxxcvbnm
+
+size_cell core/U617 sky130_fd_sc_hd__xor2_2
+
+     1  source top.tcl
+     2  start_gui
+     3  report_timing
+     4  report_timing -capacitance -transition_time -significant_digits 4
+     5  report_timing -capacitance -transition_time -significant_digits 4 > rep_max
+     6  report_timing -capacitance -transition_time -significant_digits 4 > rep_max.txt
+     7  report_timing -capacitance -transition_time -significant_digits 4 > ./rep/rep_max.txt
+     8  report_timing -capacitance -transition_time -significant_digits 4 > ./reps/rep_max.txt
+     9  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min  > ./reps/rep_min.txt
+    10  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min
+    11  report_global_timing
+    12  report_global_timing > ./reps/rep_glob
+    13  report_global_timing > ./reps/rep_glob.txt
+    14  report_timin
+    15  report_timing
+    16  start_gui
+    17  set a [get_timing_paths]
+    18  change_selection $a
+    19  change_selection $a
+    20  report_timing -capacitance -transition_time -significant_digits 4
+    21  size_cell core/U617 sky130_fd_sc_hd__xor2_1
+    22  size_cell core/U617 sky130_fd_sc_hd__xor2_2
+    23  report_timing -capacitance -transition_time -significant_digits 4
+    24  get_attribute
+    25  get_attribute -objects sky130_fd_sc_hd__xor2_1
+    26  list_attributes
+    27  man list_attributes
+    28  list_attributes -application -class cell > ./reps/list_attr.txt
+    29  list_attributes -application -class pin  > ./reps/list_attr_pin.txt
+    30  report_timing -capacitance -transition_time -significant_digits 4
+    31  get_attribute -objects [get_lib_cells sky130_fd_sc_hd__xor2_2] -name clock_latency_fall_max
+    32  get_attribute -objects [get_lib_cells sky130_fd_sc_hd__xor2_2] -name clock_latency_ris_max
+    33  get_attribute -objects [get_lib_cells sky130_fd_sc_hd__xor2_2] -name clock_latency_rise_max
+    34  man list_attributes
+    35  list_attributes -application -class lib_cell
+    36  list_attributes -application -class lib_cell > ./reps/lib_attr.txt
+    37  get_attribute -objects [get_lib_cells sky130_fd_sc_hd__xor2_2] -name analysis_avg_fall_setup
+    38  get_attribute -objectssky130_fd_sc_hd__xor2_2 -name analysis_avg_fall_setup
+    39  get_attribute -objects sky130_fd_sc_hd__xor2_2 -name analysis_avg_fall_setup
+    40  man get_attribute
+    41  report_timing -capacitance -transition_time -significant_digits 4
+    42  get_attribute [get_pins core/U617/X] -name clock_latency_rise_max
+    43  get_attribute [get_pins core/U617/X] -class clock_latency_rise_max
+    44  get_attribute [get_pins core/U617/X] -attr_name clock_latency_rise_max
+    45  get_attribute [get_pins core/U617/X] -name clock_latency_rise_max
+    46  man get_attribute
+    47  get_attribute -objects [get_pins core/U617/X] -name clock_latency_rise_max
+    48  get_attribute -objects [get_pins core/U617/X] -name internal_power
+    49  get_attribute -objects [get_pins core/U617/X] -name lib_pin
+    50  get_attribute sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__xor2_2/X -attr_name clock_latency_rise_max
+    51  get_attribute sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__xor2_2/X -name clock_latency_rise_max
+    52  get_attribute sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__xor2_2/X
+    53  get_attribute sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__xor2_2/X clock_name
+    54  report_
+    55  report_timing
+    56  report_timing -capacitance -transition_time -significant_digits 4
+    57  history
+    58  report_timing -capacitance -transition_time -significant_digits 4
+    59  size_cell core/U315 sky130_fd_sc_hd__nand2_2
+    60  report_timing -capacitance -transition_time -significant_digits 4
+    61  report_timing -capacitance -transition_time -significant_digits 4 -through core/U315
+    62  report_global_timing
+    63  report_timing -capacitance -transition_time -significant_digits 4 -through core/U315
+    64  report_timing -capacitance -transition_time -significant_digits 4 -through core/U315 > ./reps/rep_max_x.txt
+    65  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min
+    66  man insert_buffer
+    67  report_timing -capacitance -transition_time -significant_digits 4 -through core/U315
+    68  report_cells core/U315
+    69  man report_cells
+    70  man insert_buffer
+    71  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min
+    72  man remove_buffer
+    73  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min
+    74  get_cells -of_references *buf*
+    75  get_lib_cells
+    76  get_lib_cells -of_objects core/ZBUF_448_inst_801
+    77  insert_buffer core/U1935/X sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_1
+    78  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min
+    79  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min -through core/U1935
+    80  report_timing -capacitance -transition_time -significant_digits 4 -delay_type min -through core/U1935 > ./reps/rep_min_bufinsert.txt
+    81  report_timing -capacitance -transition_time -significant_digits 4 -delay_type max
+    82  history
+    83  history | grep size
+    84  size_cell core/U617 sky130_fd_sc_hd__xor2_1
+    85  size_cell core/U315 sky130_fd_sc_hd__nand2_1
+    86  report_timing
+    87  report_power
+    88  report_power -significant_digits 5
+    89  ma report_power
+    90  man report_power
+    91  report_timing
+    92  report_power -cell_power core/U617
+    93  history
+    94  remove_buffer core/U1935/X
+    95  remove_buffer -net [get_nets core/U1935/X]
+    96  report_timing -delay_type min
+    97  remove_buffer core/eco_cell
+    98  report_timing -delay_type min
+    99  report_area
+   100  report_design
+   101  report_qor
+   102  report_qor > ./reps/rep_qor.txt
+   103  report_timing
+   104  report_power
+   105  report_power -significant_digits 4 > ./reps/rep_power.txt
+   106  report_power -significant_digits 4 -cell_power core/U617
+   107  report_power -significant_digits 4 -cell_power core/U617 > ./reps/rep_power_U617.txt
+   108  report_power -significant_digits 4 -cell_power  core/U315 > ./reps/rep_power_U315.txt
+   109  history
+   110  size_cell core/U617 sky130_fd_sc_hd__xor2_2
+   111  size_cell core/U315 sky130_fd_sc_hd__nand2_2
+   112  report_timing
+   113  report_power -significant_digits 4 -cell_power core/U617 > ./reps/rep_power_U617_after.txt
+   114  report_power -significant_digits 4 -cell_power  core/U315 > ./reps/rep_power_U315_after.txt
+   115  report_cell core/U617
+   116  man report_cells
+   117  report_cells
+   118  report_cells -verbose core/U617
+   119  report_cells -verbose core/U617 > test.txt
+   120  gvim test.txt
+   121  sh gvim test.txt
+   122  sh cat test.txt
+   123  report_cells -verbose core/U617 Q
+   124  report_cells -verbose core/U617 -Q
+   125  man report_cell
+   126  report_cell -power core/U618
+   127  report_cell -power core/U617
+   128  report_cell -are core/U617
+   129  report_cell -area core/U617
+   130  report_cells core/U617
+   131  report_cell core/U617
+   132  report_cell core/U617 -area
+   133  report_cells core/U617 -area
+   134  man report_qor
+   135  source area.tcl
+   136  area_logic_hierarchy
+   137  sizeof_collection [get_cells -filter "is_hierarchical" ]
+   138  sizeof_collection [get_cells -filter "is_hierarchical" -hierarchical ]
+   139  source area.tcl
+   140  area_logic_hierarchy
+   141  sizeof_collection [get_cells core/U617]
+   142  sizeof_collection [get_cells core/U617 ]
+   143  source area.tcl
+   144  area_logic_hierarchy
+   145  get_cells -filter "is_hierarchical" -hierarchical
+   146  source area.tcl
+   147  sizeof_collection [get_cells -filter "is_hierarchical" ]
+   148  sizeof_collection [get_cells -filter "is_hierarchical" -hierarchical ]
+   149  source area.tcl
+   150  area_logic_hierarchy
+   151  sizeof_collection [get_cells -filter "is_hierarchical" ]
+   152  sizeof_collection [get_cells -filter "is_hierarchical" -hierarchical ]
+   153  source area.tcl
+   154  area_logic_hierarchy
+   155  area_logic_hierarchy
+   156  source area.tcl
+   157  area_logic_hierarchy
+   158  source area.tcl
+   159  area_logic_hierarchy
+   160  puts "area of cell is [get_cells -of_objects [get_object_name $cells_in_hc]]"
+   161  source area.tcl
+   162  area_logic_hierarchy
+   163  source area.tcl
+   164  area_logic_hierarchy
+   165  source area.tcl
+   166  area_logic_hierarchy
+   167  source area.tcl
+   168  area_logic_hierarchy
+   169  source area.tcl
+   170  area_logic_hierarchy
+   171  source area.tcl
+   172  area_logic_hierarchy
+   173  source area.tcl
+   174  area_logic_hierarchy
+   175  area_logic_hierarchy > area.txt
+   176  sh gvim area.t
+   177  sh gvim area.txt
+   178  sh cat  area.txt | grep "area of cell core/U617"
+   179  sh cat  area.txt | grep "area of cell core/U617"
+   180  sh cat  area.txt | grep "area of cell core/U315"
+   181  report_timing
+   182  history
+   183  size_cell core/U617 sky130_fd_sc_hd__xor2_1
+   184  size_cell core/U315 sky130_fd_sc_hd__nand2_1
+   185  source area.tcl
+   186  area_logic_hierarchy > area.txt
+   187  sh cat  area.txt | grep "area of cell core/U617"
+   188  sh cat  area.txt | grep "area of cell core/U315"
+   189  size_cell core/U617 sky130_fd_sc_hd__xor2_2
+   190  size_cell core/U315 sky130_fd_sc_hd__nand2_2
+   191  report_timing
+   192  sh cat  area.txt | grep "area of cell core/U617"
+   193  sh cat  area.txt | grep "area of cell core/U315"
+   194  source area.tcl
+   195  area_logic_hierarchy > area.txt
+   196  sh cat  area.txt | grep "area of cell core/U617"
+   197  sh cat  area.txt | grep "area of cell core/U315"
+   198  history
+   199  insert_buffer core/U1935/X sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_1
+   200  report_qor
+   201  report_qor > ./reps/rep_qor_after.txt
+   202  report_timing -delay_type min -through core/U1935
+   203  report_timing -delay_type min -through core/eco_cell
+   204  report_constraint
+   205  man report_constraint
+   206  report_constraints -max_transition -all_violators
+   207  report_constraints -max_transition
+   208  report_constraints -max_transition -all_violators
+   209  get_lib_cells -of_objects core/ZBUF_448_0
+   210  get_lib_cells -of_objects core/U1165
+   211  size_cell core/U1165 sky130_fd_sc_hd__a22oi_4
+   212  report_constraints -max_transition -all_violators
+   213  get_timing_paths core/U1075
+   214  get_timing_paths -to core/U1075
+   215  get_timing_paths -to core/U1075/B1
+   216  get_timing_paths -to core/U1075/Y
+   217  get_timing_paths -from core/U1075/B1
+   218  get_lib_cells -of_objects core/U1075
+   219  size_cell core/U1075 sky130_fd_sc_hd__a22oi_4
+   220  report_constraints -max_transition -all_violators
+   221  size_cell core/U1075 sky130_fd_sc_hd__a22oi_2
+   222  report_constraints -max_transition -all_violators
+   223  report_nets core/n1488
+   224  report_timing -through core/n1488
+   225  size
+   226  size_cell core/U663 sky130_fd_sc_hd__nand2_2
+   227  report_constraints -max_transition -all_violators
+   228  report_timing -through core/n1488
+   229  report_timing -through core/n1488 -delay_type min
+   230  history
+   231  report_constraints -max_transition -all_violators
+   232  report_timing -through core/n1501
+   233  get_lib_cells *buf*
+   234  get_lib_cells *buf_4*
+   235  get_cells -of_references sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   236  insert_buffer core/n1501 sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   237  report_constraints -max_transition -all_violators
+   238  insert_buffer core/n1518 sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   239  report_constraints -max_transition -all_violators
+   240  insert_buffer core/n1479 sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   241  report_constraints -max_transition -all_violators
+   242  insert_buffer core/n1493  sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   243  insert_buffer core/n1568  sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   244  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+   245  report_constraints -max_transition -all_violators
+   246  report_constraints  -all_violators
+   247  report_constraints
+   248  history
