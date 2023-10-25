@@ -5474,7 +5474,7 @@ set_propagated_clock [all_clocks]
 </p> 
 
 **Note:**
-+ To ease up the set-up analysis two cells core/U617(incr = 0.1822) and core/315(incr = 0.3852) is selected for resizing based in delay they are providing.
++ To ease up the set-up analysis two cells core/U617(incr = 0.1822) and core/315(incr = 0.3852) are selected for resizing based in delay they are providing.
 + Above names are instance name , to get refence name i.e library cell attached to it use below command:
 
 ```
