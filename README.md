@@ -5608,6 +5608,7 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
  
   * In above report we can observe that set-up  slack has incresed from '-0.0871' to '0.0888'.
   * Thus resizing the cells of combinational network has helped in reducing the violations.
+
 *Hold:*
   * Command: `report_timing -capacitance -transition_time -significant_digits 4 -delay_type min `
  
