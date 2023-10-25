@@ -5429,7 +5429,7 @@ set_propagated_clock [all_clocks]
 </details>
 
 <details>
-<summary>Lab:Set-up and Hold Analysis before solving violations</summary>
+<summary>Lab: Set-up and Hold Analysis before solving violations</summary>
 
 + Timing violations are resolved using two methods in this design, sizing the cell and inserting buffer/inveretr pairs.
 + Sizing the cell:
@@ -5539,7 +5539,7 @@ icc2_shell>> get_lib_cells -of_objects [get_cells core/U315]
 </details>
 
 <details>
-<summary>Lab:Solving the violations</summary>
+<summary>Lab: Solving the violations</summary>
 
 *Set-up violations*
 + As discussed in above section, set-up is  violating with the slack of '-0.0871'.
@@ -5589,7 +5589,7 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
 </details>
 
 <details>
-<summary>>Lab:Set-up and Hold Analysis after solving violations:</summary>
+<summary>Lab: Set-up and Hold Analysis after solving violations:</summary>
 
 + *Timing analysis :* 
   * command: `report_global_timing -significant_digits 4`
