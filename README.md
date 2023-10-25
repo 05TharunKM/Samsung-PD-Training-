@@ -5662,5 +5662,6 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
 
   * Area of cell U315 has increased from 3.7536 to 6.2560.
   * Area of cell U617 has increased from 8.7584 to 16.2656.
+  * Reason of above changes is due to resizing of the cells to cells with higher drive strength.
  
 </details>
