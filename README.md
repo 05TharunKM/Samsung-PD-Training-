@@ -5387,11 +5387,278 @@ set_propagated_clock [all_clocks]
 <details>
 <summary>Theory</summary>
 
+**Timing Violations:**
+
++ STA is a crucial step in the design and verification of digital integrated circuits, ensuring that the designed hardware meets the required timing constraints. Timing violations in STA refer to situations where the actual timing behavior of a circuit does not meet the specified requirements, such as setup time, hold time, clock-to-q delay, or other timing constraints. Timing violations can lead to functional errors, performance issues, or even chip failures. Here are some  of timing violations in STA:
+   - Setup Time Violation: This occurs when the data signal does not meet the setup time requirement for the receiving flip-flop or latch. In other words, the data arrives too late for the destination flip-flop to capture it correctly on the rising edge of the clock.
+   - Hold Time Violation: A hold time violation happens when the data signal changes before the hold time requirement is met. In this case, the data changes too quickly after the clock edge, potentially causing metastability issues.
+   - Clock-to-Q Violation: This violation pertains to the delay of a signal from a flip-flop's input to its output, which exceeds the specified clock-to-q time. If the clock-to-q time is too long, it can lead to data arriving too late at the flip-flop output.
+   - Max and Min Pulse Width Violations: These violations occur when the data signals do not meet the specified minimum or maximum pulse width requirements. For instance, a signal may be required to stay high or low for a certain duration, and if it doesn't, a timing violation can occur.
+   - Setup and Hold Check Violations: In some cases, STA tools will perform setup and hold checks concurrently to ensure that both setup time and hold time requirements are met. Violations in this context can include setup/hold overlap or window violations.
+   - Data Path and Clock Path Violations: STA tools often differentiate between data path and clock path violations. Data path violations pertain to data signals and their associated timing, while clock path violations focus on the clock signal's timing, skew, and distribution.
+   - Critical Path Violations: The critical path is the longest path in a digital circuit and often determines the maximum achievable clock frequency. Violations in the critical path indicate that the circuit does not meet the desired clock frequency, and the design may need optimization.
++ Negative Slack: Negative slack is a common metric in STA that represents how much a signal is failing to meet its timing requirements. A negative slack value indicates that the signal is violating its timing constraints.
++ Timing violations can be addressed by various methods, including design optimization, clock tree synthesis, adjusting clock frequency, buffering signals, or making changes to the physical layout. STA tools help designers identify and correct these violations by analyzing the circuit's timing paths and proposing solutions to meet the desired timing constraints.
+
+**ECO:** 
+
++ ECO (Engineering Change Order) in physical design refers to the process of making modifications or changes to the physical layout of the chip after the initial design has been completed. ECOs are typically necessary to fix issues, make optimizations, or adapt the design to meet changing requirements without having to redo the entire design from scratch. Here are some key aspects of ECO in physical design:
++ Reasons for ECO:
+  - Functional Corrections: ECOs are often needed to address functional errors or bugs discovered during the verification phase.
+  - Performance Optimization: To improve the chip's performance, ECOs can involve changes to critical paths, clock distribution, or power consumption.
+  - Changes in Requirements: Sometimes, project requirements change after the initial design, necessitating modifications to the layout.
+  - Silicon Fabrication Issues: ECOs may address issues that arise during the manufacturing process, like metal layer incompatibilities or defects.
++ ECO Phases:
+  - Analysis: The first step involves identifying the need for an ECO and understanding the changes required. This typically involves timing and physical analysis.
+  - Planning: Designers plan the modifications, considering their impact on the rest of the design, including area, power, and timing.
+  - Implementation: Changes are made to the layout, which may involve adding, moving, or removing components like gates, wires, or vias.
+  - Verification: After ECO implementation, thorough verification is essential to ensure that the changes meet the intended goals and don't introduce new issues.
+  - Documentation: All changes made through ECO need to be documented, both for tracking and for future reference.
++ Tools and Methodology:
+  - ECOs are facilitated by specialized EDA (Electronic Design Automation) tools that can efficiently analyze, plan, and implement changes in the layout.
+  - Tools for physical design, such as place-and-route, DRC (Design Rule Checking), and STA (Static Timing Analysis), are used in conjunction with ECO tools to ensure that changes do not introduce new issues.
++ Types of ECO:
+  - Standard ECO: These are typical engineering changes to address issues or make improvements.
+  - Functional ECO: Focused on fixing functional bugs.
+  - Timing ECO: Focused on improving timing closure.
+  - Clock Tree ECO: Addressing issues related to clock distribution.
+  - Power ECO: Focused on reducing power consumption.
++ Timing Closure: Timing is a critical aspect of ECO in physical design. Changes should not only fix issues but also ensure that the design still meets its timing constraints.
++ Iteration: ECOs can sometimes result in new issues, so iterative loops of analysis, planning, and implementation are common until the design meets all the requirements.
++ ECOs are an essential part of the chip design process, allowing designers to make necessary adjustments without starting from scratch. However, managing ECOs effectively is a complex task, as changes can have cascading effects throughout the design. Careful planning and verification are crucial to ensure that the modified design is both functionally correct and meets performance, power, and other requirements.
+</details>
+
+<details>
+<summary>Lab:Set-up and Hold Analysis before solving violations</summary>
+
++ Timing violations are resolved using two methods in this design, sizing the cell and inserting buffer/inveretr pairs.
++ Sizing the cell:
+    - command: `size_cell <cell_to_be_replaced> <lib_cell_to_be_replaced_with>`
+    - Incase of set-up violations we can up-size the cells (increase the drive strenght of of cell => decreases the delay)
++ Inserting a buffer:
+    - command: `insert_buffer <pin_where_buffer_is_inserted> <lib_cell-buffer/buffer>`
+    - To remove the buffer use command `remove_buffer <name_of_inserted_buffer>`
++ Below is the analysis of various reports before reducing violations.
+ 
++ *Timing analysis :* 
+  * command: `report_global_timing -significant_digits 4`
+
+<p align="center">
+ <img width="1080" alt="report_glob_b.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_glob_b.png">
+</p>
+
+  * In above report for set-up case, we can observe  worst negative slack(WNS) is '-0.09', total negative slack(TNS) is -0.83 and total violations of 15.
+  * All the set-up violations are found in reg2reg path. (reg-to-reg is a path where  both startpoint and endpoint are sequential elements; i.e. either an edge-triggered element or a level sensitive element.)
+  * No Hold Violations are there in this designs.  
+  * Command: `report_timing -capacitance -transition_time -significant_digits 4 -delay_type <max_or_min>`
+ 
+<p align="center">
+ <img width="1080" alt="report_time_b.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_time_b.png">
+</p> 
+ 
+  * In above report we can observe that set-up is  violating with the slack of '-0.0871' and  hold is met with slack of '0.015'.
+  * We can observe that cells with lower drive strength are offering huge increment(delay).
+  * We can also observe that cells like core/U470 has huge capacitance which might be caused due to high fanout.
+  * Attribute 'r' means rising signal and 'f' means falling signal to that particular pin.
+  * Its possible to see this timing path in layout using gui of icc2_shell:
+  * In Layout:
+
+<p align="center">
+ <img width="1080" alt="worst_path.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/worst_path.png">
+</p>
+
+  * In schematic:
+
+<p align="center">
+ <img width="1080" alt="worst_path_sch.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/worst_path_sch.png">
+</p> 
+
+**Note:**
++ To ease up the set-up analysis two cells core/U617(incr = 0.1822) and core/315(incr = 0.3852) is selected for resizing based in delay they are providing.
++ Above names are instance name , to get refence name i.e library cell attached to it use below command:
+
+```
+icc2_shell>>  get_lib_cells -of_objects [get_cells core/U617]
+{sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__xor2_1} 
+icc2_shell>> get_lib_cells -of_objects [get_cells core/U315]
+{sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__nand2_1}
+```
+
++ *Power analysis:*
+  * command: ` report_power -significant_digits 5`.
+
+<p align="center">
+ <img width="1080" alt="report_power_b.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_power_b.png">
+</p> 
+
+  * Dynamic power(Total Power) consumption occurs when signals which go through the CMOS circuits change their logic state charging and discharging of output node capacitor.
+  * In our design, dynamic power = 4.2806 x 10<sup>06</sup> nW.
+  * Leakage power consumption is the power consumed by the sub threshold currents and by reverse biased diodes in a CMOS transistor.
+  * Leakage power =  6.3970 x 10<sup>01</sup> nW
+  * Internal power is the power  consumed by the cell when an input changes, but output does not change.
+  * Internal power = 2.8022 x 10<sup>06</sup> nW
+  * Switching power dissipation is due to the charging and discharging of total load, which includes the output capacitors and other parasitic capacitors.
+  * Net Switching Power    = 1.4784 x 10<sup>06</sup> nW
+
+ +  To get power consumption the two cells selected for resizing use command `report_power -cell_power core/U617` and `report_power -cell_power core/U315` .
+
+<p align="center">
+ <img width="1080" alt="report_power_cell_b.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_power_cell_b.png">
+</p> 
+
+   + Cell U315 = 7.2945 x 10<sup>02</sup> nW.
+   + Cell U617 = 1.2846 x 10<sup>02</sup> nW.
++ *Area analysis:*
+
+<p align="center">
+ <img width="1080" alt="report_qor_b.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_qor_b.png">
+</p> 
+
+  * To get the area of two cells selected for resizing use command `report_area` But as that command is disabled to get the area of individual cell source below tcl script in icc2_shell and invoke function  area_logic_hierarchy to some file and find the area of your cell.
+
+<p align="center">
+ <img width="1080" alt="area_tcl.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/area_tcl.png">
+</p> 
+
+[source: https://solvnet.synopsys.com/]
+ * After sourcing the above file, call the function area_logic_hierarchy and push the data to some file, then using command `grep` find the cell area in that file.
+
+<p align="center">
+ <img width="1080" alt="area_before.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/area_before.png">
+</p> 
+
+*Other violations in design:*
++ Command: `report_constraint `.
+
+<p align="center">
+ <img width="1080" alt="report_constraint_b.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_constraint_b.png">
+</p> 
+  
+  * Here we can observe that max trans and max cap is violating with cost of 0.21 and 0.02 respectively.
+ 
+</details>
+
+<details>
+<summary>Lab:Solving the violations</summary>
+
+*Set-up violations*
++ As discussed in above section, set-up is  violating with the slack of '-0.0871'.
++ To reduce the slack we have selected two cells that are contrubuting more delay for resizing.
++ Commands used are :
+
+```
+//To get the refernce name(lib cell)
+icc2_shell>>  get_lib_cells -of_objects [get_cells core/U617]
+{sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__xor2_1} 
+icc2_shell>> get_lib_cells -of_objects [get_cells core/U315]
+{sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__nand2_1}
+//Now resize 
+icc2_shell>> size_cell core/U617 sky130_fd_sc_hd__xor2_2
+1
+icc2_shell>> size_cell core/U315 sky130_fd_sc_hd__nand2_2
+1
+```
+
+*Hold Violation*
++ As observed in timing reports, there are 0 hold violations.
++ But to observe the trend of slack variation(increasing the slack) buffer has been inserted and later reports are analysed.
++ Command used to insert the buffer at pin 'core/U1935/X' : ` insert_buffer core/U1935/X sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_1`
+*Max transition violations*
+* To see details about violations and pins that are reponsible for these violations use command `report_constraints -max_transition -all_violators`.
+
+<p align="center">
+ <img width="1080" alt="report_constraint_all.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_constraint_all.png">
+</p> 
+
+* Here we can observe the various nets that are causing the violations along with thier slack.
+* To resolve this issue we can either increse the drive strength of cell that's driving the net or insert buffers with high drive strength after that net.
+* Following commands are used to reduce these violations:
+
+```
+//getting buffer cell of higher drive strength
+icc2_shell>>  get_lib_cells *buf_4*
+{sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4 ..........}
+icc2_shell>>  insert_buffer core/n1501 sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+icc2_shell>>  insert_buffer core/n1518 sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+icc2_shell>>  insert_buffer core/n1479 sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+icc2_shell>>  insert_buffer core/n1493  sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+icc2_shell>>  insert_buffer core/n1568  sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky130_fd_sc_hd__buf_4
+``` 
 
 </details>
 
 <details>
-<summary>Lab</summary>
+<summary>>Lab:Set-up and Hold Analysis after solving violations:</summary>
 
++ *Timing analysis :* 
+  * command: `report_global_timing -significant_digits 4`
+
+<p align="center">
+ <img width="1080" alt="report_glob_a.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_glob_a.png">
+</p>
+
+  * In above report we can observe that no set-up and hold violations are present
+*Set-up:*
+  * Command: `report_timing -capacitance -transition_time -significant_digits 4 -delay_type max -through core/U315`
+ 
+<p align="center">
+ <img width="1080" alt="rep_max_after.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/rep_max_after.png">
+</p> 
+ 
+  * In above report we can observe that set-up  slack has incresed from '-0.0871' to '0.0888'.
+  * Thus resizing the cells of combinational network has helped in reducing the violations.
+*Hold:*
+  * Command: `report_timing -capacitance -transition_time -significant_digits 4 -delay_type min `
+ 
+<p align="center">
+ <img width="1080" alt="report_time_min_ab.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_time_min_ab.png">
+</p> 
+ 
+  * In above report we can observe that hold  slack has improved from from '0.0015' to '0.0787'.
+  * Thus inserting the buffer cell has helped in reducing the violations.
+  * We can also observe the buffer cell `core/eco_cell` inserted (highlighted) in our timing path.
+
+*Max transition*
++ Command: `report_constraint `.
+
+<p align="center">
+ <img width="1080" alt="report_constraint_after1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_constraint_after1.png">
+</p> 
+  
+  * Here we can observe that max trans and max cap has been reduced to zero from  violating with slack of -0.21 and -0.02.
++ *Power analysis:*
+  * command: ` report_power -significant_digits 5`.
+
+<p align="center">
+ <img width="1080"  alt="report_power_a.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_power_a.png">
+</p> 
+
+  * Total power has incresed from  4.2806 x 10<sup>06</sup> nW to  4.2832 x 10<sup>06</sup> because of resizing and buffer insertion.
+ +  To get power consumption the two cells selected for resizing use command `report_power -cell_power core/U617` and `report_power -cell_power core/U315` .
+
+<p align="center">
+ <img width="1080" alt="report_power_cell_a.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_power_cell_a.png" >
+</p> 
+
+   + Cell U315 = 7.2945 x 10<sup>02</sup> nW increased to  7.5607 x 10<sup>02</sup>
+   + Cell U617 = 1.2846 x 10<sup>02</sup> nW increaded to  1.9930 x 10<sup>02</sup>
++ *Area analysis:*
+  * Command: `report_qor`
+
+<p align="center">
+ <img width="1080" alt="report_qor_a.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_qor_a.png">
+</p> 
+
+  * Area has increased from 954536.18 to 954616.14.
+  * We can also observe that buffers count  has increased to 104 from 97 previously.
+  * To get the area of two cells selected for resizing use above mentioned steps.
+
+<p align="center">
+ <img width="1080" alt="area_after.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/area_after.png">
+</p> 
+
+  * Area of cell U315 has increased from 3.7536 to 6.2560.
+  * Area of cell U617 has increased from 8.7584 to 16.2656.
  
 </details>
