@@ -5389,7 +5389,7 @@ set_propagated_clock [all_clocks]
 
 **Timing Violations:**
 
-+ STA is a crucial step in the design and verification of digital integrated circuits, ensuring that the designed hardware meets the required timing constraints. Timing violations in STA refer to situations where the actual timing behavior of a circuit does not meet the specified requirements, such as setup time, hold time, clock-to-q delay, or other timing constraints. Timing violations can lead to functional errors, performance issues, or even chip failures. Here are some  of timing violations in STA:
++ Timing violations in STA refer to situations where the actual timing behavior of a circuit does not meet the specified requirements, such as setup time, hold time, clock-to-q delay, or other timing constraints. Timing violations can lead to functional errors, performance issues, or even chip failures. Here are some  of timing violations in STA:
    - Setup Time Violation: This occurs when the data signal does not meet the setup time requirement for the receiving flip-flop or latch. In other words, the data arrives too late for the destination flip-flop to capture it correctly on the rising edge of the clock.
    - Hold Time Violation: A hold time violation happens when the data signal changes before the hold time requirement is met. In this case, the data changes too quickly after the clock edge, potentially causing metastability issues.
    - Clock-to-Q Violation: This violation pertains to the delay of a signal from a flip-flop's input to its output, which exceeds the specified clock-to-q time. If the clock-to-q time is too long, it can lead to data arriving too late at the flip-flop output.
