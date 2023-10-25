@@ -26,6 +26,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-21-Placement-and-CTS-labs](#Day-21-Placement-and-CTS-labs)
 - [Day-22-CTS-Analysis-Labs](#Day-22-CTS-Analysis-Labs)
 - [Day-23-Clock-gating-technique](#Day-23-Clock-gating-technique)
+- [Day-24-Timing-violations-and-ECO](#Day-24-Timing-violations-and-ECO)
 
 ## Day-0-Tool-Setup-Check
 
@@ -5378,8 +5379,19 @@ set_propagated_clock [all_clocks]
    - Set-up  violations has reduced and slack got improved from '-2.91' to '0.00975'.
    - Similarly hold slack has improved from '-0.19' to '0.00798'.
 
+</details>
 
 
+## Day-24-Timing-violations-and-ECO
+
+<details>
+<summary>Theory</summary>
 
 
+</details>
+
+<details>
+<summary>Lab</summary>
+
+ 
 </details>
