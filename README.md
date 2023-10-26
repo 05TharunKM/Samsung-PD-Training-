@@ -1,4 +1,4 @@
-
+   
 # Samsung-PD-Training
 This github repository summarizes the progress made in the samsung PD training. Quick links:
 
@@ -5383,7 +5383,7 @@ set_propagated_clock [all_clocks]
  <img width="1080" alt="cts_done.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ec869e6859974187c46ed610c1806195ac9f6d67/docs/assets/Day23/cts_done.png">
 </p> 
               
-- To view where buffers are inserted unselect all other option in above window and select CTS buffers  and apply the changes. 
+- To view where buffers are inserted unselect all other option in above window and select CTS buffers(total 18 buffers are inserted after CTS)  and apply the changes. 
 
 <p align="center">
  <img width="1080" alt="CTS_bufs.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/fb215ed4b9404a0581086127a1773a4a5b659904/docs/assets/Day23_u/CTS_bufs.png">
@@ -5395,7 +5395,7 @@ set_propagated_clock [all_clocks]
  <img width="1080" alt="routed.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/fb215ed4b9404a0581086127a1773a4a5b659904/docs/assets/Day23_u/routed.png">
 </p> 
 
-- Above image shows the full routing and to see vias(left) and power/GND(right) rails refer to  below images: 
+- Above image shows the full routing and to see vias(top) and power/GND(bottom) rails refer to  below images: 
 
 <p align="center">
   <img alt="vias.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65bc6ae97ea4cda7f43cbb95dd526ab07d6ebaf9/docs/assets/Day23_u/vias.png" width="50%" >
