@@ -5472,9 +5472,9 @@ set_propagated_clock [all_clocks]
 + Timing violations are resolved using two methods in this design, sizing the cell and inserting buffer/inveretr pairs.
 + Sizing the cell:
     - command: `size_cell <cell_to_be_replaced> <lib_cell_to_be_replaced_with>`
-    - Incase of set-up violations we can up-size the cells (increase the drive strenght of of cell => decreases the delay)
+    - Incase of set-up violations we can up-size the cells (increase the drive strenght of of cell will result  decrease in delay)
 + Inserting a buffer:
-    - command: `insert_buffer <pin_where_buffer_is_inserted> <lib_cell-buffer/buffer>`
+    - command: `insert_buffer <pin_where_buffer_is_inserted> <lib_cell-buffer/inverter-pair>`
     - To remove the buffer use command `remove_buffer <name_of_inserted_buffer>`
 + Below is the analysis of various reports before reducing violations.
  
@@ -5495,7 +5495,7 @@ set_propagated_clock [all_clocks]
 </p> 
  
   * In above report we can observe that set-up is  violating with the slack of '-0.0871' and  hold is met with slack of '0.015'.
-  * We can observe that cells with lower drive strength are offering huge increment(delay).
+  * We can observe that cells with lower drive strength are offering huge delay.
   * We can also observe that cells like core/U470 has huge capacitance which might be caused due to high fanout.
   * Attribute 'r' means rising signal and 'f' means falling signal to that particular pin.
   * Its possible to see this timing path in layout using gui of icc2_shell:
@@ -5668,7 +5668,7 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
   
   * Here we can observe that max trans and max cap has been reduced to zero from  violating with slack of -0.21 and -0.02.
 + *Power analysis:*
-  * command: ` report_power -significant_digits 5`.
+  * command: `report_power -significant_digits 5`.
 
 <p align="center">
  <img width="1080"  alt="report_power_a.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/36de71e88ffd978d9793e648f91d3f9ab0ea9089/docs/assets/Day24/report_power_a.png">
