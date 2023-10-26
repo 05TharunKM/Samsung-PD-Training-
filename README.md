@@ -5196,6 +5196,11 @@ duplication across modes or fanout-based nondefault routing rule limit.
 <p align="center">
  <img width="1080" alt="rep_ctim_summary.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_summary.png">
 </p>
+   
+   - rp-+ means rising transition(r), propagated clock(p) in the clock pin from launch to capture.
+   - Clock Skew is the time difference between arrival of the same edge of a clock signal at the Clock pin of the capture flop and launch flop. Any signal takes some time to travel from one point to another. The time taken by Clock signal to reach from clock source to the clock pin of a particular flip flop is called as Clock latency. Clock skew can also be termed as the difference between the 'capture flop latency' and the 'launch flop latency'.
+   - In this report we can find the maximum setup launch latency of 2.45 ns and Minimum setup capture latency of 2.21.
+   - func1 is the corner whole flow PD flow was ran on and it represent corner sky130_fd_sc_hd__tt_025C_1v80.
 
 + Command : `report_clock_timing -type skew`
     - Specify a skew report.
@@ -5203,19 +5208,30 @@ duplication across modes or fanout-based nondefault routing rule limit.
  <img width="1080" alt="rep_ctim_skew.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_skew.png">
 </p>
 
+    * Skew is the differnce in arrival time of clock at launch flop and capture flop.
+    * In our design we can see there's no skew.
+    * Latency is found to be 3 as expected(latency was set based on sdc file generated  'set_clock_latency 1  [get_clocks clk]' and  'set_clock_latency -source 2 [get_clocks clk]' = 1+2=3)
+
 + Command : `report_clock_timing -type latency`
 
 <p align="center">
  <img width="1080" alt="rep_ctim_latency.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_ctim_latency.png">
 </p>
 
+    * Clock latency is the time taken by a clock signal to  move from the clock source to the clock pin of a particular flip-flop.
+    * In sdc  command 'set_clock_latency 1  [get_clocks clk]'  is setting network latency to 1 and  command 'set_clock_latency -source 2 [get_clocks clk]' is setting source latencyto 2. same can be observed in above report.
+
 + Command : `report_global_timing`
      -  The  report_global_timing  command generates a top-level summary of the  timing for the design. The report shows the worst  negative  slack  per endpoint, the sum of all worst negative slacks per endpoint, and a number of violating endpoints. By default, each violating endpoint is onlycounted  one  time  and only one worst slack at each violating endpointcontributes to TNS and WNS. With the -groups option, each endpoint con-tributes  to  the worst negative slack and total negative slack of each group in which it has a violating slack.
-     -  In below we can observe 132 set-up violations and 326 hold violations in reg to reg path.
- 
+     
 <p align="center">
  <img width="1080" alt="rep_glob_timing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d10e05e2c0b7d3830997410e5fd21a094fd7af09/docs/assets/Day22/rep_glob_timing.png">
 </p>
+
+     -  From above report, we can observe 132 set-up violations and 326 hold violations in reg to reg path.
+     -  Worst negative slack(WNS) for set-up is '-2.29' and hold is '-0.19'.
+     -  Total negative slack(TNS) for set-up is '165.99' and hold is '14.19'.
+ 
 
 + Command : `report_clock_tree_option`
 
@@ -5234,7 +5250,8 @@ duplication across modes or fanout-based nondefault routing rule limit.
  <img width="1080" alt="rep_clock_tree_option2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/bef0a716dcee9700c05b81f103ccd3b49cea4299/docs/assets/Day22/rep_clock_tree_option2.png">
 </p>
 
- 
+   + Now we can see all the constraints target skew, target latency and root NDR fanout limit are set t appropriate values. 
+
 </details>
 
 
@@ -5344,27 +5361,43 @@ set_propagated_clock [all_clocks]
          1) Floorplan:
 
 <p align="center">
- <img width="1080" alt="floorpllane.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/floorpllane.png">
+ <img width="1080" alt="floorplan.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/fb215ed4b9404a0581086127a1773a4a5b659904/docs/assets/Day23_u/floorplan.png">
 </p>  
-
+             - We can observe the hard macros being placed and spcaces reserved for standard cell.
+	     
  	 2)  After Placement: 
 
 <p align="center">
- <img width="1080" alt="floorpllane.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/floorpllane.png">
+ <img width="1080" alt="placement.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/fb215ed4b9404a0581086127a1773a4a5b659904/docs/assets/Day23_u/placement.png">
 </p>  
+             - We can see standard cell placed(purple boxes)
 
          3) CTS: We can observe the CTS Buffer inserted in 'visual_mode' window on right side.
 
 <p align="center">
  <img width="1080" alt="cts_done.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ec869e6859974187c46ed610c1806195ac9f6d67/docs/assets/Day23/cts_done.png">
-</p>  
+</p> 
+              
+	      - To view where buffers are inserted unselect all other option in above window and select CTS buffers  and apply the changes. 
+
+       <p align="center">
+ <img width="1080" alt="CTS_bufs.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/fb215ed4b9404a0581086127a1773a4a5b659904/docs/assets/Day23_u/CTS_bufs.png">
+</p> 
 
          4) Post Routing: 
 
- <p align="center">
- <img width="1080" alt="routing.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/97719801679718d5e662b73d76cb73928cec9b9b/docs/assets/Day23/routing.png">
+  <p align="center">
+ <img width="1080" alt="routed.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/fb215ed4b9404a0581086127a1773a4a5b659904/docs/assets/Day23_u/routed.png">
 </p> 
 
+     - Above image shows the full routing and to see vias(left) and power/GND(right) rails refer to  below images: 
+
+<p align="center">
+  <img alt="vias.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65bc6ae97ea4cda7f43cbb95dd526ab07d6ebaf9/docs/assets/Day23_u/vias.png" width="50%" >
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="vdd_gnd.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/65bc6ae97ea4cda7f43cbb95dd526ab07d6ebaf9/docs/assets/Day23_u/vdd_gnd.png" width="50%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
 
 + Timing Reports:
 
