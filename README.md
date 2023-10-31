@@ -27,6 +27,8 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-22-CTS-Analysis-Labs](#Day-22-CTS-Analysis-Labs)
 - [Day-23-Clock-gating-technique](#Day-23-Clock-gating-technique)
 - [Day-24-Timing-violations-and-ECO](#Day-24-Timing-violations-and-ECO)
+- [Day-25-RISC-V-core-RTL2GDS-flow](#Day-25-RISC-V-core-RTL2GDS-flow)
+- [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow])
 
 ## Day-0-Tool-Setup-Check
 
@@ -5701,5 +5703,68 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
   * Area of cell U315 has increased from 3.7536 to 6.2560.
   * Area of cell U617 has increased from 8.7584 to 16.2656.
   * Reason of above changes is due to resizing of the cells to cells with higher drive strength.
+ 
+</details>
+
+
+
+## Day-25-RISC-V-core-RTL2GDS-flow
+
+
+<details>
+	<summary>Theory</summary>
+
+	+ covered in previous sessions.
+
+</details>
+
+## Day-26-Introduction-to-mixed-signal-flow
+
+
+<details>
+<summary>Theory</summary>
+
+**Mixed signal design:**
+
++ Mixed-signal design refers to the integration of both analog and digital circuitry on the same chip. This approach combines the benefits of analog and digital components to create systems capable of processing and interacting with both continuous (analog) and discrete (digital) data.
+	1. *Analog and Digital Integration*: Mixed-signal design involves integrating analog components, which process continuous voltage or current signals, and digital components, which manipulate discrete binary data. Analog circuits can include amplifiers, filters, analog-to-digital converters (ADCs), and digital-to-analog converters (DACs). Digital circuits can include processors, memory, and logic gates.
+	2. *Applications*: Mixed-signal ICs are used in a wide range of applications, including audio processing, data conversion, sensor interfaces, wireless communication, power management, and more. They are essential in systems where both analog and digital data need to be processed.
+	3. *Data Conversion*: ADCs and DACs play a critical role in mixed-signal design. ADCs convert analog signals into digital data for processing, while DACs convert digital data back into analog signals. The precision and performance of these converters are crucial for many applications.
+	4. *Clock Domain Crossing*: Mixed-signal designs often involve interfacing between analog and digital clock domains. Managing clock domain crossings is essential to prevent issues like metastability and ensure correct operation.
+	5. *Signal Integrity*: Maintaining signal integrity is crucial. Issues such as noise, jitter, crosstalk, and interference can affect the performance of both analog and digital circuits. Proper design techniques and layout are required to minimize these issues.
+	6. *Mixed-Signal Verification*: Design verification involves simulation and testing to ensure that the mixed-signal IC meets its specifications. It includes testing analog performance, digital functionality, and mixed-signal interactions.
+	7. *Layout Considerations*: Physical layout is crucial in mixed-signal design to prevent interference and noise. Careful consideration must be given to minimizing parasitic effects in the design.
+	8. *Power Management*: Power management is essential as mixed-signal ICs often have various power domains, and managing power efficiently is critical for battery-powered applications.
+	9. *Co-Design*: Mixed-signal design often requires close collaboration between analog and digital designers to ensure that both aspects of the chip work seamlessly together.
+	10. *Testing and Characterization*: Mixed-signal ICs require thorough testing and characterization to validate their performance and ensure that they meet specifications under various operating conditions.
++ Mixed-signal design is highly specialized and complex due to the interaction between analog and digital components. It requires expertise in both analog and digital design, as well as a deep understanding of how these components interact.
+
+**AMS-Anolog and mixed signal design:**
+
++ "AMS" stands for "Analog and Mixed-Signal" design. Analog and mixed-signal design involves the integration of analog and digital circuitry on the same chip to create systems that can process and interact with both continuous (analog) and discrete (digital) data as we did in VSDBabySoC where two anolog modules PLL and DAC is integerated with digital block rvmythcore. 
+	1. *Analog Circuits*: Analog circuits deal with continuous voltage or current signals. They are used to process real-world signals, such as audio, video, temperature, and other sensor data. Examples of analog circuits include amplifiers, filters, voltage regulators, and analog sensors.
+	2. *Digital Circuits*: Digital circuits, on the other hand, process discrete binary data, using logic gates and memory elements. They are responsible for tasks such as data processing, control, and arithmetic operations. Digital circuits include processors, memory, and digital communication components.
+	3. *Mixed-Signal Circuits*: Mixed-signal circuits are a combination of analog and digital components on the same chip. They serve as interfaces between the analog and digital worlds, often converting analog signals to digital (and vice versa). Examples include analog-to-digital converters (ADCs) and digital-to-analog converters (DACs).
+	4. *Applications*: AMS design is essential in applications where both analog and digital signals need to be processed together. Common applications include audio processing, data conversion, sensor interfaces, wireless communication, power management, and more.
+	5. *Data Conversion*: ADCs are used to convert analog signals into digital data for processing in digital circuits. Conversely, DACs are used to convert digital data back into analog signals for output.
+	6. *Signal Integrity*: Maintaining signal integrity is crucial in AMS design. Issues such as noise, jitter, crosstalk, and interference can affect both analog and digital circuits. Special care must be taken to minimize these issues.
+	7. *Co-Design*: AMS design often requires close collaboration between analog and digital designers to ensure that both aspects of the chip work seamlessly together.
+	8. *Testing and Verification*: Rigorous testing and verification are required to validate the performance of AMS designs, ensuring that they meet their specifications under various operating conditions.
+
++ As discussed in previous sessions following files are used when we do mixed signal design. 
+	- Library File:
+   		* A ".lib" file referred to as a library file, contains information about standard cells or macros. It includes data such as cell timing information (delay, input/output pin capacitance), power consumption, and logical functionality.
+  		* Library files are used in the synthesis and place-and-route stages of the design process to select and optimize standard cell components for the design.
+	- Library Exchange Format File:
+ 		* A ".lef" file is used to describe the physical properties of the cells and components in a standard cell library. It contains information about the cell dimensions, pin locations, layer information (for metal, polysilicon, etc.), and other physical characteristics.
+		* The ".lef" file is used by place-and-route tools to determine how cells should be placed and connected on the chip's layout.
+	- Timing File:
+		* A ".tf" file, often referred to as a timing file, contains information about the timing constraints and delays within  design. It specifies timing characteristics such as input and output delays, setup times, hold times, clock-to-q delays, and more.
+		* Timing files are used for static timing analysis to ensure that the design meets its performance and timing requirements.
+	- Transfer Function Lookup Table File)**:
+	        * A ".tlu" file typically contains lookup tables that define the behavior of certain digital or 'analog' components, such as memory cells, logical functions, or transfer functions for analog devices.
+		* These files are used to model and simulate the behavior of specific components or blocks within the design.
+
+
  
 </details>
