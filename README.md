@@ -5761,7 +5761,7 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
 	- Timing File:
 		* A ".tf" file, often referred to as a timing file, contains information about the timing constraints and delays within  design. It specifies timing characteristics such as input and output delays, setup times, hold times, clock-to-q delays, and more.
 		* Timing files are used for static timing analysis to ensure that the design meets its performance and timing requirements.
-	- Transfer Function Lookup Table File)**:
+	- Transfer Function Lookup Table File:
 	        * A ".tlu" file typically contains lookup tables that define the behavior of certain digital or 'analog' components, such as memory cells, logical functions, or transfer functions for analog devices.
 		* These files are used to model and simulate the behavior of specific components or blocks within the design.
 
