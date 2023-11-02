@@ -28,7 +28,8 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-23-Clock-gating-technique](#Day-23-Clock-gating-technique)
 - [Day-24-Timing-violations-and-ECO](#Day-24-Timing-violations-and-ECO)
 - [Day-25-RISC-V-core-RTL2GDS-flow](#Day-25-RISC-V-core-RTL2GDS-flow)
-- [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow])
+- [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow]
+- 
 
 ## Day-0-Tool-Setup-Check
 
