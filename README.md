@@ -5895,14 +5895,19 @@ read_parasitics -keep_capacitive_coupling <location of spef>
 + Reports: 
 
 ```
-report_si_bottleneck              
-report_bottleneck                 
+report_si_bottleneck  
+report_bottleneck          
 report_si_delay_analysis
 ```
 
 <p align="center">
  <img width="1080" alt="img5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img5.png">
 </p> 
+
++ `report_si_bottleneck`:  Identify the crosstalk bottlenecks in the design. This is useful when the major sources of violations come from crosstalk effects.
++ `report_bottleneck`: Reports timing bottleneck information.              
++ `report_si_delay_analysis`: Generates a report of user coupling information on nets for crosstalk delay analysis.
+
 
 ```
 report_si_aggressor_exclusion
@@ -5912,5 +5917,9 @@ report_si_noise_analysis
 <p align="center">
  <img width="1080" alt="img6.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img6.png">
 </p> 
+
++ `report_si_aggressor_exclusion`: This command will report the exclusive groups set by command set_si_aggressor_exclusion.
++ `report_si_noise_analysis`: This command will generates a report of user coupling information on nets for crosstalk noise analysis.
+
 
 </details>
