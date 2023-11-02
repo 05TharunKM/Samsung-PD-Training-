@@ -28,8 +28,8 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-23-Clock-gating-technique](#Day-23-Clock-gating-technique)
 - [Day-24-Timing-violations-and-ECO](#Day-24-Timing-violations-and-ECO)
 - [Day-25-RISC-V-core-RTL2GDS-flow](#Day-25-RISC-V-core-RTL2GDS-flow)
-- [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow]
-- 
+- [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow)
+- [Day-27-Introduction-to-crosstalk-glitch-and-delay](#Day-27-Introduction-to-crosstalk-glitch-and-delay)
 
 ## Day-0-Tool-Setup-Check
 
@@ -5768,4 +5768,149 @@ icc2_shell>>  insert_buffer core/ZBUF_448_0  sky130_fd_sc_hd__tt_025C_1v80/sky13
 
 
  
+</details>
+
+
+
+## Day-27-Introduction-to-crosstalk-glitch-and-delay
+
+
+<details>
+<summary>Crosstalk noise</summary>
+
++ Crosstalk refers to the unwanted coupling or interference between neighboring wires or signal lines on an integrated circuit. This phenomenon occurs because of the close proximity of these wires, which can result in electrical signals from one wire affecting the signals on another wire. Crosstalk can lead to various problems, including signal degradation, timing violations, and ultimately, reduced circuit performance or reliability.
++ There are two main types of crosstalk:
+   - Capacitive Crosstalk: This occurs due to the capacitive coupling between adjacent conductive traces or wires on an integrated circuit. When an active wire changes its voltage state, it creates an electric field that induces a voltage on nearby, non-active wires. This induced voltage can lead to interference and affect the signal integrity of the neighboring wires.
+   - Inductive Crosstalk: Inductive crosstalk, on the other hand, is a result of the magnetic fields produced by current-carrying wires. When a current changes in one wire, it creates a magnetic field that can induce a current in a nearby wire. This induced current can cause interference with the original signal and impact circuit performance.
++ To mitigate crosstalk, various techniques and strategies are employed:
+   - Wire Spacing: Increasing the physical separation between wires can reduce the capacitive and inductive coupling between them, mitigating crosstalk.
+   - Shielding: Adding a shielding layer between signal wires can reduce the capacitive coupling by isolating the wires from each other.
+   - Differential Signaling: Using differential pairs of signals, where the signal and its complement are sent on two adjacent wires, can help cancel out the effects of crosstalk.
+   - Proper Routing: Careful and strategic routing of wires can minimize the length of parallel wires and reduce the likelihood of crosstalk.
+   - Signal Integrity Analysis: Sophisticated tools and simulations are used to analyze and predict crosstalk issues in VLSI designs. This allows designers to make informed decisions to address crosstalk problems.
+   - Clock Tree Design: Ensuring that clock signals are distributed carefully can help reduce the impact of crosstalk on critical timing paths.
+   - Ground and Power Planning: Proper ground and power distribution in the design can also help minimize crosstalk by ensuring that ground and power signals are well-decoupled from the signal lines.
++ Crosstalk is a significant concern in high-speed and densely packed designs, and it requires careful consideration and management to ensure the reliable operation of integrated circuits.
++ High routing density in designs can exacerbate crosstalk issues. When you have a large number of tightly packed signal lines or traces in a small area, the proximity between these lines increases, making crosstalk more likely and problematic.
++ Consider below example:
+
+<p align="center">
+ <img width="1080" alt="pic1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/pic1.png">
+</p> 
+
++ To reduce the size of the design  we can reduce the  channel length of transistor. When we reduce the channel length, the overall size of the transitor as well as the cell shrinks too. 
++ Now we can use these shrunk modules/design in same area for multiple times.
++ But when the size is  below 0.1 um interference between the two nets/wires that is close to each other causes crosstalk.(This also results in high routing density.)
+
+</details>
+
+
+<details>
+<summary>Noise Margin</summary>
+
++ Noise margins are critical parameters in VLSI design. They represent the amount of noise or voltage fluctuation that a digital signal can tolerate while still reliably maintaining its logic state (either high or low). Noise margins are crucial for ensuring the proper operation of digital circuits, especially in the presence of various sources of noise, such as electrical interference or variations in voltage supply.
++ There are two primary types of noise margins:
+   1) **High Noise Margin (NMH)**: NMH represents the maximum amount of noise or voltage fluctuation that a digital logic input can tolerate while still being recognized as a logical HIGH (usually represented as '1' in binary). It is a measure of how much the input voltage can be reduced (pulled down) and still be interpreted as a logical HIGH. NMH is defined as the difference between the minimum HIGH input voltage (VIH) and the HIGH output voltage (VOH) of the driving logic. (NMH = VIH - VOH)
+   2) **Low Noise Margin (NML)**: NML represents the maximum amount of noise or voltage fluctuation that a digital logic input can tolerate while still being recognized as a logical LOW (usually represented as '0' in binary). It is a measure of how much the input voltage can be increased (pulled up) and still be interpreted as a logical LOW. NML is defined as the difference between the LOW input voltage (VIL) and the minimum LOW output voltage (VOL) of the driving logic. (NML = VIL - VOL)
++ To ensure reliable operation, the high noise margin should be greater than the low noise margin, as it's typically more important to preserve the integrity of logical HIGH states. In other words, you want the HIGH state to be robust and resistant to noise.
++ A larger noise margin implies that the design is more resilient to variations in supply voltage, temperature, and other environmental factors that can introduce noise. Designers strive to maximize noise margins in digital circuits to ensure that they can operate reliably across a range of conditions.
++ Factors that affect noise margins include the characteristics of the semiconductor process technology used, the specific design of the logic gates and interconnects, and the voltage supply levels. In deep submicron technologies, where power supply voltages are decreasing, maintaining adequate noise margins becomes a critical challenge.
+
+<p align="center">
+ <img width="1080" alt="pic2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/pic2.png">
+</p> 
+
+</details>
+
+<details>
+<summary>Signal Integrity Analysis</summary>
+
++ Signal integrity analysis in PrimeTime focuses on verifying the timing and electrical characteristics of design, with an emphasis on ensuring the reliability of signal propagation. 
++ Signal integrity analysis helps ensure that  design meets its performance and reliability requirements. It plays a crucial role in identifying and addressing issues that could lead to incorrect operation or failures in your design, especially in advanced semiconductor process technologies where signal integrity challenges become more significant.
++ Aggressor and Victim Nets: A net that receives undesirable cross-coupling effects from a nearby net is called a victim net and A net that causes these effects in a victim net is called an aggressor net.
++ Crosstalk-Glitch
+   - When one net is switching, and another net is constant then switching signal may cause spikes on other net because of which coupling capacitance (Cc) occurs between two nets, this is called as crosstalk noise.
+ 
+</details>
+
+<details>
+<summary>Labs</summary>
+
++ First step is to update the timing using command `update_timing`. This will update the changeswe have done so far for the design.
++ `write_parasitics -format spef -output vsdbabysoc_spef` - this command will perform RC extraction and generate the spef file.(standard parasitic extraction format)
++ Followin image shows the outputs of above command:
+
+<p align="center">
+ <img width="1080" alt="img1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img1.png">
+</p> 
+
++ Then extract the netlist file from the archive file generated.
++ Now open prime time shell using command `pt_shell`.
++ Use below commands to set the libraries: 
+
+```
+set target_library "<path to avsddac.db> <path to avsdpll.db> <path to sky130_fd_sc_hd__tt_025C_1v80.db>"
+set link_library [list  <path to avsddac.db> <path to avsdpll.db> <path to sky130_fd_sc_hd__tt_025C_1v80.db>]
+read_verilog vsdbabysoc.pt.v
+link_design
+current_design
+```
+
++ Followin image shows the outputs of above commands in pt_shell:
+
+<p align="center">
+ <img width="1080" alt="img2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img2.png">
+</p> 
+
++ To provide sdc file and spef file use below commands:
+
+```
+read_sdc func1.sdc // found in write_data_dir/vsdbabysoc/vsdbabysoc.sdc folder
+set_app_var si_enable_analysis true
+read_parasitics -keep_capacitive_coupling <location of spef>
+```
+
+<p align="center">
+ <img width="1080" alt="img3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img3.png">
+</p> 
+
++ Now perfrom `check_timing` and if facing any error 'OUT port is not constrained for max' use command `set_output_delay -max 5 [get_ports {OUT}] -clock [get_clock MYCLK]`
+
+<p align="center">
+ <img width="1080" alt="img4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img4.png">
+</p> 
+
++ Schematic of VSDBabySoC in pt_shell
+
+<p align="center">
+ <img width="1080" alt="img7.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img7.png">
+</p> 
+
++ Schematic of rvmyth core in pt_shell
+
+<p align="center">
+ <img width="1080" alt="img8.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img8.png">
+</p> 
+
++ Reports: 
+
+```
+report_si_bottleneck              
+report_bottleneck                 
+report_si_delay_analysis
+```
+
+<p align="center">
+ <img width="1080" alt="img5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img5.png">
+</p> 
+
+```
+report_si_aggressor_exclusion
+report_si_noise_analysis
+```
+
+<p align="center">
+ <img width="1080" alt="img6.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/6424715adfa00447ab9bed36ce215057c875d142/docs/assets/Day26/img6.png">
+</p> 
+
 </details>
