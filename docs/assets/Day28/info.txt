@@ -35,3 +35,26 @@ Design Rule Checks (DRC) are a series of checks performed on the physical layout
 DRC checks are typically performed using specialized Electronic Design Automation (EDA) tools. Once DRC checks are executed, a report is generated, highlighting any violations and providing details on their nature and location in the layout. Designers must address these violations through layout modifications and adjustments to ensure that the final IC can be manufactured correctly and reliably. The DRC process is iterative, with multiple checks and revisions, until the design is free from violations.
 
 
+LVS (Layout vs. Schematic) checks are a set of verification processes used in the design of integrated circuits to ensure that the physical layout of the circuit matches its intended electrical schematic. These checks compare the geometric representation of the layout to the logical representation of the schematic to identify any discrepancies or errors. Here are some common types of LVS checks:
+
+1. **Device Matching**: This check verifies that the devices (e.g., transistors) in the layout match the devices in the schematic in terms of type, size, and connectivity.
+
+2. **Interconnection Matching**: It ensures that the interconnections between devices in the layout are consistent with the connectivity described in the schematic. This check confirms that wires or metal connections between components are correctly placed and connected.
+
+3. **Dangling Wires and Nodes**: LVS checks for dangling or unconnected wires in the layout and ensures that there are no floating or unconnected nodes in the schematic.
+
+4. **Shorts and Opens Detection**: This check identifies short circuits (unintended connections) and open circuits (missing connections) between components in the layout.
+
+5. **Hierarchy Matching**: It verifies that hierarchical structures and sub-circuits within the schematic and layout are accurately represented and interconnected.
+
+6. **Pin-to-Pin Matching**: LVS checks that pins (I/Os) on the layout are correctly connected to pins in the schematic, making sure there are no pin-swaps or missing connections.
+
+7. **Parameter Matching**: This check ensures that parameters such as device sizes, resistance values, capacitance values, etc., match between the layout and schematic.
+
+8. **Scaling and Orientation**: LVS checks for scaling and orientation errors in the layout. This is particularly important in the case of flipped or rotated cells.
+
+9. **Extraction and Comparison**: The process involves extracting relevant information from both the layout and the schematic, such as component positions, dimensions, interconnections, and device types. Then, these extracted data sets are compared to identify any inconsistencies.
+
+10. **Error Reporting**: When discrepancies are detected, the LVS tool generates a report detailing the errors found, helping designers identify and resolve them.
+
+LVS checks are critical to ensure that the final fabricated chip or integrated circuit accurately reflects the intended design and functionality. It plays a crucial role in verifying that the layout, which is sent for manufacturing, aligns with the logical schematic representation created by the design team. Inaccuracies or discrepancies between the layout and schematic can lead to serious functionality issues in the final chip, so LVS verification is a standard and necessary part of the design process.
