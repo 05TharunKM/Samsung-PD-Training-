@@ -30,6 +30,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-25-RISC-V-core-RTL2GDS-flow](#Day-25-RISC-V-core-RTL2GDS-flow)
 - [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow)
 - [Day-27-Introduction-to-crosstalk-glitch-and-delay](#Day-27-Introduction-to-crosstalk-glitch-and-delay)
+- [Day-28-Introduction-to-DRC-and-LVS](#Day-28-Introduction-to-DRC-and-LVS)
 
 ## Day-0-Tool-Setup-Check
 
@@ -5922,4 +5923,74 @@ report_si_noise_analysis
 + `report_si_noise_analysis`: This command will generates a report of user coupling information on nets for crosstalk noise analysis.
 
 
+</details>
+
+## Day-28-Introduction-to-DRC-and-LVS
+
+<details>
+<summary>Theory</summary>
+
+* Process Design Kit(PDK): the interface between the fabrications and the designers.
+   + Collection of files used to model a fabrication process for EDA tools used to design an IC.
+   + Process Design Rules: DRC, LVS, PEX.
+   + Device models.
+   + Digital Standard Cell Libraries.
+   + I/O libraries
+
+* What is OpenLANE?
+   + Started as an Open-Surce Flow for a True Open Source Tape-Out Experiment.
+   + striVe is a family of open everything SoCs i.e. Open PDK, Open EDA, Open RTL
+* OpenLANE ASIC Flow: 
+   + Main goal: to produce a clean GDSII with no human intervention (no-human-in-the-loop) Here Clean refers to :
+	 - No LVS violations
+	 - No DRC violations
+	 - No timing violations
+   + Tuned for SkyWater 130 nm Open PDK, also supports XFAB180 and GF130G
+   + Containerized
+	 - Functional out of the box
+	 - Instructions to build and run natively will follow.
+	 - Can be used to harden Macros and Chips.
+   + Two modes of operation:
+	 - Autonomous
+	 - Interactive
+   + Design Space Exploration feature:
+	 - Finding the best set of flow configurations.
+   + Comes with large number of design examples.
+ 	 - 43 designs with their best configurations.
+
++ Design Rule Checks (DRC) are a series of checks performed on the physical layout to ensure that it adheres to the specified design rules and constraints. These checks are essential for verifying that the IC can be manufactured correctly and reliably. Here are common types of DRC checks:
+	1. *Spacing Rules*: Ensure that there is sufficient spacing between various layout features to prevent shorts and manufacturing issues. This includes checking minimum spacing between metal lines, vias, transistors, and other components.
+	2. *Width Rules*: Verify that the width of conductive paths and features, such as wires and transistors, meets the minimum and maximum width requirements specified in the design rules.
+	3. *Enclosure Rules*: Ensure that certain components are adequately enclosed within specific layers or boundaries, preventing electrical shorts and ensuring proper isolation.
+	4. *Overlap Rules*: Check for unwanted overlaps between different layers, features, or components. Overlaps can lead to shorts and other manufacturing problems.
+	5. *Notch Rules*: Verify that specified notches or cutouts are present in particular regions of the layout to prevent interference and shorts.
+	6. *Density Rules*: Ensure that the layout adheres to specified density constraints, preventing over-densification in specific regions and ensuring uniform manufacturing quality.
+	7. *Orthogonal Rules*: Confirm that specific features, such as wires and connections, follow a defined orthogonal (90-degree) orientation, which can aid in manufacturability.
+	8. *Alignment Rules*: Check that certain layout features are aligned with respect to a particular reference, which is important for ensuring correct connectivity and proper operation.
+	9. *Stitching Rules*: Verify that stitching or jumper structures are correctly placed to provide continuity in metal layers or other critical areas of the layout.
+	10. *Corner Rules*: Confirm that corners of layout features are correctly shaped and meet specific design rules, avoiding sharp corners that can lead to manufacturing defects.
+	11. *Electrical Connectivity Rules*: Check for proper electrical connectivity and the absence of unwanted open or disconnected paths.
+	12. *Symmetry Rules*: Ensure that symmetric components are correctly mirrored or rotated, adhering to design symmetry requirements.
+	13. *Abutment Rules*: Check for abutment, or the proper alignment of specific components along their edges to ensure correct interconnections.
+	14. *Edge Rules*: Examine the edges of the layout to ensure they meet specific requirements, including edge exclusion zones and edge termination structures.
+	15. *Legal Rules*: Verify that the layout adheres to legal constraints and intellectual property (IP) licensing agreements.
+
++ LVS (Layout vs. Schematic) checks are a set of verification processes used in the design to ensure that the physical layout of the circuit matches its intended electrical schematic. These checks compare the geometric representation of the layout to the logical representation of the schematic to identify any discrepancies or errors. Here are some common types of LVS checks:
+	1. *Device Matching*: This check verifies that the devices (e.g., transistors) in the layout match the devices in the schematic in terms of type, size, and connectivity.
+	2. *Interconnection Matching*: It ensures that the interconnections between devices in the layout are consistent with the connectivity described in the schematic. This check confirms that wires or metal connections between components are correctly placed and connected.
+	3. *Dangling Wires and Nodes*: LVS checks for dangling or unconnected wires in the layout and ensures that there are no floating or unconnected nodes in the schematic.
+	4. *Shorts and Opens Detection*: This check identifies short circuits (unintended connections) and open circuits (missing connections) between components in the layout.
+	5. *Hierarchy Matching*: It verifies that hierarchical structures and sub-circuits within the schematic and layout are accurately represented and interconnected.
+	6. *Pin-to-Pin Matching*: LVS checks that pins (I/Os) on the layout are correctly connected to pins in the schematic, making sure there are no pin-swaps or missing connections.
+	7. *Parameter Matching*: This check ensures that parameters such as device sizes, resistance values, capacitance values, etc., match between the layout and schematic.
+	8. *Scaling and Orientation*: LVS checks for scaling and orientation errors in the layout. This is particularly important in the case of flipped or rotated cells.
+	9. *Extraction and Comparison*: The process involves extracting relevant information from both the layout and the schematic, such as component positions, dimensions, interconnections, and device types. Then, these extracted data sets are compared to identify any inconsistencies.
+	10. *Error Reporting*: When discrepancies are detected, the LVS tool generates a report detailing the errors found, helping designers identify and resolve them.
+
+</details>
+
+<details>
+<summary>Labs:Tool installations and basic DRC/LVS design flow tools</summary>
+
+ 
 </details>
