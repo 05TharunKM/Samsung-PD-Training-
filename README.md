@@ -6015,7 +6015,7 @@ ln -s /usr/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl setup.tcl
 
 + Now check the tools that are installed:
 
-  1. *Magic*
+1. *Magic*
   
 * Command: `magic`.  
 * A layout window and a console window that is used to run commands for layout and actions will be popped out.
@@ -6066,7 +6066,7 @@ ln -s /usr/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl setup.tcl
 
 <p align="center">
  <img width="1080" alt="chekck_ngspice.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/cd6884ca567919226326719bbedfe7d22a396bda/docs/assets/Day28/chekck_ngspice.png">
-</p>p>
+</p>
 
 **Creating inverter Schematic In Xschem**
   
