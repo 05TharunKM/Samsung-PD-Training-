@@ -6227,7 +6227,7 @@ ngspice inverter_tb.spice
 + Day 1's task is to create a command (in my case, tclbox) and pass a .csv file from the UNIX shell to the TCL script, taking into consideration mainly three general scenarios from the user's point of view.
 
 <p align="center">
- <img width="1080" alt="lvs.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/cd6884ca567919226326719bbedfe7d22a396bda/docs/assets/Day28/lvs.png">
+ <img width="1080" alt="files.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d2e2018ca40fbe4cb4e0a4b6310650a9b3e1685f/docs/assets/TCL_Day1/files.png">
 </p> 
 
 + Code:
@@ -6285,33 +6285,37 @@ fi
 	1. No input file provided
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="case1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d2e2018ca40fbe4cb4e0a4b6310650a9b3e1685f/docs/assets/TCL_Day1/case1.png">
 </p> 
 
 	2. File provided exists but is not of .csv format
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="case2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d2e2018ca40fbe4cb4e0a4b6310650a9b3e1685f/docs/assets/TCL_Day1/case2.png">
 </p> 
 
 	3. More than one file or parameters provided
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="casex.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d6102e98d82457b68edb3f03a900662039144a88/docs/assets/TCL_Day1/casex.png">
 </p> 
 
 	4. Provide a .csv file that does not exist
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="case3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d6102e98d82457b68edb3f03a900662039144a88/docs/assets/TCL_Day1/case3.png">
 </p> 
 
 	5. Type "-help" to find out usage
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="case4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d6102e98d82457b68edb3f03a900662039144a88/docs/assets/TCL_Day1/case4.png">
 </p> 
 
+	6. Providing a correct file
 
+<p align="center">
+ <img width="1080" alt="case5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d6102e98d82457b68edb3f03a900662039144a88/docs/assets/TCL_Day1/case5.png">
+</p>  
  
 </details>
