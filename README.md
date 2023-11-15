@@ -31,6 +31,7 @@ This github repository summarizes the progress made in the samsung PD training. 
 - [Day-26-Introduction-to-mixed-signal-flow](#Day-26-Introduction-to-mixed-signal-flow)
 - [Day-27-Introduction-to-crosstalk-glitch-and-delay](#Day-27-Introduction-to-crosstalk-glitch-and-delay)
 - [Day-28-Introduction-to-DRC-and-LVS](#Day-28-Introduction-to-DRC-and-LVS)
+- [TCL-Programming](#TCL-Programming)
 
 ## Day-0-Tool-Setup-Check
 
@@ -6215,5 +6216,102 @@ ngspice inverter_tb.spice
  <img width="1080" alt="sim_layout_ngspice.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/cd6884ca567919226326719bbedfe7d22a396bda/docs/assets/Day28/sim_layout_ngspice.png">
 </p> 
   
+ 
+</details>
+
+
+## TCL-Programming
+<details>
+<summary>Day1</summary>
+
++ Day 1's task is to create a command (in my case, tclbox) and pass a .csv file from the UNIX shell to the TCL script, taking into consideration mainly three general scenarios from the user's point of view.
+
+<p align="center">
+ <img width="1080" alt="lvs.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/cd6884ca567919226326719bbedfe7d22a396bda/docs/assets/Day28/lvs.png">
+</p> 
+
++ Code:
+
+```
+#!/bin/bash
+if [ $# -eq 0 ]
+then  
+       	echo "Info: Please provide a CSV file"
+	exit 1
+elif [ $# -gt 1 ]
+then 
+	echo "Info: Please provide  1 CSV file"
+	exit 1
+else 
+	if [[ $1 != *.csv && $1 != "-help" ]]
+		then
+			echo "Info: Please provide a .csv format file"
+			exit 1
+		fi
+fi
+
+if [ ! -f $1 ] || [ $1 == "-help" ]
+then
+	if [ $1 != "-help" ]
+	then
+		echo "Error: The file $1 is not found in current directory."
+		exit 1
+	else
+		echo "USAGE: ./tclbox <csv_file>"
+		echo 
+		echo " where <csv file> consists of 2 columns, below keyword being in 1st column and is Case Sensitive. Please request Niharika for sample csv file."
+		echo 
+		echo " <Design Name> is the name of top level module."
+		echo 
+		echo " <Output Directory> is the name of output directory where you want to dump synthesis script, synthesized netlist and timing reports."
+		echo 
+		echo " <Netlist Directory> is the name of directory where all RTL netlist are present."
+		echo 
+		echo " <Early Library Path> is the file path of the early cell library to be used for STA."
+		echo 
+		echo " <Late Library Path> is file path of the late cell library to be used for STA."
+		echo 
+		echo " <Constraints file> is csv file path of constraints to be used for STA."
+		exit 1
+	fi
+
+else
+       	echo "Info: CSV file accepted"
+       	tclsh tclbox.tcl $1
+fi
+```
+
++ In above code total of 5 general scenarios are created  from the user's point of view in the bash script.
+	1. No input file provided
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p> 
+
+	2. File provided exists but is not of .csv format
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p> 
+
+	3. More than one file or parameters provided
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p> 
+
+	4. Provide a .csv file that does not exist
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p> 
+
+	5. Type "-help" to find out usage
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p> 
+
+
  
 </details>
