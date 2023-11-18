@@ -6333,7 +6333,7 @@ fi
 + Review of input file - openMSP430_design_constraints.csv
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day2_1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day2_1.png">
 </p>  
 
 + Now tclbox.tcl is edited throught the workshop as follows for different requirements.
@@ -6376,7 +6376,7 @@ while {$i < $n_rows} {
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day2_2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day2_2.png">
 </p>   
 
 + Above code has set following variables.
@@ -6439,7 +6439,7 @@ if { ![file exists $Constraints_File] } {
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day2_3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day2_3.png">
 </p>   
 
 **Processing  openMSP430_design_constraints.csv file**
@@ -6477,7 +6477,7 @@ puts "OUTPUTS starting row in CSV file = $outputs_start "
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day3_1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day3_1.png">
 </p> 
  
 </details>
@@ -6556,11 +6556,11 @@ puts "\n Clock actual ending row = $end_of_clocks"
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
-</p> 
+ <img width="1080" alt="Day3_1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day3_1.png">
+</p>  
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day3_2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day3_2.png">
 </p> 
 
 **Processing of the constraints .csv file for INPUTS and dumping SDC commands to .sdc**
@@ -6643,11 +6643,11 @@ while { $i < $end_of_inputs } {
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day3_3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day3_3.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day3_4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/743ccaf695e4fe47eaf35d51b4bf7d1d8b04c1e1/docs/assets/TCL_Day2_3/Day3_4.png">
 </p> 
 
 </details>
@@ -6659,7 +6659,7 @@ while { $i < $end_of_inputs } {
 
 + The task of  Day 4 include processing the output section and generating the SDC, checking the Yosys hierarchy and  resolving errors.
 
-**Processing of the constraints .csv file for INPUTS and dumping SDC commands to .sdc**
+**Processing of the constraints .csv file for OUTPUTS and dumping SDC commands to .sdc**
 
 + Below code will process the csv file for the outputs data and then generate the output-based SDC instructions into SDC file.
 + Code: tclbox.tcl
@@ -6736,12 +6736,9 @@ puts "\nInfo-SDC: SDC created. Please use constraints in path $Output_Directory/
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Screenshot%202023-11-18%20164853.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Screenshot%202023-11-18%20164853.png">
 </p> 
-
-<p align="center">
- <img width="1080" alt="" src="">
-</p> 
+ 
 
 **Hierarchy check script**
 
@@ -6793,15 +6790,15 @@ if { $error_flag } {
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Day5_1.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day4_4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Day4_4.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day4_6.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Day4_6.png">
 </p> 
 
 </details>
@@ -6847,15 +6844,11 @@ puts "\nInfo: Synthesis script created and can be accessed from path $Output_Dir
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_1_2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Day5_1_2.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
-</p> 
-
-<p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_1_3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Day5_1_3.png">
 </p> 
 
 + Below is script is to run sythesis and handling error.
@@ -6878,15 +6871,11 @@ puts "\nInfo: Please refer to log $Output_Directory/$Design_Name.synthesis.log"
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_1_4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/ac17e0c763cd4e7f0143f21688dea4ec28209286/docs/assets/TCL_Day4_5_p1/Day5_1_4.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
-</p> 
-
-<p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="qwerty.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/TCL_Day4_5_p1/qwerty.png">
 </p> 
 
 + Procs can be used to create user-defined commands.
@@ -7220,15 +7209,11 @@ reopenStdout /dev/tty
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_2_1.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_1.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
-</p> 
-
-<p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_2_4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_4.png">
 </p> 
 
 **Preparation of .CONF and SPEF file for OpenTimer STA**
@@ -7272,16 +7257,14 @@ close $conf_file
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_2_2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_2.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_2_3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_3.png">
 </p> 
 
-<p align="center">
- <img width="1080" alt="" src="">
-</p> 
+ 
 </details>
 
 <details>
@@ -7304,16 +7287,9 @@ puts "\nInfo: Refer to $Output_Directory/$Design_Name.results for warnings and e
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="Day5_2_5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_5.png">
 </p> 
 
-<p align="center">
- <img width="1080" alt="" src="">
-</p> 
-
-<p align="center">
- <img width="1080" alt="" src="">
-</p> 
 
 **Data extraction from .results file for QOR**
 
@@ -7411,6 +7387,12 @@ puts "\nInfo: Time elapsed = $time_elapsed_in_sec"
 
 ```
 
++ *Output:*
+
+<p align="center">
+ <img width="1080" alt="Day5_2_6.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_6.png">
+</p>
+
 # Quality of Results (QoR) generation
 puts "\n"
 puts "                                                           ****PRELAYOUT TIMING RESULTS_TCLBOX****\n"
@@ -7445,19 +7427,19 @@ puts "\n"
 + *Output:*
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="qwerty2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/900792da3d16eb0e52a016145e5ca55c2d05e55c/docs/assets/Day5_p2/qwerty2.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="DayF2.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/900792da3d16eb0e52a016145e5ca55c2d05e55c/docs/assets/Day5_p2/DayF2.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="DayF3.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/900792da3d16eb0e52a016145e5ca55c2d05e55c/docs/assets/Day5_p2/DayF3.png">
 </p> 
 
 <p align="center">
- <img width="1080" alt="" src="">
+ <img width="1080" alt="DayF4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/900792da3d16eb0e52a016145e5ca55c2d05e55c/docs/assets/Day5_p2/DayF4.png">
 </p> 
 
 </details>
