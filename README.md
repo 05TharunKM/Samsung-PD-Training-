@@ -6224,7 +6224,9 @@ ngspice inverter_tb.spice
 <details>
 <summary>Day1</summary>
 
-+ Day 1's task is to create a command (in my case, tclbox) and pass a .csv file from the UNIX shell to the TCL script, taking into consideration mainly three general scenarios from the user's point of view.
+**Introduction to TCL and VSDSYNTH Toolbox Usage**
+
++ Day 1's task is to create a command 'tclbox' and pass a .csv file from the shell to the TCL script, taking into consideration many general scenarios from the user's point of view.
 
 <p align="center">
  <img width="1080" alt="files.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d2e2018ca40fbe4cb4e0a4b6310650a9b3e1685f/docs/assets/TCL_Day1/files.png">
@@ -6232,13 +6234,13 @@ ngspice inverter_tb.spice
 
 + Code:
 
-```
+```ruby
 #!/bin/bash
-if [ $# -eq 0 ]
+if [ $#argv -eq 0 ]
 then  
        	echo "Info: Please provide a CSV file"
 	exit 1
-elif [ $# -gt 1 ]
+elif [ $#argv -gt 1 ]
 then 
 	echo "Info: Please provide  1 CSV file"
 	exit 1
@@ -6283,6 +6285,8 @@ fi
 
 + In above code total of 5 general scenarios are created  from the user's point of view in the bash script.
 
+
+
   1] No input file provided
 
 <p align="center">
@@ -6318,5 +6322,162 @@ fi
 <p align="center">
  <img width="1080" alt="case5.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/d6102e98d82457b68edb3f03a900662039144a88/docs/assets/TCL_Day1/case5.png">
 </p>  
+ 
+</details>
+
+<details>
+<summary>Day2</summary>
+
+**Variable Creation and Processing Constraints from CSV**
+
++ Review of input file - openMSP430_design_constraints.csv
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p>  
+
++ Now tclbox.tcl is edited throught the workshop as follows for different requirements.
+
+**Creating variables**:
+
++ Code: tclbox.tcl 
+
+```
+set start_time [clock clicks -microseconds]
+set csv_design [lindex $argv 0]
+package require csv
+package require struct::matrix
+struct::matrix m
+
+set f [open $csv_design]
+csv::read2matrix $f m , auto
+close $f
+
+set n_columns [m columns]
+set n_rows [m rows]
+
+puts "\nInfo:Variable values"
+puts "No. of rows =  $n_rows"
+puts "No. of columns = $n_columns"
+
+m link csv_arr
+set i 0
+while {$i < $n_rows} {
+        puts "\nInfo: Setting $csv_arr(0,$i) as '$csv_arr(1,$i)'"
+        if { ![string match "*/*" $csv_arr(1,$i)] && ![string match "*.*" $csv_arr(1,$i)] } {
+                        set [string map {" " "_"} $csv_arr(0,$i)] $csv_arr(1,$i)
+        } else {
+                set [string map {" " "_"} $csv_arr(0,$i)] [file normalize $csv_arr(1,$i)]
+        }
+        set i [expr {$i+1}]
+}
+```
+
++ *Output:*
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p>   
+
++ Above code has set following variables.
+    - Design Name :  'openMSP430'
+    - Output Directory : './outdir_openMSP430'
+    - Netlist Directory :  './verilog'
+    - Early Library Path : 'osu018_stdcells.lib'
+    - Late Library Path : 'osu018_stdcells.lib'
+    - Constraints File : 'openMSP430_design_constraints.csv'
+    - Output directory : /home/vsduser/vsdsynth/outdir_openMSP430
+    - RTL netlist directory : /home/vsduser/vsdsynth/verilog
+    - Early cell library : /home/vsduser/vsdsynth/osu018_stdcells.lib
+    - Late cell library : /home/vsduser/vsdsynth/osu018_stdcells.lib
+    - Constraints file f : /home/vsduser/vsdsynth/openMSP430_design_constraints.csv
+
+**File and Directory Existence Check**
+
++ Below code will check for directories and file existence which are needed for succesful execution.
++ Code: tclbox.tcl 
+
+```tcl
+############# FILE AND DIRECTORY EXISTENCE CHECK ###################
+
+if { ![file isdirectory $Output_Directory] } {
+        puts "\nInfo: Cannot find output directory $Output_Directory. Creating $Output_Directory"
+        file mkdir $Output_Directory
+} else {
+        puts "\nInfo: Output directory found in path $Output_Directory"
+}
+# Checking if netlist directory exists if not exits
+if { ![file isdirectory $Netlist_Directory] } {
+        puts "\nError: Cannot find RTL netlist directory in path $Netlist_Directory. Exiting..."
+        exit
+} else {
+        puts "\nInfo: RTL netlist directory found in path $Netlist_Directory"
+}
+# Checking if early cell library file exists if not exits
+if { ![file exists $Early_Library_Path] } {
+        puts "\nError: Cannot find early cell library in path $Early_Library_Path. Exiting..."
+        exit
+} else {
+        puts "\nInfo: Early cell library found in path $Early_Library_Path"
+}
+# Checking if late cell library file exists if not exits
+if { ![file exists $Late_Library_Path] } {
+        puts "\nError: Cannot find late cell library in path $Late_Library_Path. Exiting..."
+        exit
+} else {
+        puts "\nInfo: Late cell library found in path $Late_Library_Path"
+}
+# Checking if constraints file exists if not exits
+if { ![file exists $Constraints_File] } {
+        puts "\nError: Cannot find constraints file in path $Constraints_File. Exiting..."
+        exit
+} else {
+        puts "\nInfo: Constraints file found in path $Constraints_File"
+}  
+``` 
+
++ *Output:*
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p>   
+
+**Processing  openMSP430_design_constraints.csv file**
+
++ Code: tclbox.tcl 
+
+```tcl
+# Constraints csv file data processing for convertion to format[1](excel) and SDC
+
+puts "\nInfo: Dumping SDC constraints for $Design_Name"
+::struct::matrix m1
+set f1 [open $Constraints_File]
+csv::read2matrix $f1 m1 , auto
+close $f1
+set n_rows_concsv [m1 rows]
+set n_columns_concsv [m1 columns]
+# Finding row number starting for CLOCKS section
+set clocks_start_row [lindex [lindex [m1 search all CLOCKS] 0] 1]
+# Finding column number starting for CLOCKS section
+set clocks_start_column [lindex [lindex [m1 search all CLOCKS] 0] 0]
+# Finding row number starting for INPUTS section
+set inputs_start [lindex [lindex [m1 search all INPUTS] 0] 1]
+# Finding row number starting for OUTPUTS section
+set outputs_start [lindex [lindex [m1 search all OUTPUTS] 0] 1]
+
+puts "\nInfo: Listing value of variables for user debug"
+puts "Number of rows in CSV file = $n_rows_concsv"
+puts "Number of columns in CSV file = $n_columns_concsv"
+puts "CLOCKS starting row in CSV file = $clocks_start_row"
+puts "CLOCKS starting column in CSV file = $clocks_start_column"
+puts "INPUTS starting row in CSV file = $inputs_start "
+puts "OUTPUTS starting row in CSV file = $outputs_start "
+```
+
++ *Output:*
+
+<p align="center">
+ <img width="1080" alt="" src="">
+</p> 
  
 </details>
