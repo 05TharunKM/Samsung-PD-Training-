@@ -6889,11 +6889,11 @@ proc reopenStdout {file} {
     close stdout
     open $file w       
 }
-  ```
+```
   
     2) set_multi_cpu_usage.proc
    
-  ```tcl
+```tcl
 #!/bin/tclsh
 
 proc set_multi_cpu_usage {args} {
@@ -6923,11 +6923,11 @@ proc set_multi_cpu_usage {args} {
         }
 }
 #set_multi_cpu_usage -localCpu 5 -help
-  ```
+```
   
     3) read_lib.proc
    
-  ```tcl
+```tcl
 #!/bin/tclsh
 proc read_lib args {
 	# Setting command parameter options and its values
@@ -6953,7 +6953,7 @@ proc read_lib args {
 		}
 	}
 }
-  ```
+```
   
     4) read_verilog.proc
    
@@ -7018,7 +7018,6 @@ close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
-
 #-----------------------------------------------------------------------------#
 #----------------converting set_clock_transition constraints------------------#
 #-----------------------------------------------------------------------------#
@@ -7251,7 +7250,6 @@ puts $conf_file "report_timer "
 puts $conf_file "report_wns "
 puts $conf_file "report_worst_paths -numPaths 10000 "
 close $conf_file
-
 ``` 
 
 + *Output:*
