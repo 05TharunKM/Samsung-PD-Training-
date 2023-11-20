@@ -7393,18 +7393,7 @@ puts "\nInfo: Time elapsed = $time_elapsed_in_sec"
  <img width="1080" alt="Day5_2_6.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/95ba1c8e585f50501b301512979346a1ea3ea7d1/docs/assets/Day5_p2/Day5_2_6.png">
 </p>
 
-# Quality of Results (QoR) generation
-puts "\n"
-puts "                                                           ****PRELAYOUT TIMING RESULTS_TCLBOX****\n"
-set formatStr {%15s%14s%21s%16s%16s%15s%15s%15s%15s}
-puts [format $formatStr "-----------" "-------" "--------------" "---------" "---------" "--------" "--------" "-------" "-------"]
-puts [format $formatStr "Design Name" "Runtime" "Instance Count" "WNS Setup" "FEP Setup" "WNS Hold" "FEP Hold" "WNS RAT" "FEP RAT"]
-puts [format $formatStr "-----------" "-------" "--------------" "---------" "---------" "--------" "--------" "-------" "-------"]
-foreach design_name $Design_Name runtime $time_elapsed_in_sec instance_count $Instance_count wns_setup $worst_negative_setup_slack fep_setup $Number_of_setup_violations wns_hold $worst_negative_hold_slack fep_hold $Number_of_hold_violations wns_rat $worst_RAT_slack fep_rat $Number_output_violations {
-	puts [format $formatStr $design_name $runtime $instance_count $wns_setup $fep_setup $wns_hold $fep_hold $wns_rat $fep_rat]
-}
-puts [format $formatStr "-----------" "-------" "--------------" "---------" "---------" "--------" "--------" "-------" "-------"]
-puts "\n"
+
 **Final QOR Report generation**
 
 + Code: tclbox.tcl
