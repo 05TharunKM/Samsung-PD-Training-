@@ -7405,6 +7405,11 @@ puts "\n"
  <img width="1080" alt="DayF4.png" src="https://github.com/05TharunKM/Samsung-PD-Training-/blob/900792da3d16eb0e52a016145e5ca55c2d05e55c/docs/assets/Day5_p2/DayF4.png">
 </p> 
 
++ Abbreviations used:
+    - WNS - worst negative slack.
+    - FEP - Failing end points.
+    - RAT - Required arrival time.
+
 </details>
 
 ## Low-Power-Design
