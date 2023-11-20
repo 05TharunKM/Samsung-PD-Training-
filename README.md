@@ -6880,9 +6880,9 @@ puts "\nInfo: Please refer to log $Output_Directory/$Design_Name.synthesis.log"
 
 + Procs can be used to create user-defined commands.
 + Different procs used throught the training is given below:
-    1) reopenStdout.proc
+1) reopenStdout.proc
 
-  ```tcl
+```tcl
   #!/bin/tclsh
 #proc to redirect screen log to file
 proc reopenStdout {file} {
@@ -6891,11 +6891,10 @@ proc reopenStdout {file} {
 }
 ```
   
-    2) set_multi_cpu_usage.proc
+2) set_multi_cpu_usage.proc
    
 ```tcl
 #!/bin/tclsh
-
 proc set_multi_cpu_usage {args} {
         array set options {-localCpu <num_of_threads> -help "" }
         foreach {switch value} [array get options] {
@@ -6925,7 +6924,7 @@ proc set_multi_cpu_usage {args} {
 #set_multi_cpu_usage -localCpu 5 -help
 ```
   
-    3) read_lib.proc
+3) read_lib.proc
    
 ```tcl
 #!/bin/tclsh
@@ -6955,32 +6954,27 @@ proc read_lib args {
 }
 ```
   
-    4) read_verilog.proc
+4) read_verilog.proc
    
-  ```tcl
+```tcl
 proc read_verilog {arg1} {
 puts "set_verilog_fpath $arg1"
 }
-
-  ```
+```
   
-    5) read_sdc.proc
-
+5) read_sdc.proc
        
-  ```tcl
+```tcl
 proc read_sdc {arg1} {
 set sdc_dirname [file dirname $arg1]
 set sdc_filename [lindex [split [file tail $arg1] .] 0 ]
 set sdc [open $arg1 r]
 set tmp_file [open /tmp/1 w]
-
 puts -nonewline $tmp_file [string map {"\[" "" "\]" " "} [read $sdc]]     
 close $tmp_file
-
 #-----------------------------------------------------------------------------#
 #----------------converting create_clock constraints--------------------------#
 #-----------------------------------------------------------------------------#
-
 set tmp_file [open /tmp/1 r]
 set timing_file [open /tmp/3 w]
 set lines [split [read $tmp_file] "\n"]
@@ -6992,11 +6986,9 @@ foreach elem $find_clocks {
 	puts $timing_file "clock $clock_port_name $clock_period $duty_cycle"
 	}
 close $tmp_file
-
 #-----------------------------------------------------------------------------#
 #----------------converting set_clock_latency constraints---------------------#
 #-----------------------------------------------------------------------------#
-
 set find_keyword [lsearch -all -inline $lines "set_clock_latency*"]
 set tmp2_file [open /tmp/2 w]
 set new_port_name ""
@@ -7013,7 +7005,6 @@ foreach elem $find_keyword {
 		puts -nonewline $tmp2_file "\nat $port_name $delay_value"
 	}
 }
-
 close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file [read $tmp2_file]
@@ -7021,7 +7012,6 @@ close $tmp2_file
 #-----------------------------------------------------------------------------#
 #----------------converting set_clock_transition constraints------------------#
 #-----------------------------------------------------------------------------#
-
 set find_keyword [lsearch -all -inline $lines "set_clock_transition*"]
 set tmp2_file [open /tmp/2 w]
 set new_port_name ""
@@ -7038,16 +7028,13 @@ foreach elem $find_keyword {
         	puts -nonewline $tmp2_file "\nslew $port_name $delay_value"
 	}
 }
-
 close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
-
 #-----------------------------------------------------------------------------#
 #----------------converting set_input_delay constraints-----------------------#
 #-----------------------------------------------------------------------------#
-
 set find_keyword [lsearch -all -inline $lines "set_input_delay*"]
 set tmp2_file [open /tmp/2 w]
 set new_port_name ""
@@ -7068,11 +7055,9 @@ close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
-
 #-----------------------------------------------------------------------------#
 #----------------converting set_input_transition constraints------------------#
 #-----------------------------------------------------------------------------#
-
 set find_keyword [lsearch -all -inline $lines "set_input_transition*"]
 set tmp2_file [open /tmp/2 w]
 set new_port_name ""
@@ -7089,16 +7074,13 @@ foreach elem $find_keyword {
         	puts -nonewline $tmp2_file "\nslew $port_name $delay_value"
 	}
 }
-
 close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
-
 #-----------------------------------------------------------------------------#
 #---------------converting set_output_delay constraints-----------------------#
 #-----------------------------------------------------------------------------#
-
 set find_keyword [lsearch -all -inline $lines "set_output_delay*"]
 set tmp2_file [open /tmp/2 w]
 set new_port_name ""
@@ -7120,11 +7102,9 @@ close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
-
 #-----------------------------------------------------------------------------#
 #-------------------converting set_load constraints---------------------------#
 #-----------------------------------------------------------------------------#
-
 set find_keyword [lsearch -all -inline $lines "set_load*"]
 set tmp2_file [open /tmp/2 w]
 set new_port_name ""
@@ -7145,10 +7125,8 @@ close $tmp2_file
 set tmp2_file [open /tmp/2 r]
 puts -nonewline $timing_file  [read $tmp2_file]
 close $tmp2_file
-
 #-----------------------------------------------------------------------------#
 close $timing_file
-
 set ot_timing_file [open $sdc_dirname/$sdc_filename.timing w]
 set timing_file [open /tmp/3 r]
 while {[gets $timing_file line] != -1} {
@@ -7166,7 +7144,6 @@ while {[gets $timing_file line] != -1} {
         puts -nonewline $ot_timing_file  "\n$line"
         }
 }
-
 close $timing_file
 puts "set_timing_fpath $sdc_dirname/$sdc_filename.timing"
 }
@@ -7202,7 +7179,6 @@ reopenStdout /dev/tty
 # Closing .conf file opened by 'reopenStdout' proc
 #close $Output_Directory/$Design_Name.conf
 #puts "closed .conf and redirected to stdout"
-
 ``` 
 
 + *Output:*
