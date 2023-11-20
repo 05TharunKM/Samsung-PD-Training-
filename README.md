@@ -7786,7 +7786,7 @@ puts "\n"
 
 <details>
 
-<summary>Module4<summary>
+<summary>Module4</summary>
 
 + ARM-based System-on-Chips (SoCs) are widely used in various devices, including smartphones, tablets, IoT devices, embedded systems, and more. Power management is crucial in these systems to optimize performance, extend battery life, and manage thermal constraints. Several common power management schemes are implemented in ARM-based SoCs:
    1. **Dynamic Voltage and Frequency Scaling (DVFS):** DVFS is a technique that adjusts the voltage and frequency of the CPU based on the workload. It dynamically scales the CPU frequency and voltage to match the processing demands. When the workload is low, the frequency and voltage are decreased to save power, while they are increased during higher workload periods to enhance performance.
