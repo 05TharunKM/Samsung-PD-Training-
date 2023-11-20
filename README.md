@@ -7270,7 +7270,7 @@ close $conf_file
 <details>
 <summary>Day5 Part2</summary>
 
-**Running SA andgenerating the QOR**
+**Running STA and generating the QOR**
 
 + Code: tclbox.tcl
 
